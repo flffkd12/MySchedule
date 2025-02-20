@@ -69,8 +69,7 @@ fun GoogleSignInButton() {
     val context = LocalContext.current
     val gso = remember {
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestServerAuthCode(context.getString(R.string.google_client_id))
-            .build()
+            .requestServerAuthCode(context.getString(R.string.google_client_id)).build()
     }
 
     val googleSignInClient = remember { GoogleSignIn.getClient(context, gso) }
@@ -100,10 +99,7 @@ fun GoogleSignInButton() {
     }
 
     Button(
-        onClick = {
-            val signInIntent = googleSignInClient.signInIntent
-            launcher.launch(signInIntent)
-        },
+        onClick = { launcher.launch(googleSignInClient.signInIntent) },
         shape = RoundedCornerShape(4.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.White,
