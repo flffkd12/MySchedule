@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MySchedule</string>
+    <string name="app_description">오늘의 일정 가이드</string>
+    <string name="app_logo">MySchedule logo</string>
+    <string name="google_client_id">667191365747-equejt310ke9maev0dba6pr9v7n08l6d.apps.googleusercontent.com</string>
+    <string name="google_logo">Google logo</string>
+    <string name="google_login_button_name">구글 계정으로 로그인</string>
 </resources>
