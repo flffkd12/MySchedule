@@ -27,7 +27,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 
 @Composable
-fun Login() {
+fun Login(loginViewModel: LoginViewModel) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
@@ -51,13 +51,13 @@ fun Login() {
             modifier = Modifier.fillMaxWidth(0.4f).aspectRatio(1.25f)
         )
         Spacer(Modifier.weight(2f))
-        GoogleSignInButton()
+        GoogleSignInButton(loginViewModel)
         Spacer(Modifier.weight(1f))
     }
 }
 
 @Composable
-fun GoogleSignInButton() {
+fun GoogleSignInButton(loginViewModel: LoginViewModel) {
     val context = LocalContext.current
     val gso = remember {
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -65,7 +65,6 @@ fun GoogleSignInButton() {
     }
 
     val googleSignInClient = remember { GoogleSignIn.getClient(context, gso) }
-    var authCode: String?
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -73,17 +72,16 @@ fun GoogleSignInButton() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             try {
                 val account = task.getResult(ApiException::class.java)
-                authCode = account.serverAuthCode
-                println("Login successful. Authorization code: $authCode")
+                loginViewModel.setAuthCode(account.serverAuthCode)
             } catch (e: ApiException) {
-                authCode = null
+                loginViewModel.setAuthCode(null)
                 println("Login failed.")
                 println("1. Check the 'Client ID' if it matches with Google Cloud Console.")
                 println("2. Check the latest authorization dependency.")
                 println("3. If none of it than check the error code: ${e.statusCode}")
             }
         } else {
-            authCode = null
+            loginViewModel.setAuthCode(null)
             println("Login failed.")
             println("1.Maybe user canceled login process.")
             println("2.If not, Refactor code related to OAuth authorization.")
