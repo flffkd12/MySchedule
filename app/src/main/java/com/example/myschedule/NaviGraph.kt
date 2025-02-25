@@ -7,13 +7,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.myschedule.login.Login
-import com.example.myschedule.login.LoginViewModel
 
 @Composable
 fun NaviGraph(navController: NavHostController, modifier: Modifier = Modifier) {
-    val loginViewModel: LoginViewModel = viewModel()
+    val userViewModel: UserViewModel = viewModel()
 
     NavHost(navController = navController, startDestination = Routes.LOGIN) {
-        composable(route = Routes.LOGIN) { Login(loginViewModel) }
+        composable(route = Routes.LOGIN) { Login(userViewModel) }
     }
 }

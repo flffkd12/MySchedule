@@ -22,12 +22,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myschedule.R
+import com.example.myschedule.UserViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 
 @Composable
-fun Login(loginViewModel: LoginViewModel) {
+fun Login(userViewModel: UserViewModel) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
@@ -51,17 +52,17 @@ fun Login(loginViewModel: LoginViewModel) {
             modifier = Modifier.fillMaxWidth(0.4f).aspectRatio(1.25f)
         )
         Spacer(Modifier.weight(2f))
-        GoogleSignInButton(loginViewModel)
+        GoogleSignInButton(userViewModel)
         Spacer(Modifier.weight(1f))
     }
 }
 
 @Composable
-fun GoogleSignInButton(loginViewModel: LoginViewModel) {
+fun GoogleSignInButton(userViewModel: UserViewModel) {
     val context = LocalContext.current
     val gso = remember {
-        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestServerAuthCode(context.getString(R.string.google_client_id)).build()
+        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail()
+            .requestProfile().build()
     }
 
     val googleSignInClient = remember { GoogleSignIn.getClient(context, gso) }
@@ -72,16 +73,19 @@ fun GoogleSignInButton(loginViewModel: LoginViewModel) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             try {
                 val account = task.getResult(ApiException::class.java)
-                loginViewModel.setAuthCode(account.serverAuthCode)
+                userViewModel.setUserEmail(account.email)
+                userViewModel.setUserName(account.displayName)
             } catch (e: ApiException) {
-                loginViewModel.setAuthCode(null)
+                userViewModel.setUserEmail(null)
+                userViewModel.setUserName(null)
                 println("Login failed.")
                 println("1. Check the 'Client ID' if it matches with Google Cloud Console.")
                 println("2. Check the latest authorization dependency.")
                 println("3. If none of it than check the error code: ${e.statusCode}")
             }
         } else {
-            loginViewModel.setAuthCode(null)
+            userViewModel.setUserEmail(null)
+            userViewModel.setUserName(null)
             println("Login failed.")
             println("1.Maybe user canceled login process.")
             println("2.If not, Refactor code related to OAuth authorization.")
