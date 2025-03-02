@@ -73,19 +73,25 @@ fun GoogleSignInButton(userViewModel: UserViewModel) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             try {
                 val account = task.getResult(ApiException::class.java)
-                userViewModel.setUserEmail(account.email)
-                userViewModel.setUserName(account.displayName)
+                val email = account.email
+                if (email != null) {
+                    if (email.length <= 40) {
+                        userViewModel.saveUser(email)
+                        userViewModel.setUserEmail(email)
+                        userViewModel.setUserName(account.displayName)
+                    } else {
+                        println("Login failed. Email length needs to be under 40 characters or less.")
+                    }
+                } else {
+                    println("Login failed. Email is null.")
+                }
             } catch (e: ApiException) {
-                userViewModel.setUserEmail(null)
-                userViewModel.setUserName(null)
                 println("Login failed.")
                 println("1. Check the 'Client ID' if it matches with Google Cloud Console.")
                 println("2. Check the latest authorization dependency.")
                 println("3. If none of it than check the error code: ${e.statusCode}")
             }
         } else {
-            userViewModel.setUserEmail(null)
-            userViewModel.setUserName(null)
             println("Login failed.")
             println("1.Maybe user canceled login process.")
             println("2.If not, Refactor code related to OAuth authorization.")
