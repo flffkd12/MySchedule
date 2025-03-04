@@ -1,4 +1,4 @@
-package com.example.myschedule.main_screen
+package com.example.myschedule
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,8 +13,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.myschedule.R
-import com.example.myschedule.Routes
 import com.example.myschedule.ui.theme.LightGreen
 
 @Composable

@@ -21,7 +21,7 @@ fun NaviGraph(
 
         composable(route = Routes.MAIN_SCREEN) { MainScreen(userViewModel, navController) }
 
-        composable(route = Routes.ADD_SCHEDULE) { AddSchedule() }
+        composable(route = Routes.ADD_SCHEDULE) { AddSchedule(navController) }
 
         composable(route = Routes.MONTHLY_SCHEDULE) { MonthlySchedule() }
     }
