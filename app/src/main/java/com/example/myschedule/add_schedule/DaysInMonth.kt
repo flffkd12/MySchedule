@@ -17,7 +17,13 @@ import java.time.LocalDate
 import java.time.YearMonth
 
 @Composable
-fun DaysInMonth(currentYearMonth: YearMonth, selectedDates: MutableList<LocalDate>) {
+fun DaysInMonth(
+    currentYearMonth: YearMonth,
+    selectedDates: MutableList<LocalDate>,
+    isFirstMonth: Boolean,
+    isLastMonth: Boolean,
+    onDateClick: (LocalDate) -> Unit
+) {
     // 이번달 첫째날 요일
     val firstDayOfWeekInMonth = currentYearMonth.atDay(1).dayOfWeek.value
 
@@ -58,15 +64,19 @@ fun DaysInMonth(currentYearMonth: YearMonth, selectedDates: MutableList<LocalDat
                     val currentDateColor = daysList[index].color
                     val isCurMonthDate = currentDateColor == Black
                     val isSelectedDay = selectedDates.contains(currentDate)
+
+                    val isClickable = when {
+                        isFirstMonth && (currentDate.month < currentYearMonth.month) -> false
+                        isLastMonth && (currentDate.month > currentYearMonth.month) -> false
+                        else -> true
+                    }
+
                     Box(
                         contentAlignment = Alignment.Center,
                         modifier = Modifier.weight(1f).aspectRatio(1f).padding(4.dp)
                             .clip(CircleShape)
                             .background(if (isSelectedDay && isCurMonthDate) SkyBlue else Transparent)
-                            .clickable {
-                                if (isSelectedDay) selectedDates.remove(currentDate)
-                                else selectedDates.add(currentDate)
-                            }
+                            .clickable(enabled = isClickable) { onDateClick(currentDate) }
                     ) {
                         val isSaturday = currentDate.dayOfWeek == DayOfWeek.SATURDAY
                         val isSunday = currentDate.dayOfWeek == DayOfWeek.SUNDAY

@@ -6,8 +6,8 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -15,16 +15,18 @@ import com.example.myschedule.ui.theme.Black
 import com.example.myschedule.ui.theme.Blue
 import com.example.myschedule.ui.theme.ContentPadding
 import com.example.myschedule.ui.theme.Red
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
-fun DateSelectUI() {
-    val selectedDates = remember { mutableStateListOf<LocalDate>() }
+fun DateSelectUI(selectedDates: MutableList<LocalDate>) {
+    val displayedMonthNum = 13
+    val pagerState = rememberPagerState { displayedMonthNum }
+    val coroutineScope = rememberCoroutineScope()
 
-    val pagerState = rememberPagerState { 13 }
     HorizontalPager(
         state = pagerState,
         modifier = Modifier.fillMaxWidth()
@@ -43,11 +45,32 @@ fun DateSelectUI() {
                 style = MaterialTheme.typography.titleMedium
             )
             DayOfWeek()
-            DaysInMonth(currentYearMonth, selectedDates) // 이전 혹은 다음달 일자 누르면 이전으로 가게끔
-            // 금일 날짜가 속한 월에서 이전 일자들은 선태갷도 selected에 들어가지 않도록
-            //날짜 선택 들어가고, 선택한 것들 부모 컴포저블에 전달
-        }
+            DaysInMonth(
+                currentYearMonth = currentYearMonth,
+                selectedDates = selectedDates,
+                isFirstMonth = page == 0,
+                isLastMonth = page == displayedMonthNum - 1,
+                onDateClick = { clickedDate ->
+                    val clickedDateMonth = clickedDate.year * 12 + clickedDate.monthValue
+                    val currentMonth = currentYearMonth.year * 12 + currentYearMonth.monthValue
+                    if (clickedDateMonth < currentMonth) {
+                        coroutineScope.launch {
+                            pagerState.animateScrollToPage(page - 1)
+                        }
+                    } else if (clickedDateMonth > currentMonth) {
+                        coroutineScope.launch {
+                            pagerState.animateScrollToPage(page + 1)
+                        }
+                    }
 
+                    if (selectedDates.contains(clickedDate)) {
+                        selectedDates.remove(clickedDate)
+                    } else {
+                        selectedDates.add(clickedDate)
+                    }
+                }
+            )
+        }
     }
 }
 

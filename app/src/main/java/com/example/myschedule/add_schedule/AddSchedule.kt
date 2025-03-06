@@ -9,15 +9,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
 import com.example.myschedule.ui.theme.*
+import java.time.LocalDate
 
 @Composable
 fun AddSchedule(navController: NavController) {
+    val selectedDates = remember { mutableStateListOf<LocalDate>() }
+
     Scaffold(
         bottomBar = { BtmNavBar(navController) },
         containerColor = LightGreen
@@ -35,7 +40,7 @@ fun AddSchedule(navController: NavController) {
                     style = MaterialTheme.typography.titleLarge,
                     color = Black
                 )
-                DateSelectUI()
+                DateSelectUI(selectedDates)
                 Text(text = "선택한 날짜", style = MaterialTheme.typography.titleMedium, color = Black)
                 // 중복 선택한 날짜 전부 나열
                 // 다음 버튼
