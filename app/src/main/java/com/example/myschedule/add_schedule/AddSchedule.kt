@@ -37,12 +37,12 @@ fun AddSchedule(navController: NavController) {
             ) {
                 Text(
                     text = "날짜를 선택해 주세요",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = Black
+                    color = Black,
+                    style = MaterialTheme.typography.titleLarge
                 )
                 DateSelectUI(selectedDates)
                 Text(text = "선택한 날짜", style = MaterialTheme.typography.titleMedium, color = Black)
-                // 중복 선택한 날짜 전부 나열
+                SelectedDatesList(selectedDates)
                 // 다음 버튼
             }
         }
