@@ -24,6 +24,7 @@ import java.util.Locale
 fun DateSelectUI(selectedDates: MutableList<LocalDate>) {
     val displayedMonthNum = 13
     val pagerState = rememberPagerState { displayedMonthNum }
+
     val coroutineScope = rememberCoroutineScope()
 
     HorizontalPager(
@@ -31,6 +32,7 @@ fun DateSelectUI(selectedDates: MutableList<LocalDate>) {
         modifier = Modifier.fillMaxWidth()
     ) { page ->
         val currentYearMonth = remember { YearMonth.now().plusMonths(page.toLong()) }
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -50,8 +52,15 @@ fun DateSelectUI(selectedDates: MutableList<LocalDate>) {
                 isFirstMonth = page == 0,
                 isLastMonth = page == displayedMonthNum - 1,
                 onDateClick = { clickedDate ->
+                    if (selectedDates.contains(clickedDate)) {
+                        selectedDates.remove(clickedDate)
+                    } else {
+                        selectedDates.add(clickedDate)
+                    }
+
                     val clickedDateMonth = clickedDate.year * 12 + clickedDate.monthValue
                     val currentMonth = currentYearMonth.year * 12 + currentYearMonth.monthValue
+
                     if (clickedDateMonth < currentMonth) {
                         coroutineScope.launch {
                             pagerState.animateScrollToPage(page - 1)
@@ -60,12 +69,6 @@ fun DateSelectUI(selectedDates: MutableList<LocalDate>) {
                         coroutineScope.launch {
                             pagerState.animateScrollToPage(page + 1)
                         }
-                    }
-
-                    if (selectedDates.contains(clickedDate)) {
-                        selectedDates.remove(clickedDate)
-                    } else {
-                        selectedDates.add(clickedDate)
                     }
                 }
             )
@@ -76,6 +79,7 @@ fun DateSelectUI(selectedDates: MutableList<LocalDate>) {
 @Composable
 fun DayOfWeek() {
     val dayList = listOf("일", "월", "화", "수", "목", "금", "토")
+
     Row(modifier = Modifier.fillMaxWidth()) {
         dayList.forEach { day ->
             Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {

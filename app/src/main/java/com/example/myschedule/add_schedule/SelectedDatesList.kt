@@ -42,9 +42,8 @@ private fun List<LocalDate>.groupConsecutiveDates(): List<DateGroup> {
 
     val result = mutableListOf<DateGroup>()
     var rangeStart = 0
-    var rangeEnd = 1
 
-    while (rangeEnd < this.size) {
+    for (rangeEnd in 1 until this.size) {
         if (this[rangeEnd] != this[rangeEnd - 1].plusDays(1)) {
             if (rangeStart == rangeEnd - 1) {
                 result.add(DateGroup.SingleDate(this[rangeStart]))
@@ -53,13 +52,12 @@ private fun List<LocalDate>.groupConsecutiveDates(): List<DateGroup> {
             }
             rangeStart = rangeEnd
         }
-        rangeEnd++
     }
 
-    if (rangeStart == rangeEnd - 1) {
+    if (rangeStart == this.size - 1) {
         result.add(DateGroup.SingleDate(this[rangeStart]))
     } else {
-        result.add(DateGroup.ConsecutiveDate(this[rangeStart], this[rangeEnd - 1]))
+        result.add(DateGroup.ConsecutiveDate(this[rangeStart], this[this.size - 1]))
     }
 
     return result

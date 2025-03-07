@@ -48,8 +48,9 @@ fun AddSchedule(navController: NavController) {
                     contentColor = White
                 ),
                 elevation = ButtonDefaults.elevatedButtonElevation(4.dp),
-                modifier = Modifier.fillMaxWidth().height(52.dp).align(Alignment.BottomCenter)
+                modifier = Modifier.fillMaxWidth().height(52.dp)
                     .padding(start = ContentPadding, end = ContentPadding, bottom = ContentPadding)
+                    .align(Alignment.BottomCenter)
             ) {
                 Text(text = "다음", color = White, style = MaterialTheme.typography.bodySmall)
             }
