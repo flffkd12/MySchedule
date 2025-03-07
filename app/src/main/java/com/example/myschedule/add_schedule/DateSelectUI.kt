@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.myschedule.ui.theme.Black
 import com.example.myschedule.ui.theme.Blue
-import com.example.myschedule.ui.theme.ContentPadding
 import com.example.myschedule.ui.theme.Red
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -35,7 +34,7 @@ fun DateSelectUI(selectedDates: MutableList<LocalDate>) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(12.dp),
-            modifier = Modifier.fillMaxWidth().padding(ContentPadding)
+            modifier = Modifier.fillMaxWidth()
         ) {
             Text(
                 text = "${currentYearMonth.year}년 " + currentYearMonth.month.getDisplayName(

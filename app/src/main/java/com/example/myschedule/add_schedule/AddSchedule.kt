@@ -1,16 +1,12 @@
 package com.example.myschedule.add_schedule
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
@@ -27,13 +23,13 @@ fun AddSchedule(navController: NavController) {
         bottomBar = { BtmNavBar(navController) },
         containerColor = LightGreen
     ) { innerPadding ->
-        Column(
+        Box(
             modifier = Modifier.fillMaxSize().padding(innerPadding).padding(DefaultAllPadding)
                 .clip(RoundedAllCornerShape).background(White)
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier.padding(ContentPadding)
+                modifier = Modifier.padding(ContentPadding).padding(bottom = 52.dp)
             ) {
                 Text(
                     text = "날짜를 선택해 주세요",
@@ -43,7 +39,19 @@ fun AddSchedule(navController: NavController) {
                 DateSelectUI(selectedDates)
                 Text(text = "선택한 날짜", style = MaterialTheme.typography.titleMedium, color = Black)
                 SelectedDatesList(selectedDates)
-                // 다음 버튼
+            }
+            ElevatedButton(
+                onClick = {},
+                shape = RoundedAllCornerShape,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = LightGreen,
+                    contentColor = White
+                ),
+                elevation = ButtonDefaults.elevatedButtonElevation(4.dp),
+                modifier = Modifier.fillMaxWidth().height(52.dp).align(Alignment.BottomCenter)
+                    .padding(start = ContentPadding, end = ContentPadding, bottom = ContentPadding)
+            ) {
+                Text(text = "다음", color = White, style = MaterialTheme.typography.bodySmall)
             }
         }
     }
