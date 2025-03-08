@@ -40,10 +40,11 @@ private fun formatDate(date: LocalDate): String {
 private fun List<LocalDate>.groupConsecutiveDates(): List<DateGroup> {
     if (isEmpty()) return emptyList()
 
+    val listLength = this.size
     val result = mutableListOf<DateGroup>()
     var rangeStart = 0
 
-    for (rangeEnd in 1 until this.size) {
+    for (rangeEnd in 1 until listLength) {
         if (this[rangeEnd] != this[rangeEnd - 1].plusDays(1)) {
             if (rangeStart == rangeEnd - 1) {
                 result.add(DateGroup.SingleDate(this[rangeStart]))
@@ -54,10 +55,10 @@ private fun List<LocalDate>.groupConsecutiveDates(): List<DateGroup> {
         }
     }
 
-    if (rangeStart == this.size - 1) {
+    if (rangeStart == listLength - 1) {
         result.add(DateGroup.SingleDate(this[rangeStart]))
     } else {
-        result.add(DateGroup.ConsecutiveDate(this[rangeStart], this[this.size - 1]))
+        result.add(DateGroup.ConsecutiveDate(this[rangeStart], this[listLength - 1]))
     }
 
     return result
