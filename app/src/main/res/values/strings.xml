@@ -5,4 +5,13 @@
     <string name="google_client_id">667191365747-dhv10fr7mbh98qovkj9u5v4rs8rbogrp.apps.googleusercontent.com</string>
     <string name="google_logo">Google logo</string>
     <string name="google_login_button_name">구글 계정으로 로그인</string>
+
+    <string name="date_selection_guide">날짜를 선택해주세요</string>
+    <string name="date_selected_title">선택한 날짜</string>
+    <string name="date_init_name">초기화</string>
+    <string name="next">다음</string>
+    <string name="empty_title_guide">일정 제목을 입력해주세요</string>
+    <string name="exceeded_title_guide">일정 제목은 20자까지 지을 수 있어요</string>
+    <string name="schedule_create">일정 생성</string>
+    <string name="title_input_guide">일정 제목을 입력해주세요</string>
 </resources>

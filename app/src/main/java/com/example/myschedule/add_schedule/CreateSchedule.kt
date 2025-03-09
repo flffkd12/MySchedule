@@ -1,23 +1,33 @@
 package com.example.myschedule.add_schedule
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
+import com.example.myschedule.R
 import com.example.myschedule.Routes
 import com.example.myschedule.ui.theme.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun CreateSchedule(scheduleViewModel: ScheduleViewModel, navController: NavController) {
     val selectedDates by scheduleViewModel.selectedScheduleDates.collectAsState()
+
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         bottomBar = { BtmNavBar(navController) },
@@ -29,10 +39,10 @@ fun CreateSchedule(scheduleViewModel: ScheduleViewModel, navController: NavContr
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier.padding(ContentPadding).padding(bottom = 52.dp)
+                modifier = Modifier.fillMaxSize().padding(ContentPadding).padding(bottom = 52.dp)
             ) {
                 Text(
-                    text = "날짜를 선택해 주세요",
+                    text = stringResource(R.string.date_selection_guide),
                     color = Black,
                     style = MaterialTheme.typography.titleLarge
                 )
@@ -42,7 +52,7 @@ fun CreateSchedule(scheduleViewModel: ScheduleViewModel, navController: NavContr
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = "선택한 날짜",
+                        text = stringResource(R.string.date_selected_title),
                         style = MaterialTheme.typography.titleMedium,
                         color = Black
                     )
@@ -56,7 +66,7 @@ fun CreateSchedule(scheduleViewModel: ScheduleViewModel, navController: NavContr
                         modifier = Modifier.size(84.dp, 34.dp)
                     ) {
                         Text(
-                            text = "초기화",
+                            text = stringResource(R.string.date_init_name),
                             color = White,
                             style = MaterialTheme.typography.bodySmall
                         )
@@ -64,8 +74,21 @@ fun CreateSchedule(scheduleViewModel: ScheduleViewModel, navController: NavContr
                 }
                 SelectedDatesList(selectedDates)
             }
+
             ElevatedButton(
-                onClick = { navController.navigate(Routes.MAIN_SCREEN) },
+                onClick = {
+                    if (selectedDates.isEmpty()) {
+                        coroutineScope.launch(Dispatchers.Main) {
+                            Toast.makeText(
+                                context,
+                                R.string.date_selection_guide,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } else {
+                        navController.navigate(Routes.CREATE_TITLE_AND_TIME)
+                    }
+                },
                 shape = RoundedAllCornerShape,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = LightGreen,
@@ -76,7 +99,11 @@ fun CreateSchedule(scheduleViewModel: ScheduleViewModel, navController: NavContr
                     .padding(start = ContentPadding, end = ContentPadding, bottom = ContentPadding)
                     .align(Alignment.BottomCenter)
             ) {
-                Text(text = "다음", color = White, style = MaterialTheme.typography.bodySmall)
+                Text(
+                    text = stringResource(R.string.next),
+                    color = White,
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
         }
     }

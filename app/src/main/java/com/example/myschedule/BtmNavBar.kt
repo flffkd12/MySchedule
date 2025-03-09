@@ -23,7 +23,7 @@ fun BtmNavBar(navController: NavController) {
         BtmNavBarItem(
             title = "일정 추가",
             icon = painterResource(R.drawable.icon_schedule_24),
-            route = Routes.ADD_SCHEDULE
+            route = Routes.CREATE_SCHEDULE
         ),
         BtmNavBarItem(
             title = "메인 화면",

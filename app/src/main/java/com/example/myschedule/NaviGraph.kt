@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.myschedule.add_schedule.CreateSchedule
+import com.example.myschedule.add_schedule.CreateTitleAndTime
 import com.example.myschedule.add_schedule.ScheduleViewModel
 import com.example.myschedule.login.Login
 import com.example.myschedule.main_screen.MainScreen
@@ -29,6 +30,10 @@ fun NaviGraph(
 
         composable(route = Routes.CREATE_SCHEDULE) {
             CreateSchedule(scheduleViewModel, navController)
+        }
+
+        composable(route = Routes.CREATE_TITLE_AND_TIME) {
+            CreateTitleAndTime(scheduleViewModel, navController)
         }
 
         composable(route = Routes.MONTHLY_SCHEDULE) {
