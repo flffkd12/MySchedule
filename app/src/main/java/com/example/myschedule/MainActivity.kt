@@ -14,10 +14,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.compose.rememberNavController
+import com.example.myschedule.add_schedule.ScheduleViewModel
 import com.example.myschedule.ui.theme.MyScheduleTheme
 
 class MainActivity : ComponentActivity() {
     private val userViewModel: UserViewModel by viewModels { UserViewModel.Factory }
+    private val scheduleViewModel: ScheduleViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NaviGraph(
                         userViewModel = userViewModel,
+                        scheduleViewModel = scheduleViewModel,
                         navController = navController,
                         modifier = Modifier.padding(innerPadding)
                     )

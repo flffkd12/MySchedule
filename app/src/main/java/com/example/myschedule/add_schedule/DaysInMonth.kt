@@ -19,7 +19,7 @@ import java.time.YearMonth
 @Composable
 fun DaysInMonth(
     currentYearMonth: YearMonth,
-    selectedDates: MutableList<LocalDate>,
+    selectedDates: List<LocalDate>,
     isFirstMonth: Boolean,
     isLastMonth: Boolean,
     onDateClick: (LocalDate) -> Unit

@@ -21,7 +21,7 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
-fun DateSelectUI(selectedDates: MutableList<LocalDate>) {
+fun DateSelectUI(scheduleViewModel: ScheduleViewModel, selectedDates: List<LocalDate>) {
     val displayedMonthNum = 13
     val pagerState = rememberPagerState { displayedMonthNum }
 
@@ -53,9 +53,9 @@ fun DateSelectUI(selectedDates: MutableList<LocalDate>) {
                 isLastMonth = page == displayedMonthNum - 1,
                 onDateClick = { clickedDate ->
                     if (selectedDates.contains(clickedDate)) {
-                        selectedDates.remove(clickedDate)
+                        scheduleViewModel.removeSelectedDate(clickedDate)
                     } else {
-                        selectedDates.add(clickedDate)
+                        scheduleViewModel.addSelectedDate(clickedDate)
                     }
 
                     val clickedDateMonth = clickedDate.year * 12 + clickedDate.monthValue
