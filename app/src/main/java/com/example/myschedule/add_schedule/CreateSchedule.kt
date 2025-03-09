@@ -16,7 +16,7 @@ import com.example.myschedule.Routes
 import com.example.myschedule.ui.theme.*
 
 @Composable
-fun AddSchedule(scheduleViewModel: ScheduleViewModel, navController: NavController) {
+fun CreateSchedule(scheduleViewModel: ScheduleViewModel, navController: NavController) {
     val selectedDates by scheduleViewModel.selectedScheduleDates.collectAsState()
 
     Scaffold(
