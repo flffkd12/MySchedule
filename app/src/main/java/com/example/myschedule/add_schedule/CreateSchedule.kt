@@ -30,7 +30,7 @@ fun CreateSchedule(scheduleViewModel: ScheduleViewModel, navController: NavContr
     val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
-        bottomBar = { BtmNavBar(navController) },
+        bottomBar = { BtmNavBar(navController, Routes.CREATE_SCHEDULE) },
         containerColor = LightGreen
     ) { innerPadding ->
         Box(

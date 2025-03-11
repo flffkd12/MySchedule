@@ -40,7 +40,7 @@ fun CreateTitleAndTime(scheduleViewModel: ScheduleViewModel, navController: NavC
     val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
-        bottomBar = { BtmNavBar(navController) },
+        bottomBar = { BtmNavBar(navController, Routes.CREATE_SCHEDULE) },
         containerColor = LightGreen,
         modifier = Modifier.clickable(
             indication = null,

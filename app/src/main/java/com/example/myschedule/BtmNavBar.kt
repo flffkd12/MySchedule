@@ -16,9 +16,7 @@ import androidx.navigation.NavController
 import com.example.myschedule.ui.theme.LightGreen
 
 @Composable
-fun BtmNavBar(navController: NavController) {
-    val currentRoute = navController.currentBackStackEntry?.destination?.route
-
+fun BtmNavBar(navController: NavController, currentBtmBar: String) {
     val btmNavBarItems = listOf(
         BtmNavBarItem(
             title = "일정 추가",
@@ -46,7 +44,7 @@ fun BtmNavBar(navController: NavController) {
             modifier = Modifier.fillMaxWidth()
         ) {
             btmNavBarItems.forEach { item ->
-                val isClicked = currentRoute == item.route
+                val isClicked = currentBtmBar == item.route
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,

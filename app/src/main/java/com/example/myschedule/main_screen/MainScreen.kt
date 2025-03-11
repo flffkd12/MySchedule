@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
+import com.example.myschedule.Routes
 import com.example.myschedule.UserViewModel
 import com.example.myschedule.ui.theme.DefaultHorizontalPadding
 import com.example.myschedule.ui.theme.LightGreen
@@ -22,7 +23,7 @@ fun MainScreen(userViewModel: UserViewModel, navController: NavController) {
     val userName by userViewModel.userName.collectAsState()
 
     Scaffold(
-        bottomBar = { BtmNavBar(navController) },
+        bottomBar = { BtmNavBar(navController, Routes.MAIN_SCREEN) },
         containerColor = LightGreen
     ) { innerPadding ->
         Column(
