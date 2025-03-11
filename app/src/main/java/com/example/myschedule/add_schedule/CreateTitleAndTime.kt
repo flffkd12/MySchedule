@@ -29,6 +29,13 @@ fun CreateTitleAndTime(scheduleViewModel: ScheduleViewModel, navController: NavC
     val titleName = rememberSaveable { mutableStateOf("") }
     val focusManager = LocalFocusManager.current
 
+    val startTimeAmPm = rememberSaveable { mutableStateOf("오전") }
+    val startTimeHour = rememberSaveable { mutableStateOf("6") }
+    val startTimeMinute = rememberSaveable { mutableStateOf("0") }
+    val endTimeAmPm = rememberSaveable { mutableStateOf("오후") }
+    val endTimeHour = rememberSaveable { mutableStateOf("6") }
+    val endTimeMinute = rememberSaveable { mutableStateOf("0") }
+
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
@@ -50,13 +57,22 @@ fun CreateTitleAndTime(scheduleViewModel: ScheduleViewModel, navController: NavC
             ) {
                 ScheduleTitle(titleName)
 
-                // 좀 띄우고
-                // 시작 시간
-                // 시작 시간 스크롤 바
-                // 종료 시간
-                // 종료시간 스크롤 바
+                Spacer(modifier = Modifier.height(24.dp))
 
-                //weight1f
+                Text(
+                    text = stringResource(R.string.schedule_start_time),
+                    style = MaterialTheme.typography.titleMedium
+                )
+                ScrollTimePicker(startTimeAmPm, startTimeHour, startTimeMinute)
+
+                Text(
+                    text = stringResource(R.string.schedule_end_time),
+                    style = MaterialTheme.typography.titleMedium
+                )
+                //   ScrollTimePicker(endTimeAmPm, endTimeHour, endTimeMinute)
+
+                Spacer(modifier = Modifier.weight(1f))
+
                 ElevatedButton(
                     onClick = {
                         if (titleName.value.isEmpty()) {
@@ -76,6 +92,7 @@ fun CreateTitleAndTime(scheduleViewModel: ScheduleViewModel, navController: NavC
                                 ).show()
                             }
                         } else {
+                            // 디비 저장 + 일정 생성 버튼과 연계
                             navController.navigate(Routes.MONTHLY_SCHEDULE)
                         }
                     },
