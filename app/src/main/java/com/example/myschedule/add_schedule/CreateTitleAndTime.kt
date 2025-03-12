@@ -69,7 +69,7 @@ fun CreateTitleAndTime(scheduleViewModel: ScheduleViewModel, navController: NavC
                     text = stringResource(R.string.schedule_end_time),
                     style = MaterialTheme.typography.titleMedium
                 )
-                //   ScrollTimePicker(endTimeAmPm, endTimeHour, endTimeMinute)
+                ScrollTimePicker(endTimeAmPm, endTimeHour, endTimeMinute)
 
                 Spacer(modifier = Modifier.weight(1f))
 

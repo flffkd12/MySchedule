@@ -12,10 +12,14 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.myschedule.ui.theme.Black
 import com.example.myschedule.ui.theme.LightGray
+import com.example.myschedule.ui.theme.LightGreen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -28,7 +32,15 @@ fun ScrollTimePicker(
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth().drawBehind {
+            val targetHeight = size.height / 3
+            drawRect(
+                color = LightGreen,
+                topLeft = Offset(0f, targetHeight),
+                size = Size(size.width, targetHeight),
+                alpha = 0.3f
+            )
+        }
     ) {
         val amPmList = listOf("", "오전", "오후", "")
         TimePickerColumn(
@@ -110,4 +122,3 @@ fun TimePickerColumn(
         }
     }
 }
-// 가운데 행 색칠
