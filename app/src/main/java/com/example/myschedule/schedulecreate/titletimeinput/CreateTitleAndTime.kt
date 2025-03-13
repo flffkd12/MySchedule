@@ -81,11 +81,23 @@ fun CreateTitleAndTime(
 
                 ElevatedButton(
                     onClick = {
+                        val scheduleStart = TimeCalc(
+                            startTimeAmPm.value,
+                            startTimeHour.value.toInt(),
+                            startTimeMinute.value.toInt()
+                        )
+                        val scheduleEnd = TimeCalc(
+                            endTimeAmPm.value,
+                            endTimeHour.value.toInt(),
+                            endTimeMinute.value.toInt()
+                        )
+                        val isScheduleTimeAvailable = scheduleStart < scheduleEnd
+
                         if (titleName.value.isEmpty()) {
                             coroutineScope.launch(Dispatchers.Main) {
                                 Toast.makeText(
                                     context,
-                                    R.string.empty_title_guide,
+                                    R.string.empty_title_message,
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -93,8 +105,16 @@ fun CreateTitleAndTime(
                             coroutineScope.launch(Dispatchers.Main) {
                                 Toast.makeText(
                                     context,
-                                    R.string.exceeded_title_guide,
+                                    R.string.exceeded_title_message,
                                     Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        } else if (!isScheduleTimeAvailable) {
+                            coroutineScope.launch(Dispatchers.Main) {
+                                Toast.makeText(
+                                    context,
+                                    R.string.unavailable_time_message,
+                                    Toast.LENGTH_LONG
                                 ).show()
                             }
                         } else {
@@ -134,6 +154,17 @@ fun CreateTitleAndTime(
                     )
                 }
             }
+        }
+    }
+}
+
+fun TimeCalc(amPm: String, hour: Int, minute: Int): Int {
+    val minutes = hour % 12 * 60 + minute
+    return when (amPm) {
+        "오전" -> minutes
+        "오후" -> minutes + 12 * 60
+        else -> {
+            throw IllegalArgumentException("Invalid AM/PM value")
         }
     }
 }

@@ -47,7 +47,7 @@ fun ScheduleTitle(titleName: MutableState<String>) {
         modifier = Modifier.fillMaxWidth()
     )
     Text(
-        text = stringResource(R.string.exceeded_title_guide),
+        text = stringResource(R.string.title_limit_guide),
         color = LightGray,
         style = MaterialTheme.typography.bodyMedium,
         textAlign = TextAlign.Right,
