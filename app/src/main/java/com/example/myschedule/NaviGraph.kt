@@ -6,12 +6,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.myschedule.login.Login
+import com.example.myschedule.login.UserViewModel
+import com.example.myschedule.mainscreen.MainScreen
+import com.example.myschedule.monthlyschedule.MonthlySchedule
 import com.example.myschedule.schedulecreate.CreateSchedule
 import com.example.myschedule.schedulecreate.ScheduleViewModel
 import com.example.myschedule.schedulecreate.titletimeinput.CreateTitleAndTime
-import com.example.myschedule.login.Login
-import com.example.myschedule.mainscreen.MainScreen
-import com.example.myschedule.monthlyschedule.MonthlySchedule
 
 @Composable
 fun NaviGraph(

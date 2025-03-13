@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.compose.rememberNavController
+import com.example.myschedule.login.UserViewModel
 import com.example.myschedule.schedulecreate.ScheduleViewModel
 import com.example.myschedule.ui.theme.MyScheduleTheme
 

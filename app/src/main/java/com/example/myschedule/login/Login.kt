@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myschedule.R
-import com.example.myschedule.UserViewModel
 
 @Composable
 fun Login(userViewModel: UserViewModel, navController: NavController) {
