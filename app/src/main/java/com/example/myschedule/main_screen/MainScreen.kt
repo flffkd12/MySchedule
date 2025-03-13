@@ -5,23 +5,18 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
 import com.example.myschedule.Routes
-import com.example.myschedule.UserViewModel
 import com.example.myschedule.ui.theme.DefaultHorizontalPadding
 import com.example.myschedule.ui.theme.LightGreen
 import com.example.myschedule.ui.theme.RoundedTopCornerShape
 import com.example.myschedule.ui.theme.White
 
 @Composable
-fun MainScreen(userViewModel: UserViewModel, navController: NavController) {
-    val userName by userViewModel.userName.collectAsState()
-
+fun MainScreen(navController: NavController, userName: String?) {
     Scaffold(
         bottomBar = { BtmNavBar(navController, Routes.MAIN_SCREEN) },
         containerColor = LightGreen

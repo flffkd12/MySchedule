@@ -6,7 +6,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,9 +26,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
-fun CreateTitleAndTime(scheduleViewModel: ScheduleViewModel, navController: NavController) {
-    val selectedDates by scheduleViewModel.selectedScheduleDates.collectAsState()
-
+fun CreateTitleAndTime(
+    scheduleViewModel: ScheduleViewModel,
+    navController: NavController,
+    userEmail: String?
+) {
     val titleName = rememberSaveable { mutableStateOf("") }
     val focusManager = LocalFocusManager.current
 
@@ -92,7 +97,24 @@ fun CreateTitleAndTime(scheduleViewModel: ScheduleViewModel, navController: NavC
                                 ).show()
                             }
                         } else {
-                            // 디비 저장 + 일정 생성 버튼과 연계
+                            val startTime = ScheduleTime(
+                                amPm = startTimeAmPm.value,
+                                hour = startTimeHour.value.toInt(),
+                                minute = startTimeMinute.value.toInt()
+                            )
+                            val endTime = ScheduleTime(
+                                amPm = endTimeAmPm.value,
+                                hour = endTimeHour.value.toInt(),
+                                minute = endTimeMinute.value.toInt()
+                            )
+                            scheduleViewModel.saveSchedule(
+                                context = context,
+                                userEmail = userEmail!!,
+                                title = titleName.value,
+                                startTime = startTime,
+                                endTime = endTime
+                            )
+
                             navController.navigate(Routes.MONTHLY_SCHEDULE)
                         }
                     },

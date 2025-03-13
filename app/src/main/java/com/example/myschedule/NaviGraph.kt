@@ -1,6 +1,7 @@
 package com.example.myschedule
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -19,13 +20,16 @@ fun NaviGraph(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
+    val userEmail = userViewModel.userEmail.collectAsState().value
+    val userName = userViewModel.userName.collectAsState().value
+
     NavHost(navController = navController, startDestination = Routes.LOGIN) {
         composable(route = Routes.LOGIN) {
             Login(userViewModel, navController)
         }
 
         composable(route = Routes.MAIN_SCREEN) {
-            MainScreen(userViewModel, navController)
+            MainScreen(navController, userName)
         }
 
         composable(route = Routes.CREATE_SCHEDULE) {
@@ -33,7 +37,7 @@ fun NaviGraph(
         }
 
         composable(route = Routes.CREATE_TITLE_AND_TIME) {
-            CreateTitleAndTime(scheduleViewModel, navController)
+            CreateTitleAndTime(scheduleViewModel, navController, userEmail)
         }
 
         composable(route = Routes.MONTHLY_SCHEDULE) {
