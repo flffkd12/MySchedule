@@ -42,7 +42,7 @@ fun NaviGraph(
         }
 
         composable(route = Routes.MONTHLY_SCHEDULE) {
-            MonthlySchedule()
+            MonthlySchedule(navController)
         }
     }
 }
