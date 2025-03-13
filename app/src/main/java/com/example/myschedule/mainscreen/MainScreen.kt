@@ -1,4 +1,4 @@
-package com.example.myschedule.main_screen
+package com.example.myschedule.mainscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

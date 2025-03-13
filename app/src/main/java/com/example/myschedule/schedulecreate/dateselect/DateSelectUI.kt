@@ -1,4 +1,4 @@
-package com.example.myschedule.add_schedule
+package com.example.myschedule.schedulecreate.dateselect
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
@@ -11,6 +11,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.myschedule.schedulecreate.ScheduleViewModel
 import com.example.myschedule.ui.theme.Black
 import com.example.myschedule.ui.theme.Blue
 import com.example.myschedule.ui.theme.Red

@@ -1,4 +1,4 @@
-package com.example.myschedule.monthly_schedule
+package com.example.myschedule.monthlyschedule
 
 import androidx.compose.runtime.Composable
 

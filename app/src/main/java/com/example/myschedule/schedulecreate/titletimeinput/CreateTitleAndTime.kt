@@ -1,4 +1,4 @@
-package com.example.myschedule.add_schedule
+package com.example.myschedule.schedulecreate.titletimeinput
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
 import com.example.myschedule.R
 import com.example.myschedule.Routes
+import com.example.myschedule.schedulecreate.ScheduleViewModel
 import com.example.myschedule.ui.theme.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

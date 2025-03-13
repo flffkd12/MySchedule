@@ -1,4 +1,4 @@
-package com.example.myschedule.add_schedule
+package com.example.myschedule.schedulecreate.dateselect
 
 import java.time.LocalDate
 

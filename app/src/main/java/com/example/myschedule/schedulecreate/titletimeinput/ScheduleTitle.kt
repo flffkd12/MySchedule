@@ -1,4 +1,4 @@
-package com.example.myschedule.add_schedule
+package com.example.myschedule.schedulecreate.titletimeinput
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions

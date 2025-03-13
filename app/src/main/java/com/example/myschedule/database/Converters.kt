@@ -1,7 +1,7 @@
 package com.example.myschedule.database
 
 import androidx.room.TypeConverter
-import com.example.myschedule.add_schedule.ScheduleTime
+import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import java.time.LocalDate
 
 class Converters {

@@ -3,7 +3,7 @@ package com.example.myschedule.database.entity
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.example.myschedule.add_schedule.ScheduleTime
+import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import java.time.LocalDate
 
 @Entity(
