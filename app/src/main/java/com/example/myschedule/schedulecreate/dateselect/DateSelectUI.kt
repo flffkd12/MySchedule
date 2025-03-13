@@ -11,7 +11,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.myschedule.schedulecreate.ScheduleViewModel
+import com.example.myschedule.schedulecreate.CreateScheduleViewModel
 import com.example.myschedule.ui.theme.Black
 import com.example.myschedule.ui.theme.Blue
 import com.example.myschedule.ui.theme.Red
@@ -22,7 +22,7 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
-fun DateSelectUI(scheduleViewModel: ScheduleViewModel, selectedDates: List<LocalDate>) {
+fun DateSelectUI(createScheduleViewModel: CreateScheduleViewModel, selectedDates: List<LocalDate>) {
     val displayedMonthNum = 13
     val pagerState = rememberPagerState { displayedMonthNum }
 
@@ -54,9 +54,9 @@ fun DateSelectUI(scheduleViewModel: ScheduleViewModel, selectedDates: List<Local
                 isLastMonth = page == displayedMonthNum - 1,
                 onDateClick = { clickedDate ->
                     if (selectedDates.contains(clickedDate)) {
-                        scheduleViewModel.removeSelectedDate(clickedDate)
+                        createScheduleViewModel.removeSelectedDate(clickedDate)
                     } else {
-                        scheduleViewModel.addSelectedDate(clickedDate)
+                        createScheduleViewModel.addSelectedDate(clickedDate)
                     }
 
                     val clickedDateMonth = clickedDate.year * 12 + clickedDate.monthValue

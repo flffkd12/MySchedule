@@ -25,8 +25,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
-fun CreateSchedule(scheduleViewModel: ScheduleViewModel, navController: NavController) {
-    val selectedDates by scheduleViewModel.selectedScheduleDates.collectAsState()
+fun CreateSchedule(createScheduleViewModel: CreateScheduleViewModel, navController: NavController) {
+    val selectedDates by createScheduleViewModel.selectedScheduleDates.collectAsState()
 
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -48,7 +48,7 @@ fun CreateSchedule(scheduleViewModel: ScheduleViewModel, navController: NavContr
                     color = Black,
                     style = MaterialTheme.typography.titleLarge
                 )
-                DateSelectUI(scheduleViewModel, selectedDates)
+                DateSelectUI(createScheduleViewModel, selectedDates)
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth()
@@ -59,7 +59,7 @@ fun CreateSchedule(scheduleViewModel: ScheduleViewModel, navController: NavContr
                         color = Black
                     )
                     Button(
-                        onClick = { scheduleViewModel.clearSelectedDate() },
+                        onClick = { createScheduleViewModel.clearSelectedDate() },
                         shape = RoundedAllCornerShape,
                         colors = ButtonDefaults.buttonColors(
                             containerColor = LightGreen,

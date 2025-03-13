@@ -11,13 +11,13 @@ import com.example.myschedule.login.UserViewModel
 import com.example.myschedule.mainscreen.MainScreen
 import com.example.myschedule.monthlyschedule.MonthlySchedule
 import com.example.myschedule.schedulecreate.CreateSchedule
-import com.example.myschedule.schedulecreate.ScheduleViewModel
+import com.example.myschedule.schedulecreate.CreateScheduleViewModel
 import com.example.myschedule.schedulecreate.titletimeinput.CreateTitleAndTime
 
 @Composable
 fun NaviGraph(
     userViewModel: UserViewModel,
-    scheduleViewModel: ScheduleViewModel,
+    createScheduleViewModel: CreateScheduleViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
@@ -34,11 +34,11 @@ fun NaviGraph(
         }
 
         composable(route = Routes.CREATE_SCHEDULE) {
-            CreateSchedule(scheduleViewModel, navController)
+            CreateSchedule(createScheduleViewModel, navController)
         }
 
         composable(route = Routes.CREATE_TITLE_AND_TIME) {
-            CreateTitleAndTime(scheduleViewModel, navController, userEmail)
+            CreateTitleAndTime(createScheduleViewModel, navController, userEmail)
         }
 
         composable(route = Routes.MONTHLY_SCHEDULE) {

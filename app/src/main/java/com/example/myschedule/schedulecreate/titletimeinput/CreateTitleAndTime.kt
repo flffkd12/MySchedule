@@ -21,14 +21,14 @@ import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
 import com.example.myschedule.R
 import com.example.myschedule.Routes
-import com.example.myschedule.schedulecreate.ScheduleViewModel
+import com.example.myschedule.schedulecreate.CreateScheduleViewModel
 import com.example.myschedule.ui.theme.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
 fun CreateTitleAndTime(
-    scheduleViewModel: ScheduleViewModel,
+    createScheduleViewModel: CreateScheduleViewModel,
     navController: NavController,
     userEmail: String?
 ) {
@@ -128,7 +128,7 @@ fun CreateTitleAndTime(
                                 hour = endTimeHour.value.toInt(),
                                 minute = endTimeMinute.value.toInt()
                             )
-                            scheduleViewModel.saveSchedule(
+                            createScheduleViewModel.saveSchedule(
                                 context = context,
                                 userEmail = userEmail!!,
                                 title = titleName.value,

@@ -3,9 +3,9 @@ package com.example.myschedule.schedulecreate
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import com.example.myschedule.database.MyScheduleDb
 import com.example.myschedule.database.entity.Schedule
+import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
-class ScheduleViewModel : ViewModel() {
+class CreateScheduleViewModel : ViewModel() {
     private val _selectedScheduleDates = MutableStateFlow<List<LocalDate>>(emptyList())
     val selectedScheduleDates: StateFlow<List<LocalDate>> = _selectedScheduleDates.asStateFlow()
 
