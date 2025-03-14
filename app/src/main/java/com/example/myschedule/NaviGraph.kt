@@ -10,6 +10,7 @@ import com.example.myschedule.login.Login
 import com.example.myschedule.login.UserViewModel
 import com.example.myschedule.mainscreen.MainScreen
 import com.example.myschedule.monthlyschedule.MonthlySchedule
+import com.example.myschedule.monthlyschedule.MonthlyScheduleViewModel
 import com.example.myschedule.schedulecreate.CreateSchedule
 import com.example.myschedule.schedulecreate.CreateScheduleViewModel
 import com.example.myschedule.schedulecreate.titletimeinput.CreateTitleAndTime
@@ -18,6 +19,7 @@ import com.example.myschedule.schedulecreate.titletimeinput.CreateTitleAndTime
 fun NaviGraph(
     userViewModel: UserViewModel,
     createScheduleViewModel: CreateScheduleViewModel,
+    monthlyScheduleViewModel: MonthlyScheduleViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
@@ -26,7 +28,7 @@ fun NaviGraph(
 
     NavHost(navController = navController, startDestination = Routes.LOGIN) {
         composable(route = Routes.LOGIN) {
-            Login(userViewModel, navController)
+            Login(userViewModel, monthlyScheduleViewModel, navController)
         }
 
         composable(route = Routes.MAIN_SCREEN) {
@@ -38,11 +40,16 @@ fun NaviGraph(
         }
 
         composable(route = Routes.CREATE_TITLE_AND_TIME) {
-            CreateTitleAndTime(createScheduleViewModel, navController, userEmail)
+            CreateTitleAndTime(
+                createScheduleViewModel,
+                monthlyScheduleViewModel,
+                navController,
+                userEmail
+            )
         }
 
         composable(route = Routes.MONTHLY_SCHEDULE) {
-            MonthlySchedule(navController)
+            MonthlySchedule(monthlyScheduleViewModel, navController)
         }
     }
 }

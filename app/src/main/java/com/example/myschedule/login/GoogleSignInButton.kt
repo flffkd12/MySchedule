@@ -23,12 +23,17 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myschedule.R
 import com.example.myschedule.Routes
+import com.example.myschedule.monthlyschedule.MonthlyScheduleViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 
 @Composable
-fun GoogleSignInButton(userViewModel: UserViewModel, navController: NavController) {
+fun GoogleSignInButton(
+    userViewModel: UserViewModel,
+    monthlyScheduleViewModel: MonthlyScheduleViewModel,
+    navController: NavController
+) {
     val context = LocalContext.current
     val gso = remember {
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail()
@@ -49,6 +54,7 @@ fun GoogleSignInButton(userViewModel: UserViewModel, navController: NavControlle
                         userViewModel.saveUser(email)
                         userViewModel.setUserEmail(email)
                         userViewModel.setUserName(account.displayName)
+                        monthlyScheduleViewModel.fetchScheduleList(context)
                         navController.navigate(Routes.MAIN_SCREEN)
                     } else {
                         println("Login failed. Email length needs to be under 40 characters or less.")

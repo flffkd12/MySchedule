@@ -2,15 +2,12 @@ package com.example.myschedule.schedulecreate
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.myschedule.database.MyScheduleDb
 import com.example.myschedule.database.entity.Schedule
 import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class CreateScheduleViewModel : ViewModel() {
@@ -33,27 +30,25 @@ class CreateScheduleViewModel : ViewModel() {
         _selectedScheduleDates.value = emptyList()
     }
 
-    fun saveSchedule(
+    suspend fun saveSchedule(
         context: Context,
         userEmail: String,
         title: String,
         startTime: ScheduleTime,
         endTime: ScheduleTime,
     ) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val selectedDates = selectedScheduleDates.value
+        val selectedDates = selectedScheduleDates.value
 
-            selectedDates.forEach { selectedDate ->
-                val schedule = Schedule(
-                    userEmail = userEmail,
-                    date = selectedDate,
-                    title = title,
-                    startTime = startTime,
-                    endTime = endTime,
-                )
+        selectedDates.forEach { selectedDate ->
+            val schedule = Schedule(
+                userEmail = userEmail,
+                date = selectedDate,
+                title = title,
+                startTime = startTime,
+                endTime = endTime,
+            )
 
-                MyScheduleDb.getDatabase(context).scheduleDao().insertScheduleIfNotExist(schedule)
-            }
+            MyScheduleDb.getDatabase(context).scheduleDao().insertScheduleIfNotExist(schedule)
         }
     }
 }

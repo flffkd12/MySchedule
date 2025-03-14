@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
 import com.example.myschedule.R
 import com.example.myschedule.Routes
+import com.example.myschedule.monthlyschedule.MonthlyScheduleViewModel
 import com.example.myschedule.schedulecreate.CreateScheduleViewModel
 import com.example.myschedule.ui.theme.*
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +30,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun CreateTitleAndTime(
     createScheduleViewModel: CreateScheduleViewModel,
+    monthlyScheduleViewModel: MonthlyScheduleViewModel,
     navController: NavController,
     userEmail: String?
 ) {
@@ -128,13 +130,16 @@ fun CreateTitleAndTime(
                                 hour = endTimeHour.value.toInt(),
                                 minute = endTimeMinute.value.toInt()
                             )
-                            createScheduleViewModel.saveSchedule(
-                                context = context,
-                                userEmail = userEmail!!,
-                                title = titleName.value,
-                                startTime = startTime,
-                                endTime = endTime
-                            )
+                            coroutineScope.launch(Dispatchers.IO) {
+                                createScheduleViewModel.saveSchedule(
+                                    context = context,
+                                    userEmail = userEmail!!,
+                                    title = titleName.value,
+                                    startTime = startTime,
+                                    endTime = endTime
+                                )
+                                monthlyScheduleViewModel.fetchScheduleList(context)
+                            }
 
                             navController.navigate(Routes.MONTHLY_SCHEDULE)
                         }

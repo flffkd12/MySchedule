@@ -4,8 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
-import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import com.example.myschedule.database.entity.Schedule
+import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import java.time.LocalDate
 
 @Dao
@@ -34,4 +34,7 @@ interface ScheduleDao {
             insertSchedule(schedule)
         }
     }
+
+    @Query("SELECT * FROM schedules")
+    suspend fun getAllSchedules(): List<Schedule>
 }

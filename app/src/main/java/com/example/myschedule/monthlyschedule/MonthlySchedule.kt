@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
@@ -16,7 +18,11 @@ import com.example.myschedule.ui.theme.*
 import java.time.LocalDate
 
 @Composable
-fun MonthlySchedule(navController: NavController) {
+fun MonthlySchedule(
+    monthlyScheduleViewModel: MonthlyScheduleViewModel,
+    navController: NavController
+) {
+    val scheduleList by monthlyScheduleViewModel.scheduleList.collectAsState()
     val currentDate = rememberSaveable { mutableStateOf<LocalDate>(LocalDate.now()) }
 
     Scaffold(

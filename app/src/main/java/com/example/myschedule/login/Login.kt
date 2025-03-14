@@ -13,9 +13,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myschedule.R
+import com.example.myschedule.monthlyschedule.MonthlyScheduleViewModel
 
 @Composable
-fun Login(userViewModel: UserViewModel, navController: NavController) {
+fun Login(
+    userViewModel: UserViewModel,
+    monthlyScheduleViewModel: MonthlyScheduleViewModel,
+    navController: NavController
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
@@ -39,7 +44,7 @@ fun Login(userViewModel: UserViewModel, navController: NavController) {
             modifier = Modifier.fillMaxWidth(0.4f).aspectRatio(1.25f)
         )
         Spacer(Modifier.weight(2f))
-        GoogleSignInButton(userViewModel, navController)
+        GoogleSignInButton(userViewModel, monthlyScheduleViewModel, navController)
         Spacer(Modifier.weight(1f))
     }
 }
