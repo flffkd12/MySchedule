@@ -38,6 +38,8 @@ fun MonthlySchedule(
                 modifier = Modifier.fillMaxSize().padding(ContentPadding)
             ) {
                 Calendar(currentDate, scheduleList)
+
+                SelectedDateHeader(scheduleList, currentDate.value)
             }
         }
     }
