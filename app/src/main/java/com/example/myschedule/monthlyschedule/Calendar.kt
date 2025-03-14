@@ -57,6 +57,7 @@ fun Calendar(currentDate: MutableState<LocalDate>, scheduleList: List<Schedule>)
             DaysInCalendar(
                 currentYearMonth = currentYearMonth,
                 clickedDate = currentDate.value,
+                schedules = currentMonthScheduleList,
                 isFirstMonth = page == 0,
                 isLastMonth = page == displayedMonthNum - 1,
                 onDateClick = { clickedDate ->

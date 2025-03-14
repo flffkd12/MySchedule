@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.example.myschedule.database.entity.Schedule
 import com.example.myschedule.schedulecreate.dateselect.Day
 import com.example.myschedule.ui.theme.*
 import java.time.DayOfWeek
@@ -21,6 +22,7 @@ import java.time.YearMonth
 fun DaysInCalendar(
     currentYearMonth: YearMonth,
     clickedDate: LocalDate,
+    schedules: List<Schedule>,
     isFirstMonth: Boolean,
     isLastMonth: Boolean,
     onDateClick: (LocalDate) -> Unit
@@ -79,21 +81,38 @@ fun DaysInCalendar(
                             .background(if (isSelectedDay && isCurMonthDate) SkyBlue else Transparent)
                             .clickable(enabled = isClickable) { onDateClick(currentDate) }
                     ) {
-                        val isSaturday = currentDate.dayOfWeek == DayOfWeek.SATURDAY
-                        val isSunday = currentDate.dayOfWeek == DayOfWeek.SUNDAY
-                        Text(
-                            text = "${currentDate.dayOfMonth}",
-                            color = when {
-                                isSelectedDay -> if (isCurMonthDate) White else currentDateColor
-                                isSaturday -> if (isCurMonthDate) Blue else LightBlue
-                                isSunday -> if (isCurMonthDate) Red else LightRed
-                                else -> currentDateColor
-                            },
-                            style = MaterialTheme.typography.bodyMedium
-                        )
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            val isSaturday = currentDate.dayOfWeek == DayOfWeek.SATURDAY
+                            val isSunday = currentDate.dayOfWeek == DayOfWeek.SUNDAY
+                            Text(
+                                text = "${currentDate.dayOfMonth}",
+                                color = when {
+                                    isSelectedDay -> if (isCurMonthDate) White else currentDateColor
+                                    isSaturday -> if (isCurMonthDate) Blue else LightBlue
+                                    isSunday -> if (isCurMonthDate) Red else LightRed
+                                    else -> currentDateColor
+                                },
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+
+                            val daySchedule = schedules.filter { it.date == currentDate }
+                            Row(horizontalArrangement = Arrangement.Center) {
+                                val colorList = listOf(Red, Orange, LightGreen, Blue)
+
+                                daySchedule.take(colorList.size).forEachIndexed { i, _ ->
+                                    Box(
+                                        modifier = Modifier.size(4.dp)
+                                            .background(colorList[i % colorList.size], CircleShape)
+                                    )
+
+                                    if (i < 3) Spacer(modifier = Modifier.width(2.dp))
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
     }
 }
+
