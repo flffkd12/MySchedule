@@ -37,7 +37,7 @@ fun MonthlySchedule(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.fillMaxSize().padding(ContentPadding)
             ) {
-                Calendar(currentDate)
+                Calendar(currentDate, scheduleList)
             }
         }
     }

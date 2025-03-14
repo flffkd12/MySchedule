@@ -14,6 +14,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.myschedule.database.entity.Schedule
 import com.example.myschedule.schedulecreate.dateselect.DayOfWeek
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -22,7 +23,7 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
-fun Calendar(currentDate: MutableState<LocalDate>) {
+fun Calendar(currentDate: MutableState<LocalDate>, scheduleList: List<Schedule>) {
     val displayedMonthNum = 13
     val pagerState = rememberPagerState { displayedMonthNum }
 
@@ -33,6 +34,12 @@ fun Calendar(currentDate: MutableState<LocalDate>) {
         modifier = Modifier.fillMaxWidth()
     ) { page ->
         val currentYearMonth = remember { YearMonth.now().plusMonths(page.toLong()) }
+        val firstEpochDayOfMonth = currentYearMonth.atDay(1).toEpochDay()
+        val lastEpochDayOfMonth = currentYearMonth.atEndOfMonth().toEpochDay()
+        val currentMonthScheduleList = scheduleList.filter { schedule ->
+            val scheduleEpochDay = schedule.date.toEpochDay()
+            scheduleEpochDay in firstEpochDayOfMonth..lastEpochDayOfMonth
+        }
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
