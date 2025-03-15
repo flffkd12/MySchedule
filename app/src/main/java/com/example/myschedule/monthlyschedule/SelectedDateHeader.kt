@@ -20,7 +20,10 @@ import java.util.Locale
 @Composable
 fun SelectedDateHeader(scheduleList: List<Schedule>, currentDate: LocalDate) {
     Row {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.width(48.dp)
+        ) {
             Text(
                 text = "${currentDate.dayOfMonth}",
                 color = Black,
@@ -36,7 +39,7 @@ fun SelectedDateHeader(scheduleList: List<Schedule>, currentDate: LocalDate) {
             )
         }
 
-        Spacer(modifier = Modifier.width(20.dp))
+        Spacer(modifier = Modifier.width(8.dp))
         val currentDateSchedules = scheduleList.filter { it.date == currentDate }
         Text(
             text = if (currentDateSchedules.isEmpty()) "일정이 없어요.."

@@ -2,6 +2,8 @@ package com.example.myschedule.monthlyschedule
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -40,6 +42,14 @@ fun MonthlySchedule(
                 Calendar(currentDate, scheduleList)
 
                 SelectedDateHeader(scheduleList, currentDate.value)
+
+                val currentDateSchedules = scheduleList.filter { it.date == currentDate.value }
+                val colorList = listOf(Red, Orange, LightGreen, Blue)
+                LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    itemsIndexed(currentDateSchedules) { i, schedule ->
+                        ScheduleCard(schedule, colorList[i % colorList.size], true, {}, {})
+                    }
+                }
             }
         }
     }
