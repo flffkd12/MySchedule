@@ -1,5 +1,6 @@
 package com.example.myschedule.monthlyschedule
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,11 +11,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
+import com.example.myschedule.R
 import com.example.myschedule.Routes
 import com.example.myschedule.ui.theme.*
 import java.time.LocalDate
@@ -44,10 +48,26 @@ fun MonthlySchedule(
                 SelectedDateHeader(scheduleList, currentDate.value)
 
                 val currentDateSchedules = scheduleList.filter { it.date == currentDate.value }
-                val colorList = listOf(Red, Orange, LightGreen, Blue)
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    itemsIndexed(currentDateSchedules) { i, schedule ->
-                        ScheduleCard(schedule, colorList[i % colorList.size], true, {}, {})
+                if (currentDateSchedules.isEmpty()) {
+                    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                        Image(
+                            painter = painterResource(R.drawable.sad),
+                            contentDescription = "일정 없는 날 아이콘",
+                            modifier = Modifier.size(100.dp)
+                        )
+                    }
+                } else {
+                    val colorList = listOf(Red, Orange, LightGreen, Blue)
+                    LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        itemsIndexed(currentDateSchedules) { i, schedule ->
+                            ScheduleCard(
+                                schedule = schedule,
+                                color = colorList[i % colorList.size],
+                                showOptions = true,
+                                onEditClick = {},
+                                onDeleteClick = {}
+                            )
+                        }
                     }
                 }
             }
