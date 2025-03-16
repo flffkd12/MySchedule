@@ -35,7 +35,7 @@ fun NaviGraph(
         }
 
         composable(route = Routes.MAIN_SCREEN) {
-            MainScreen(navController, userName)
+            MainScreen(monthlyScheduleViewModel, navController, userName)
         }
 
         composable(route = Routes.CREATE_SCHEDULE) {
@@ -69,12 +69,7 @@ fun NaviGraph(
             val startTimeElement = backStackEntry.arguments?.getString("startTime")!!.split(",")
             val endTimeElement = backStackEntry.arguments?.getString("endTime")!!.split(",")
             ModifySchedule(
-                monthlyScheduleViewModel,
-                navController,
-                id,
-                title,
-                startTimeElement,
-                endTimeElement
+                monthlyScheduleViewModel, navController, id, title, startTimeElement, endTimeElement
             )
         }
     }

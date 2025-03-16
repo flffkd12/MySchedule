@@ -19,7 +19,7 @@ import com.example.myschedule.ui.theme.*
 fun ScheduleCard(
     schedule: Schedule,
     color: Color,
-    showOptions: Boolean,
+    showOptions: Boolean = false,
     onEditClick: (() -> Unit)? = null,
     onDeleteClick: (() -> Unit)? = null
 ) {

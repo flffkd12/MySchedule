@@ -19,4 +19,6 @@
     <string name="schedule_start_time">시작 시간</string>
     <string name="schedule_end_time">종료 시간</string>
     <string name="schedule_modify">수정 완료</string>
+    <string name="no_schedule">일정이 없어요..</string>
+    <string name="today_schedule">오늘의 일정</string>
 </resources>
