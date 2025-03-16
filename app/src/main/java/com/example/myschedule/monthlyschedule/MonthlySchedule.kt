@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
 import com.example.myschedule.R
 import com.example.myschedule.Routes
+import com.example.myschedule.database.entity.Schedule
 import com.example.myschedule.ui.theme.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,9 +31,6 @@ fun MonthlySchedule(
 ) {
     val scheduleList by monthlyScheduleViewModel.scheduleList.collectAsState()
     val currentDate = rememberSaveable { mutableStateOf<LocalDate>(LocalDate.now()) }
-
-    val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         bottomBar = { BtmNavBar(navController, Routes.MONTHLY_SCHEDULE) },
@@ -48,41 +46,69 @@ fun MonthlySchedule(
             ) {
                 Calendar(currentDate, scheduleList)
 
-                SelectedDateHeader(scheduleList, currentDate.value)
+                CurrentDateHeader(scheduleList, currentDate.value)
 
                 val currentDateSchedules = scheduleList.filter { it.date == currentDate.value }
-                if (currentDateSchedules.isEmpty()) {
-                    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                        Image(
-                            painter = painterResource(R.drawable.sad),
-                            contentDescription = "일정 없는 날 이미지",
-                            modifier = Modifier.size(100.dp)
-                        )
-                    }
-                } else {
-                    val colorList = listOf(Red, Orange, LightGreen, Blue)
-                    LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        itemsIndexed(currentDateSchedules) { i, schedule ->
-                            ScheduleCard(
-                                schedule = schedule,
-                                color = colorList[i % colorList.size],
-                                showOptions = true,
-                                onEditClick = {},
-                                onDeleteClick = {
-                                    coroutineScope.launch(Dispatchers.IO) {
-                                        monthlyScheduleViewModel.deleteSchedule(
-                                            context,
-                                            schedule.id
-                                        )
-
-                                        monthlyScheduleViewModel.fetchScheduleList(context)
-                                    }
-                                }
-                            )
-                        }
-                    }
-                }
+                CurrentDateScheduleList(
+                    monthlyScheduleViewModel,
+                    navController,
+                    currentDateSchedules
+                )
             }
         }
     }
+}
+
+@Composable
+fun CurrentDateScheduleList(
+    monthlyScheduleViewModel: MonthlyScheduleViewModel,
+    navController: NavController,
+    scheduleList: List<Schedule>
+) {
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+
+    if (scheduleList.isEmpty()) {
+        Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+            Image(
+                painter = painterResource(R.drawable.sad),
+                contentDescription = "일정 없는 날 이미지",
+                modifier = Modifier.size(100.dp)
+            )
+        }
+    } else {
+        val colorList = listOf(Red, Orange, LightGreen, Blue)
+        LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            itemsIndexed(scheduleList) { i, schedule ->
+                ScheduleCard(
+                    schedule = schedule,
+                    color = colorList[i % colorList.size],
+                    showOptions = true,
+                    onEditClick = {
+                        navController.navigate(
+                            Routes.MODIFY_SCHEDULE + scheduleToNavArgument(schedule)
+                        )
+                    },
+                    onDeleteClick = {
+                        coroutineScope.launch(Dispatchers.IO) {
+                            monthlyScheduleViewModel.deleteSchedule(
+                                context,
+                                schedule.id
+                            )
+
+                            monthlyScheduleViewModel.fetchScheduleList(context)
+                        }
+                    }
+                )
+            }
+        }
+    }
+}
+
+fun scheduleToNavArgument(schedule: Schedule): String {
+    val startTimeNavArg =
+        "/${schedule.startTime.amPm},${schedule.startTime.hour},${schedule.startTime.minute}"
+    val endTimeNavArg =
+        "/${schedule.endTime.amPm},${schedule.endTime.hour},${schedule.endTime.minute}"
+    return "/${schedule.id}/${schedule.title}" + startTimeNavArg + endTimeNavArg
 }

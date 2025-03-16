@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myschedule.database.MyScheduleDb
 import com.example.myschedule.database.entity.Schedule
+import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,6 +23,17 @@ class MonthlyScheduleViewModel : ViewModel() {
                 compareBy<Schedule> { it.date }.thenBy { it.startTime.hour }
             )
         }
+    }
+
+    suspend fun modifySchedule(
+        context: Context,
+        id: Long,
+        title: String,
+        startTime: ScheduleTime,
+        endTime: ScheduleTime
+    ) {
+        MyScheduleDb.getDatabase(context).scheduleDao()
+            .modifySchedules(id, title, startTime, endTime)
     }
 
     suspend fun deleteSchedule(context: Context, id: Long) {

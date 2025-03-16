@@ -18,7 +18,7 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
-fun SelectedDateHeader(scheduleList: List<Schedule>, currentDate: LocalDate) {
+fun CurrentDateHeader(scheduleList: List<Schedule>, currentDate: LocalDate) {
     Row {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
