@@ -6,14 +6,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -21,6 +19,8 @@ import com.example.myschedule.BtmNavBar
 import com.example.myschedule.R
 import com.example.myschedule.Routes
 import com.example.myschedule.ui.theme.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 @Composable
@@ -30,6 +30,9 @@ fun MonthlySchedule(
 ) {
     val scheduleList by monthlyScheduleViewModel.scheduleList.collectAsState()
     val currentDate = rememberSaveable { mutableStateOf<LocalDate>(LocalDate.now()) }
+
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         bottomBar = { BtmNavBar(navController, Routes.MONTHLY_SCHEDULE) },
@@ -52,7 +55,7 @@ fun MonthlySchedule(
                     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                         Image(
                             painter = painterResource(R.drawable.sad),
-                            contentDescription = "일정 없는 날 아이콘",
+                            contentDescription = "일정 없는 날 이미지",
                             modifier = Modifier.size(100.dp)
                         )
                     }
@@ -65,7 +68,16 @@ fun MonthlySchedule(
                                 color = colorList[i % colorList.size],
                                 showOptions = true,
                                 onEditClick = {},
-                                onDeleteClick = {}
+                                onDeleteClick = {
+                                    coroutineScope.launch(Dispatchers.IO) {
+                                        monthlyScheduleViewModel.deleteSchedule(
+                                            context,
+                                            schedule.id
+                                        )
+
+                                        monthlyScheduleViewModel.fetchScheduleList(context)
+                                    }
+                                }
                             )
                         }
                     }

@@ -23,4 +23,8 @@ class MonthlyScheduleViewModel : ViewModel() {
             )
         }
     }
+
+    suspend fun deleteSchedule(context: Context, id: Long) {
+        MyScheduleDb.getDatabase(context).scheduleDao().deleteSchedule(id)
+    }
 }
