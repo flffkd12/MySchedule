@@ -25,15 +25,15 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
     ) {
-        Spacer(Modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(1f))
 
         LoginBranding()
 
-        Spacer(Modifier.weight(2f))
+        Spacer(modifier = Modifier.weight(2f))
 
         GoogleSignInButton(userViewModel, monthlyScheduleViewModel, navController)
 
-        Spacer(Modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(1f))
     }
 }
 
@@ -46,14 +46,14 @@ fun LoginBranding() {
             style = MaterialTheme.typography.headlineLarge
         )
 
-        Spacer(Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
         Text(
             text = stringResource(R.string.login_app_description),
             style = MaterialTheme.typography.titleMedium
         )
 
-        Spacer(Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         Image(
             painter = painterResource(R.drawable.logo),

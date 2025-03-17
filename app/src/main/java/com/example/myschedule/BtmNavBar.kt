@@ -17,6 +17,7 @@ import com.example.myschedule.ui.theme.LightGreen
 
 @Composable
 fun BtmNavBar(navController: NavController, currentBtmBar: String) {
+
     val btmNavBarItems = listOf(
         BtmNavBarItem(
             title = "일정 추가",
@@ -40,24 +41,25 @@ fun BtmNavBar(navController: NavController, currentBtmBar: String) {
         contentPadding = PaddingValues(0.dp),
         modifier = Modifier.height(84.dp)
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
+        Row(modifier = Modifier.fillMaxWidth()) {
             btmNavBarItems.forEach { item ->
                 val isClicked = currentBtmBar == item.route
+
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
-                    modifier = Modifier.fillMaxHeight().weight(1f)
+                    modifier = Modifier.fillMaxHeight().weight(1f).padding(top = 8.dp)
                         .clickable { navController.navigate(item.route) }
                 ) {
-                    Spacer(Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
+
                     Icon(
                         painter = item.icon,
                         contentDescription = item.title,
                         tint = if (isClicked) LightGreen else Color.Gray,
                         modifier = Modifier.size(28.dp)
                     )
+
                     Text(
                         text = item.title,
                         color = if (isClicked) LightGreen else Color.Gray,
