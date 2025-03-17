@@ -17,6 +17,7 @@ import com.example.myschedule.schedulecreate.CreateScheduleViewModel
 import com.example.myschedule.ui.theme.MyScheduleTheme
 
 class MainActivity : ComponentActivity() {
+
     private val userViewModel: UserViewModel by viewModels { UserViewModel.Factory }
     private val createScheduleViewModel: CreateScheduleViewModel by viewModels()
     private val monthlyScheduleViewModel: MonthlyScheduleViewModel by viewModels()
@@ -32,6 +33,7 @@ class MainActivity : ComponentActivity() {
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()
                 )
+
                 val navController = rememberNavController()
                 NaviGraph(
                     userViewModel = userViewModel,
