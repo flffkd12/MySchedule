@@ -1,4 +1,4 @@
-package com.example.myschedule.login
+package com.example.myschedule.loginscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

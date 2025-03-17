@@ -1,4 +1,4 @@
-package com.example.myschedule.login
+package com.example.myschedule.loginscreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -16,35 +16,52 @@ import com.example.myschedule.R
 import com.example.myschedule.monthlyschedule.MonthlyScheduleViewModel
 
 @Composable
-fun Login(
+fun LoginScreen(
     userViewModel: UserViewModel,
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
     navController: NavController
 ) {
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
     ) {
         Spacer(Modifier.weight(1f))
+
+        LoginBranding()
+
+        Spacer(Modifier.weight(2f))
+
+        GoogleSignInButton(userViewModel, monthlyScheduleViewModel, navController)
+
+        Spacer(Modifier.weight(1f))
+    }
+}
+
+@Composable
+fun LoginBranding() {
+
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = stringResource(R.string.app_name),
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold
         )
+
         Spacer(Modifier.height(4.dp))
+
         Text(
             text = stringResource(R.string.app_description),
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium
         )
+
         Spacer(Modifier.height(12.dp))
+
         Image(
             painter = painterResource(R.drawable.logo),
             contentDescription = stringResource(R.string.app_logo),
             modifier = Modifier.fillMaxWidth(0.4f).aspectRatio(1.25f)
         )
-        Spacer(Modifier.weight(2f))
-        GoogleSignInButton(userViewModel, monthlyScheduleViewModel, navController)
-        Spacer(Modifier.weight(1f))
     }
 }

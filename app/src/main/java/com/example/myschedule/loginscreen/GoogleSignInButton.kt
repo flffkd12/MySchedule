@@ -1,4 +1,4 @@
-package com.example.myschedule.login
+package com.example.myschedule.loginscreen
 
 import android.app.Activity
 import androidx.activity.compose.rememberLauncherForActivityResult

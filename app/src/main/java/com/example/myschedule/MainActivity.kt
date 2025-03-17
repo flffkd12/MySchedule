@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.compose.rememberNavController
-import com.example.myschedule.login.UserViewModel
+import com.example.myschedule.loginscreen.UserViewModel
 import com.example.myschedule.monthlyschedule.MonthlyScheduleViewModel
 import com.example.myschedule.schedulecreate.CreateScheduleViewModel
 import com.example.myschedule.ui.theme.MyScheduleTheme

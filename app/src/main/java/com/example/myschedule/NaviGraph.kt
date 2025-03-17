@@ -7,8 +7,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.myschedule.login.Login
-import com.example.myschedule.login.UserViewModel
+import com.example.myschedule.loginscreen.LoginScreen
+import com.example.myschedule.loginscreen.UserViewModel
 import com.example.myschedule.mainscreen.MainScreen
 import com.example.myschedule.monthlyschedule.ModifySchedule
 import com.example.myschedule.monthlyschedule.MonthlySchedule
@@ -28,7 +28,7 @@ fun NaviGraph(
     NavHost(navController = navController, startDestination = Routes.LOGIN) {
 
         composable(route = Routes.LOGIN) {
-            Login(userViewModel, monthlyScheduleViewModel, navController)
+            LoginScreen(userViewModel, monthlyScheduleViewModel, navController)
         }
 
         composable(route = Routes.MAIN_SCREEN) {
