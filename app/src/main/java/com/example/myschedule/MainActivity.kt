@@ -7,10 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.compose.rememberNavController
@@ -35,19 +32,13 @@ class MainActivity : ComponentActivity() {
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()
                 )
-                Scaffold(
-                    containerColor = Color.Transparent,
-                    modifier = Modifier.fillMaxSize(),
-                ) { innerPadding ->
-                    val navController = rememberNavController()
-                    NaviGraph(
-                        userViewModel = userViewModel,
-                        createScheduleViewModel = createScheduleViewModel,
-                        monthlyScheduleViewModel = monthlyScheduleViewModel,
-                        navController = navController,
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                val navController = rememberNavController()
+                NaviGraph(
+                    userViewModel = userViewModel,
+                    createScheduleViewModel = createScheduleViewModel,
+                    monthlyScheduleViewModel = monthlyScheduleViewModel,
+                    navController = navController,
+                )
             }
         }
     }
