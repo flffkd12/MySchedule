@@ -42,14 +42,14 @@ fun LoginBranding() {
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
-            text = stringResource(R.string.app_name),
+            text = stringResource(R.string.login_app_name),
             style = MaterialTheme.typography.headlineLarge
         )
 
         Spacer(Modifier.height(4.dp))
 
         Text(
-            text = stringResource(R.string.app_description),
+            text = stringResource(R.string.login_app_description),
             style = MaterialTheme.typography.titleMedium
         )
 
@@ -57,7 +57,7 @@ fun LoginBranding() {
 
         Image(
             painter = painterResource(R.drawable.logo),
-            contentDescription = stringResource(R.string.app_logo),
+            contentDescription = null,
             modifier = Modifier.fillMaxWidth(0.4f).aspectRatio(1.25f)
         )
     }

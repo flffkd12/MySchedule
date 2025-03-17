@@ -89,11 +89,11 @@ fun GoogleSignInButton(
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
             Image(
                 painter = painterResource(R.drawable.google_logo),
-                contentDescription = stringResource(R.string.google_logo),
+                contentDescription = null,
                 modifier = Modifier.size(32.dp)
             )
             Spacer(Modifier.weight(1f))
-            Text(text = stringResource(R.string.google_login_button_name), fontSize = 16.sp)
+            Text(text = stringResource(R.string.login_google_button_name), fontSize = 16.sp)
             Spacer(Modifier.weight(1f))
         }
     }
