@@ -2,7 +2,6 @@ package com.example.myschedule
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -23,18 +22,17 @@ fun NaviGraph(
     userViewModel: UserViewModel,
     createScheduleViewModel: CreateScheduleViewModel,
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
-    navController: NavHostController,
-    modifier: Modifier = Modifier
+    navController: NavHostController
 ) {
-    val userEmail = userViewModel.userEmail.collectAsState().value
-    val userName = userViewModel.userName.collectAsState().value
 
     NavHost(navController = navController, startDestination = Routes.LOGIN) {
+
         composable(route = Routes.LOGIN) {
             Login(userViewModel, monthlyScheduleViewModel, navController)
         }
 
         composable(route = Routes.MAIN_SCREEN) {
+            val userName = userViewModel.userName.collectAsState().value
             MainScreen(monthlyScheduleViewModel, navController, userName)
         }
 
@@ -43,6 +41,7 @@ fun NaviGraph(
         }
 
         composable(route = Routes.CREATE_TITLE_AND_TIME) {
+            val userEmail = userViewModel.userEmail.collectAsState().value
             CreateTitleAndTime(
                 createScheduleViewModel,
                 monthlyScheduleViewModel,
@@ -68,6 +67,7 @@ fun NaviGraph(
             val title = backStackEntry.arguments?.getString("title")!!
             val startTimeElement = backStackEntry.arguments?.getString("startTime")!!.split(",")
             val endTimeElement = backStackEntry.arguments?.getString("endTime")!!.split(",")
+
             ModifySchedule(
                 monthlyScheduleViewModel, navController, id, title, startTimeElement, endTimeElement
             )
