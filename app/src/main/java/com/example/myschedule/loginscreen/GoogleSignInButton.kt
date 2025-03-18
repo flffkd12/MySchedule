@@ -24,9 +24,13 @@ import androidx.navigation.NavController
 import com.example.myschedule.R
 import com.example.myschedule.Routes
 import com.example.myschedule.monthlyschedule.MonthlyScheduleViewModel
+import com.example.myschedule.ui.theme.Black
+import com.example.myschedule.ui.theme.White
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 
 @Composable
 fun GoogleSignInButton(
@@ -34,44 +38,53 @@ fun GoogleSignInButton(
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
     navController: NavController
 ) {
+
     val context = LocalContext.current
     val gso = remember {
-        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail()
-            .requestProfile().build()
+        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(context.getString(R.string.login_google_client_id)).build()
     }
 
     val googleSignInClient = remember { GoogleSignIn.getClient(context, gso) }
+
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             try {
-                val account = task.getResult(ApiException::class.java)
-                val email = account.email
-                if (email != null) {
-                    if (email.length <= 40) {
-                        userViewModel.saveUser(email)
-                        userViewModel.setUserEmail(email)
-                        userViewModel.setUserName(account.displayName)
-                        monthlyScheduleViewModel.fetchScheduleList(context)
-                        navController.navigate(Routes.MAIN_SCREEN)
-                    } else {
-                        println("Login failed. Email length needs to be under 40 characters or less.")
+                val googleTask = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                val account = googleTask.result!!
+                val auth = FirebaseAuth.getInstance()
+                val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+
+                auth.signInWithCredential(credential)
+                    .addOnCompleteListener { authTask ->
+                        if (authTask.isSuccessful) {
+                            val user = auth.currentUser
+                            if (user != null) {
+                                userViewModel.saveUser(user.email.toString())
+                                userViewModel.setUserEmail(user.email.toString())
+                                userViewModel.setUserName(user.displayName.toString())
+                                monthlyScheduleViewModel.fetchScheduleList(context)
+                                navController.navigate(Routes.MAIN_SCREEN)
+                            } else {
+                                println("Successful firebase auth, but no user information.")
+                            }
+                        } else {
+                            println("Firebase authentication failed for unexpected reason: ${authTask.exception}.")
+                        }
                     }
-                } else {
-                    println("Login failed. Email is null.")
-                }
             } catch (e: ApiException) {
-                println("Login failed.")
-                println("1. Check the 'Client ID' if it matches with Google Cloud Console.")
-                println("2. Check the latest authorization dependency.")
-                println("3. If none of it than check the error code: ${e.statusCode}")
+                println("Google login failed: Check if using right web client id or right SHA-1 key.")
+            } catch (e: NullPointerException) {
+                println("Google login failed: Check if you used !! sign at null variable.")
+            } catch (e: Exception) {
+                println("Google login failed: Unexpected error - ${e.message}.")
             }
         } else {
-            println("Login failed.")
-            println("1.Maybe user canceled login process.")
-            println("2.If not, Refactor code related to OAuth authorization.")
+            println("Google login failed: Abnormal result of activity result. Result code: ${result.resultCode}.")
+            println("1. User might have canceled login process during login.")
+            println("2. Check firebase console and google cloud console if the setting is right.")
         }
     }
 
@@ -79,8 +92,8 @@ fun GoogleSignInButton(
         onClick = { launcher.launch(googleSignInClient.signInIntent) },
         shape = RoundedCornerShape(4.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color.White,
-            contentColor = Color.Black.copy(0.54f)
+            containerColor = White,
+            contentColor = Black.copy(0.54f)
         ),
         border = BorderStroke(width = 1.dp, color = Color(0xFF747775)),
         contentPadding = PaddingValues(8.dp),
@@ -92,8 +105,11 @@ fun GoogleSignInButton(
                 contentDescription = null,
                 modifier = Modifier.size(32.dp)
             )
+
             Spacer(Modifier.weight(1f))
+
             Text(text = stringResource(R.string.login_google_button_name), fontSize = 16.sp)
+
             Spacer(Modifier.weight(1f))
         }
     }
