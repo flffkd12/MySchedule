@@ -23,6 +23,7 @@ fun ScheduleCard(
     onEditClick: (() -> Unit)? = null,
     onDeleteClick: (() -> Unit)? = null
 ) {
+
     var dropDownExpanded by remember { mutableStateOf(false) }
 
     Card(
@@ -51,6 +52,7 @@ fun ScheduleCard(
                     color = Black,
                     style = MaterialTheme.typography.titleSmall
                 )
+
                 Text(
                     text = "${schedule.startTime.amPm} ${schedule.startTime.hour}시 ${
                         schedule.startTime.minute.toString().padStart(2, '0')
@@ -87,6 +89,7 @@ fun ScheduleCard(
                             },
                             text = { Text("수정") }
                         )
+
                         DropdownMenuItem(
                             onClick = {
                                 onDeleteClick()

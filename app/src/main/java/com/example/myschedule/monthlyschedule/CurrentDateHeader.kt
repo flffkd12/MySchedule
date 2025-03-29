@@ -21,6 +21,7 @@ import java.util.Locale
 
 @Composable
 fun CurrentDateHeader(scheduleList: List<Schedule>, currentDate: LocalDate) {
+
     Row {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -31,6 +32,7 @@ fun CurrentDateHeader(scheduleList: List<Schedule>, currentDate: LocalDate) {
                 color = Black,
                 style = MaterialTheme.typography.bodyLarge
             )
+
             Text(
                 text = currentDate.dayOfWeek.getDisplayName(
                     TextStyle.FULL,
@@ -42,6 +44,7 @@ fun CurrentDateHeader(scheduleList: List<Schedule>, currentDate: LocalDate) {
         }
 
         Spacer(modifier = Modifier.width(8.dp))
+
         val currentDateSchedules = scheduleList.filter { it.date == currentDate }
         Text(
             text = if (currentDateSchedules.isEmpty()) stringResource(R.string.no_schedule)

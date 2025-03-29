@@ -28,6 +28,7 @@ fun DaysInCalendar(
     isLastMonth: Boolean,
     onDateClick: (LocalDate) -> Unit
 ) {
+
     // 이번달 첫째날 요일
     val firstDayOfWeekInMonth = currentYearMonth.atDay(1).dayOfWeek.value
 
@@ -42,17 +43,20 @@ fun DaysInCalendar(
 
     // 화면에 표시할 날짜들
     val daysList = mutableListOf<Day>()
+
+    // 달력의 날짜 중 저번 달의 마지막 주 날짜들
     for (i in (lastDayOfMonth - previousMonthDayCnt + 1)..lastDayOfMonth) {
         daysList.add(
-            Day(
-                LocalDate.of(previousYearMonth.year, previousYearMonth.month, i),
-                LightGray
-            )
+            Day(LocalDate.of(previousYearMonth.year, previousYearMonth.month, i), LightGray)
         )
     }
+
+    // 달력의 날짜 중 이번 달의 날짜들
     for (i in 1..currentYearMonth.atEndOfMonth().dayOfMonth) {
         daysList.add(Day(LocalDate.of(currentYearMonth.year, currentYearMonth.month, i), Black))
     }
+
+    // 달력의 날짜 중 다음 달의 첫째 주 날짜들
     if (daysList.size % 7 != 0) {
         val nextYearMonth = currentYearMonth.plusMonths(1)
         for (i in 1..7 - daysList.size % 7) {
@@ -66,7 +70,6 @@ fun DaysInCalendar(
                 for (index in weekIndex) {
                     val currentDate = daysList[index].date
                     val currentDateColor = daysList[index].color
-                    val isCurMonthDate = currentDateColor == Black
                     val isSelectedDay = clickedDate == currentDate
 
                     val isClickable = when {
@@ -78,7 +81,7 @@ fun DaysInCalendar(
                     CalendarDayCell(
                         date = currentDate,
                         dateColor = currentDateColor,
-                        isCurrentMonth = isCurMonthDate,
+                        isCurrentMonth = currentDateColor == Black,
                         isSelected = isSelectedDay,
                         isClickable = isClickable,
                         schedules = schedules,
@@ -102,6 +105,7 @@ fun CalendarDayCell(
     onDateClick: (LocalDate) -> Unit,
     modifier: Modifier
 ) {
+
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier.aspectRatio(1f).padding(4.dp).clip(CircleShape)
@@ -111,6 +115,7 @@ fun CalendarDayCell(
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             val isSaturday = date.dayOfWeek == DayOfWeek.SATURDAY
             val isSunday = date.dayOfWeek == DayOfWeek.SUNDAY
+
             Text(
                 text = "${date.dayOfMonth}",
                 color = when {
@@ -123,6 +128,7 @@ fun CalendarDayCell(
             )
 
             val daySchedule = schedules.filter { it.date == date }
+
             Row(horizontalArrangement = Arrangement.Center) {
                 val colorList = listOf(Red, Orange, LightGreen, Blue)
 

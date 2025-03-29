@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class MonthlyScheduleViewModel : ViewModel() {
+
     private val _scheduleList = MutableStateFlow<List<Schedule>>(emptyList())
     val scheduleList: StateFlow<List<Schedule>> = _scheduleList.asStateFlow()
 

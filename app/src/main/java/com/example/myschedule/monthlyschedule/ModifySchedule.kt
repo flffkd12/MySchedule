@@ -38,18 +38,18 @@ fun ModifySchedule(
     startTimeElement: List<String>,
     endTimeElement: List<String>
 ) {
-    val titleName = rememberSaveable { mutableStateOf(title) }
+
     val focusManager = LocalFocusManager.current
+
+    val titleName = rememberSaveable { mutableStateOf(title) }
 
     val startTimeAmPm = rememberSaveable { mutableStateOf(startTimeElement[0]) }
     val startTimeHour = rememberSaveable { mutableStateOf(startTimeElement[1]) }
     val startTimeMinute = rememberSaveable { mutableStateOf(startTimeElement[2]) }
+
     val endTimeAmPm = rememberSaveable { mutableStateOf(endTimeElement[0]) }
     val endTimeHour = rememberSaveable { mutableStateOf(endTimeElement[1]) }
     val endTimeMinute = rememberSaveable { mutableStateOf(endTimeElement[2]) }
-
-    val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         bottomBar = { BtmNavBar(navController, Routes.MONTHLY_SCHEDULE) },
@@ -75,95 +75,122 @@ fun ModifySchedule(
                     text = stringResource(R.string.schedule_start_time),
                     style = MaterialTheme.typography.titleMedium
                 )
+
                 ScrollTimePicker(startTimeAmPm, startTimeHour, startTimeMinute)
 
                 Text(
                     text = stringResource(R.string.schedule_end_time),
                     style = MaterialTheme.typography.titleMedium
                 )
+
                 ScrollTimePicker(endTimeAmPm, endTimeHour, endTimeMinute)
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                ElevatedButton(
-                    onClick = {
-                        val scheduleStart = TimeCalc(
-                            startTimeAmPm.value,
-                            startTimeHour.value.toInt(),
-                            startTimeMinute.value.toInt()
-                        )
-                        val scheduleEnd = TimeCalc(
-                            endTimeAmPm.value,
-                            endTimeHour.value.toInt(),
-                            endTimeMinute.value.toInt()
-                        )
-                        val isScheduleTimeAvailable = scheduleStart < scheduleEnd
-
-                        if (titleName.value.isEmpty()) {
-                            coroutineScope.launch(Dispatchers.Main) {
-                                Toast.makeText(
-                                    context,
-                                    R.string.empty_title_message,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        } else if (titleName.value.length > 20) {
-                            coroutineScope.launch(Dispatchers.Main) {
-                                Toast.makeText(
-                                    context,
-                                    R.string.exceeded_title_message,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        } else if (!isScheduleTimeAvailable) {
-                            coroutineScope.launch(Dispatchers.Main) {
-                                Toast.makeText(
-                                    context,
-                                    R.string.unavailable_time_message,
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        } else {
-                            val startTime = ScheduleTime(
-                                amPm = startTimeAmPm.value,
-                                hour = startTimeHour.value.toInt(),
-                                minute = startTimeMinute.value.toInt()
-                            )
-                            val endTime = ScheduleTime(
-                                amPm = endTimeAmPm.value,
-                                hour = endTimeHour.value.toInt(),
-                                minute = endTimeMinute.value.toInt()
-                            )
-                            coroutineScope.launch(Dispatchers.IO) {
-                                monthlyScheduleViewModel.modifySchedule(
-                                    context,
-                                    id,
-                                    titleName.value,
-                                    startTime,
-                                    endTime
-                                )
-
-                                monthlyScheduleViewModel.fetchScheduleList(context)
-                            }
-
-                            navController.popBackStack()
-                        }
-                    },
-                    shape = RoundedAllCornerShape,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = LightGreen,
-                        contentColor = White
-                    ),
-                    elevation = ButtonDefaults.elevatedButtonElevation(4.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = stringResource(R.string.schedule_modify),
-                        color = White,
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                }
+                ModifyScheduleButton(
+                    monthlyScheduleViewModel = monthlyScheduleViewModel,
+                    navController = navController,
+                    id = id,
+                    titleName = titleName.value,
+                    startTimeAmPm = startTimeAmPm.value,
+                    startTimeHour = startTimeHour.value.toInt(),
+                    startTimeMinute = startTimeMinute.value.toInt(),
+                    endTimeAmPm = endTimeAmPm.value,
+                    endTimeHour = endTimeHour.value.toInt(),
+                    endTimeMinute = endTimeMinute.value.toInt()
+                )
             }
         }
+    }
+}
+
+@Composable
+fun ModifyScheduleButton(
+    monthlyScheduleViewModel: MonthlyScheduleViewModel,
+    navController: NavController,
+    id: Long,
+    titleName: String,
+    startTimeAmPm: String,
+    startTimeHour: Int,
+    startTimeMinute: Int,
+    endTimeAmPm: String,
+    endTimeHour: Int,
+    endTimeMinute: Int,
+) {
+
+    val context = LocalContext.current
+
+    val coroutineScope = rememberCoroutineScope()
+
+    ElevatedButton(
+        onClick = {
+            val scheduleStart = TimeCalc(startTimeAmPm, startTimeHour, startTimeMinute)
+            val scheduleEnd = TimeCalc(endTimeAmPm, endTimeHour, endTimeMinute)
+            val isScheduleTimeAvailable = scheduleStart < scheduleEnd
+
+            if (titleName.isEmpty()) {
+                coroutineScope.launch(Dispatchers.Main) {
+                    Toast.makeText(
+                        context,
+                        R.string.empty_title_message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else if (titleName.length > 20) {
+                coroutineScope.launch(Dispatchers.Main) {
+                    Toast.makeText(
+                        context,
+                        R.string.exceeded_title_message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else if (!isScheduleTimeAvailable) {
+                coroutineScope.launch(Dispatchers.Main) {
+                    Toast.makeText(
+                        context,
+                        R.string.unavailable_time_message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            } else {
+                val startTime = ScheduleTime(
+                    amPm = startTimeAmPm,
+                    hour = startTimeHour,
+                    minute = startTimeMinute
+                )
+                val endTime = ScheduleTime(
+                    amPm = endTimeAmPm,
+                    hour = endTimeHour,
+                    minute = endTimeMinute
+                )
+
+                coroutineScope.launch(Dispatchers.IO) {
+                    monthlyScheduleViewModel.modifySchedule(
+                        context,
+                        id,
+                        titleName,
+                        startTime,
+                        endTime
+                    )
+
+                    monthlyScheduleViewModel.fetchScheduleList(context)
+                }
+
+                navController.popBackStack()
+            }
+        },
+        shape = RoundedAllCornerShape,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = LightGreen,
+            contentColor = White
+        ),
+        elevation = ButtonDefaults.elevatedButtonElevation(4.dp),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = stringResource(R.string.schedule_modify),
+            color = White,
+            style = MaterialTheme.typography.bodySmall
+        )
     }
 }

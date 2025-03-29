@@ -24,6 +24,7 @@ import java.util.Locale
 
 @Composable
 fun Calendar(currentDate: MutableState<LocalDate>, scheduleList: List<Schedule>) {
+
     val displayedMonthNum = 13
     val pagerState = rememberPagerState { displayedMonthNum }
 
@@ -53,7 +54,9 @@ fun Calendar(currentDate: MutableState<LocalDate>, scheduleList: List<Schedule>)
                 ),
                 style = MaterialTheme.typography.titleMedium
             )
+
             DayOfWeek()
+
             DaysInCalendar(
                 currentYearMonth = currentYearMonth,
                 clickedDate = currentDate.value,

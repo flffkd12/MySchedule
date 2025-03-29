@@ -35,7 +35,7 @@ fun TodaySchedule(todaySchedules: List<Schedule>) {
             )
         } else {
             val colorList = listOf(Red, Orange, LightGreen, Blue)
-            
+
             LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 itemsIndexed(todaySchedules) { i, schedule ->
                     ScheduleCard(

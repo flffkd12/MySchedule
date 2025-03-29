@@ -29,6 +29,7 @@ fun MonthlySchedule(
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
     navController: NavController
 ) {
+
     val scheduleList by monthlyScheduleViewModel.scheduleList.collectAsState()
     val currentDate = rememberSaveable { mutableStateOf<LocalDate>(LocalDate.now()) }
 
@@ -65,6 +66,7 @@ fun CurrentDateScheduleList(
     navController: NavController,
     scheduleList: List<Schedule>
 ) {
+
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
@@ -78,6 +80,7 @@ fun CurrentDateScheduleList(
         }
     } else {
         val colorList = listOf(Red, Orange, LightGreen, Blue)
+
         LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             itemsIndexed(scheduleList) { i, schedule ->
                 ScheduleCard(
@@ -106,9 +109,11 @@ fun CurrentDateScheduleList(
 }
 
 fun scheduleToNavArgument(schedule: Schedule): String {
+
     val startTimeNavArg =
         "/${schedule.startTime.amPm},${schedule.startTime.hour},${schedule.startTime.minute}"
     val endTimeNavArg =
         "/${schedule.endTime.amPm},${schedule.endTime.hour},${schedule.endTime.minute}"
+    
     return "/${schedule.id}/${schedule.title}" + startTimeNavArg + endTimeNavArg
 }
