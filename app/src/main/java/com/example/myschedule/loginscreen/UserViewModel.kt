@@ -1,9 +1,7 @@
 package com.example.myschedule.loginscreen
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.myschedule.database.MyScheduleDb
@@ -19,8 +17,8 @@ class UserViewModel(private val database: MyScheduleDb) : ViewModel() {
     private val _userEmail = MutableStateFlow<String?>(null)
     val userEmail: StateFlow<String?> = _userEmail.asStateFlow()
 
-    private val _userName = MutableStateFlow<String?>(null)
-    val userName: StateFlow<String?> = _userName.asStateFlow()
+    private val _userName = MutableLiveData<String?>(null)
+    val userName: LiveData<String?> = _userName
 
     fun setUserEmail(userEmail: String?) {
         _userEmail.value = userEmail

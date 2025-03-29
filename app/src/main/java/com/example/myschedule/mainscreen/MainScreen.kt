@@ -7,11 +7,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
 import com.example.myschedule.Routes
+import com.example.myschedule.loginscreen.UserViewModel
 import com.example.myschedule.monthlyschedule.MonthlyScheduleViewModel
 import com.example.myschedule.ui.theme.DefaultHorizontalPadding
 import com.example.myschedule.ui.theme.LightGreen
@@ -21,10 +23,13 @@ import java.time.LocalDate
 
 @Composable
 fun MainScreen(
+    userViewModel: UserViewModel,
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
-    navController: NavController,
-    userName: String?
+    navController: NavController
 ) {
+
+    val userName = userViewModel.userName.observeAsState().value
+
     Scaffold(
         bottomBar = { BtmNavBar(navController, Routes.MAIN_SCREEN) },
         containerColor = LightGreen
@@ -39,12 +44,14 @@ fun MainScreen(
                     Text("${userName}님 반갑습니다", color = White)
                 }
             }
+
             Box(
                 modifier = Modifier.weight(0.85f).fillMaxWidth().clip(RoundedTopCornerShape)
                     .background(White)
             ) {
                 val scheduleList by monthlyScheduleViewModel.scheduleList.collectAsState()
                 val todaySchedules = scheduleList.filter { it.date == LocalDate.now() }
+
                 TodaySchedule(todaySchedules)
             }
         }

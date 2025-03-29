@@ -32,8 +32,7 @@ fun NaviGraph(
         }
 
         composable(route = Routes.MAIN_SCREEN) {
-            val userName = userViewModel.userName.collectAsState().value
-            MainScreen(monthlyScheduleViewModel, navController, userName)
+            MainScreen(userViewModel, monthlyScheduleViewModel, navController)
         }
 
         composable(route = Routes.CREATE_SCHEDULE) {
