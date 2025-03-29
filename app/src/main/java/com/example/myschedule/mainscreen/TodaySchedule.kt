@@ -17,6 +17,7 @@ import com.example.myschedule.ui.theme.*
 
 @Composable
 fun TodaySchedule(todaySchedules: List<Schedule>) {
+
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = Modifier.fillMaxWidth().height(300.dp).padding(ContentPadding)
@@ -34,6 +35,7 @@ fun TodaySchedule(todaySchedules: List<Schedule>) {
             )
         } else {
             val colorList = listOf(Red, Orange, LightGreen, Blue)
+            
             LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 itemsIndexed(todaySchedules) { i, schedule ->
                     ScheduleCard(
