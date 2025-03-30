@@ -48,7 +48,7 @@ fun BtmNavBar(navController: NavController, currentBtmBar: String) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
-                    modifier = Modifier.fillMaxHeight().weight(1f).padding(top = 8.dp)
+                    modifier = Modifier.fillMaxHeight().weight(1f)
                         .clickable { navController.navigate(item.route) }
                 ) {
                     Spacer(modifier = Modifier.height(8.dp))
