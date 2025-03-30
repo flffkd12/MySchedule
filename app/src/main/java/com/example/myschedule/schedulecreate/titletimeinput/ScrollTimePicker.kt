@@ -29,6 +29,7 @@ fun ScrollTimePicker(
     selectedHour: MutableState<String>,
     selectedMinute: MutableState<String>
 ) {
+
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
@@ -76,10 +77,12 @@ fun TimePickerColumn(
     isHour: Boolean = false,
     isMinute: Boolean = false
 ) {
-    val coroutineScope = rememberCoroutineScope()
+
     val lazyListState = rememberLazyListState(
         initialFirstVisibleItemIndex = items.indexOf(selectedItem.value) - 1
     )
+
+    val coroutineScope = rememberCoroutineScope()
 
     LazyColumn(
         state = lazyListState,

@@ -22,6 +22,7 @@ import com.example.myschedule.ui.theme.LightGreen
 
 @Composable
 fun ScheduleTitle(titleName: MutableState<String>) {
+
     val focusManager = LocalFocusManager.current
 
     Text(
@@ -29,6 +30,7 @@ fun ScheduleTitle(titleName: MutableState<String>) {
         color = Black,
         style = MaterialTheme.typography.titleLarge
     )
+
     OutlinedTextField(
         value = titleName.value,
         onValueChange = { titleName.value = it },
@@ -46,6 +48,7 @@ fun ScheduleTitle(titleName: MutableState<String>) {
         keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
         modifier = Modifier.fillMaxWidth()
     )
+
     Text(
         text = stringResource(R.string.title_limit_guide),
         color = LightGray,

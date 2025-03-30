@@ -23,15 +23,12 @@ import com.example.myschedule.schedulecreate.dateselect.SelectedDatesList
 import com.example.myschedule.ui.theme.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 @Composable
 fun CreateSchedule(createScheduleViewModel: CreateScheduleViewModel, navController: NavController) {
 
     val selectedDates by createScheduleViewModel.selectedScheduleDates.collectAsState()
-
-    val context = LocalContext.current
-
-    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         bottomBar = { BtmNavBar(navController, Routes.CREATE_SCHEDULE) },
@@ -83,36 +80,50 @@ fun CreateSchedule(createScheduleViewModel: CreateScheduleViewModel, navControll
                 SelectedDatesList(selectedDates)
             }
 
-            ElevatedButton(
-                onClick = {
-                    if (selectedDates.isEmpty()) {
-                        coroutineScope.launch(Dispatchers.Main) {
-                            Toast.makeText(
-                                context,
-                                R.string.date_selection_guide,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    } else {
-                        navController.navigate(Routes.CREATE_TITLE_AND_TIME)
-                    }
-                },
-                shape = RoundedAllCornerShape,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = LightGreen,
-                    contentColor = White
-                ),
-                elevation = ButtonDefaults.elevatedButtonElevation(4.dp),
-                modifier = Modifier.fillMaxWidth().height(52.dp)
-                    .padding(start = ContentPadding, end = ContentPadding, bottom = ContentPadding)
-                    .align(Alignment.BottomCenter)
-            ) {
-                Text(
-                    text = stringResource(R.string.next),
-                    color = White,
-                    style = MaterialTheme.typography.bodySmall
-                )
-            }
+            CreateScheduleNextButton(
+                navController = navController,
+                selectedDates = selectedDates,
+                modifier = Modifier.align(Alignment.BottomCenter)
+            )
         }
+    }
+}
+
+@Composable
+fun CreateScheduleNextButton(
+    navController: NavController,
+    selectedDates: List<LocalDate>,
+    modifier: Modifier
+) {
+
+    val context = LocalContext.current
+
+    val coroutineScope = rememberCoroutineScope()
+
+    ElevatedButton(
+        onClick = {
+            if (selectedDates.isEmpty()) {
+                coroutineScope.launch(Dispatchers.Main) {
+                    Toast.makeText(context, R.string.date_selection_guide, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            } else {
+                navController.navigate(Routes.CREATE_TITLE_AND_TIME)
+            }
+        },
+        shape = RoundedAllCornerShape,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = LightGreen,
+            contentColor = White
+        ),
+        elevation = ButtonDefaults.elevatedButtonElevation(4.dp),
+        modifier = modifier.fillMaxWidth().height(52.dp)
+            .padding(start = ContentPadding, end = ContentPadding, bottom = ContentPadding)
+    ) {
+        Text(
+            text = stringResource(R.string.next),
+            color = White,
+            style = MaterialTheme.typography.bodySmall
+        )
     }
 }
