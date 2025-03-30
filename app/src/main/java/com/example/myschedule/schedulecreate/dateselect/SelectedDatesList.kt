@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun SelectedDatesList(selectedDates: List<LocalDate>) {
+
     val groupedDates = selectedDates.sorted().groupConsecutiveDates()
 
     LazyColumn {
@@ -34,6 +35,7 @@ fun SelectedDatesList(selectedDates: List<LocalDate>) {
 
 private fun formatDate(date: LocalDate): String {
     val formatter = DateTimeFormatter.ofPattern("y년 M월 d일 EEEE")
+
     return date.format(formatter)
 }
 

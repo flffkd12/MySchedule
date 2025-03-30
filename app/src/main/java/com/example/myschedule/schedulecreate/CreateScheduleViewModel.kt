@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import java.time.LocalDate
 
 class CreateScheduleViewModel : ViewModel() {
+
     private val _selectedScheduleDates = MutableStateFlow<List<LocalDate>>(emptyList())
     val selectedScheduleDates: StateFlow<List<LocalDate>> = _selectedScheduleDates.asStateFlow()
 
@@ -38,7 +39,6 @@ class CreateScheduleViewModel : ViewModel() {
         endTime: ScheduleTime,
     ) {
         val selectedDates = selectedScheduleDates.value
-
         selectedDates.forEach { selectedDate ->
             val schedule = Schedule(
                 userEmail = userEmail,
@@ -47,7 +47,6 @@ class CreateScheduleViewModel : ViewModel() {
                 startTime = startTime,
                 endTime = endTime,
             )
-
             MyScheduleDb.getDatabase(context).scheduleDao().insertScheduleIfNotExist(schedule)
         }
     }

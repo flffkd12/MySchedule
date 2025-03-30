@@ -109,11 +109,10 @@ fun CurrentDateScheduleList(
 }
 
 fun scheduleToNavArgument(schedule: Schedule): String {
-
     val startTimeNavArg =
         "/${schedule.startTime.amPm},${schedule.startTime.hour},${schedule.startTime.minute}"
     val endTimeNavArg =
         "/${schedule.endTime.amPm},${schedule.endTime.hour},${schedule.endTime.minute}"
-    
+
     return "/${schedule.id}/${schedule.title}" + startTimeNavArg + endTimeNavArg
 }

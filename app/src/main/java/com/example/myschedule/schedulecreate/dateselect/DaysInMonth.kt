@@ -24,6 +24,7 @@ fun DaysInMonth(
     isLastMonth: Boolean,
     onDateClick: (LocalDate) -> Unit
 ) {
+
     // 이번달 첫째날 요일
     val firstDayOfWeekInMonth = currentYearMonth.atDay(1).dayOfWeek.value
 
@@ -38,17 +39,20 @@ fun DaysInMonth(
 
     // 화면에 표시할 날짜들
     val daysList = mutableListOf<Day>()
+
+    // 달력의 날짜 중 저번 달의 마지막 주 날짜들
     for (i in (lastDayOfMonth - previousMonthDayCnt + 1)..lastDayOfMonth) {
         daysList.add(
-            Day(
-                LocalDate.of(previousYearMonth.year, previousYearMonth.month, i),
-                LightGray
-            )
+            Day(LocalDate.of(previousYearMonth.year, previousYearMonth.month, i), LightGray)
         )
     }
+
+    // 달력의 날짜 중 이번 달의 날짜들
     for (i in 1..currentYearMonth.atEndOfMonth().dayOfMonth) {
         daysList.add(Day(LocalDate.of(currentYearMonth.year, currentYearMonth.month, i), Black))
     }
+
+    // 달력의 날짜 중 다음 달의 첫째 주 날짜들
     if (daysList.size % 7 != 0) {
         val nextYearMonth = currentYearMonth.plusMonths(1)
         for (i in 1..7 - daysList.size % 7) {
@@ -80,6 +84,7 @@ fun DaysInMonth(
                     ) {
                         val isSaturday = currentDate.dayOfWeek == DayOfWeek.SATURDAY
                         val isSunday = currentDate.dayOfWeek == DayOfWeek.SUNDAY
+                        
                         Text(
                             text = "${currentDate.dayOfMonth}",
                             color = when {

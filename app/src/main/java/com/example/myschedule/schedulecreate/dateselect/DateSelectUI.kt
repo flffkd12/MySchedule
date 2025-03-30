@@ -23,6 +23,7 @@ import java.util.Locale
 
 @Composable
 fun DateSelectUI(createScheduleViewModel: CreateScheduleViewModel, selectedDates: List<LocalDate>) {
+
     val displayedMonthNum = 13
     val pagerState = rememberPagerState { displayedMonthNum }
 
@@ -46,7 +47,9 @@ fun DateSelectUI(createScheduleViewModel: CreateScheduleViewModel, selectedDates
                 ),
                 style = MaterialTheme.typography.titleMedium
             )
+
             DayOfWeek()
+
             DaysInMonth(
                 currentYearMonth = currentYearMonth,
                 selectedDates = selectedDates,
