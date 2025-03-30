@@ -5,6 +5,7 @@ import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import java.time.LocalDate
 
 class Converters {
+
     @TypeConverter
     fun fromLocalDate(date: LocalDate): Long {
         return date.toEpochDay()

@@ -7,6 +7,7 @@ import com.example.myschedule.database.entity.User
 
 @Dao
 interface UserDao {
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertUser(user: User)
 }

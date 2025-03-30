@@ -10,6 +10,7 @@ import java.time.LocalDate
 
 @Dao
 interface ScheduleDao {
+
     @Query("SELECT * FROM schedules WHERE date = :date AND title = :title AND startTime = :startTime AND endTime=:endTime")
     suspend fun findSameSchedule(
         date: LocalDate,
