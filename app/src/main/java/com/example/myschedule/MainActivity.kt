@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
             MyScheduleTheme {
                 Image(
                     painter = painterResource(R.drawable.background),
-                    contentDescription = "background",
+                    contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()
                 )

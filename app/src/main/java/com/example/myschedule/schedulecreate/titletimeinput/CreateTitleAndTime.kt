@@ -161,7 +161,7 @@ fun CreateScheduleButton(
                     hour = endTimeHour,
                     minute = endTimeMinute
                 )
-                
+
                 coroutineScope.launch(Dispatchers.IO) {
                     createScheduleViewModel.saveSchedule(
                         context = context,
@@ -170,10 +170,13 @@ fun CreateScheduleButton(
                         startTime = startTime,
                         endTime = endTime
                     )
+                    createScheduleViewModel.clearSelectedDate()
                     monthlyScheduleViewModel.fetchScheduleList(context)
                 }
 
-                navController.navigate(Routes.MONTHLY_SCHEDULE)
+                navController.navigate(Routes.MONTHLY_SCHEDULE) {
+                    popUpTo(Routes.LOGIN) { inclusive = false }
+                }
             }
         },
         shape = RoundedAllCornerShape,
