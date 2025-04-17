@@ -22,6 +22,7 @@ fun NaviGraph(
     userViewModel: UserViewModel,
     createScheduleViewModel: CreateScheduleViewModel,
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
+    regionViewModel: RegionViewModel,
     navController: NavHostController
 ) {
 
@@ -44,6 +45,7 @@ fun NaviGraph(
             CreateTitleAndTime(
                 createScheduleViewModel,
                 monthlyScheduleViewModel,
+                regionViewModel,
                 navController,
                 userEmail
             )

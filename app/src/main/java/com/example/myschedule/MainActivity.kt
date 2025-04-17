@@ -43,6 +43,7 @@ class MainActivity : ComponentActivity() {
                     userViewModel = userViewModel,
                     createScheduleViewModel = createScheduleViewModel,
                     monthlyScheduleViewModel = monthlyScheduleViewModel,
+                    regionViewModel = regionViewModel,
                     navController = navController,
                 )
             }

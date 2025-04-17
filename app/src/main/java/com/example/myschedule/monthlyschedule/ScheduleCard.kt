@@ -38,7 +38,7 @@ fun ScheduleCard(
             ) {
                 Icon(
                     painter = painterResource(R.drawable.star),
-                    contentDescription = "스케쥴 구분 아이콘",
+                    contentDescription = null,
                     tint = color,
                     modifier = Modifier.size(28.dp)
                 )
@@ -71,7 +71,7 @@ fun ScheduleCard(
                     IconButton(onClick = { dropDownExpanded = true }) {
                         Icon(
                             imageVector = Icons.Default.MoreVert,
-                            contentDescription = "드롭다운 메뉴 아이콘",
+                            contentDescription = null,
                             tint = Black
                         )
                     }
