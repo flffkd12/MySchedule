@@ -20,7 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
 import com.example.myschedule.R
+import com.example.myschedule.RegionViewModel
 import com.example.myschedule.Routes
+import com.example.myschedule.components.SelectRegion
 import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTitle
 import com.example.myschedule.schedulecreate.titletimeinput.ScrollTimePicker
@@ -32,6 +34,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun ModifySchedule(
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
+    regionViewModel: RegionViewModel,
     navController: NavController,
     id: Long,
     title: String,
@@ -40,16 +43,6 @@ fun ModifySchedule(
 ) {
 
     val focusManager = LocalFocusManager.current
-
-    val titleName = rememberSaveable { mutableStateOf(title) }
-
-    val startTimeAmPm = rememberSaveable { mutableStateOf(startTimeElement[0]) }
-    val startTimeHour = rememberSaveable { mutableStateOf(startTimeElement[1]) }
-    val startTimeMinute = rememberSaveable { mutableStateOf(startTimeElement[2]) }
-
-    val endTimeAmPm = rememberSaveable { mutableStateOf(endTimeElement[0]) }
-    val endTimeHour = rememberSaveable { mutableStateOf(endTimeElement[1]) }
-    val endTimeMinute = rememberSaveable { mutableStateOf(endTimeElement[2]) }
 
     Scaffold(
         bottomBar = { BtmNavBar(navController, Routes.MONTHLY_SCHEDULE) },
@@ -67,14 +60,29 @@ fun ModifySchedule(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.fillMaxSize().padding(ContentPadding)
             ) {
+                val titleName = rememberSaveable { mutableStateOf(title) }
                 ScheduleTitle(titleName)
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Text(
+                    text = stringResource(R.string.schedule_select_region),
+                    style = MaterialTheme.typography.titleMedium
+                )
+
+                val selectRegionGuide = stringResource(R.string.select_region_guide)
+                val firstRegion = rememberSaveable { mutableStateOf(selectRegionGuide) }
+                val secondRegion = rememberSaveable { mutableStateOf(selectRegionGuide) }
+                val thirdRegion = rememberSaveable { mutableStateOf(selectRegionGuide) }
+
+                SelectRegion(firstRegion, secondRegion, thirdRegion, regionViewModel)
 
                 Text(
                     text = stringResource(R.string.schedule_start_time),
                     style = MaterialTheme.typography.titleMedium
                 )
+
+                val startTimeAmPm = rememberSaveable { mutableStateOf(startTimeElement[0]) }
+                val startTimeHour = rememberSaveable { mutableStateOf(startTimeElement[1]) }
+                val startTimeMinute = rememberSaveable { mutableStateOf(startTimeElement[2]) }
 
                 ScrollTimePicker(startTimeAmPm, startTimeHour, startTimeMinute)
 
@@ -82,6 +90,10 @@ fun ModifySchedule(
                     text = stringResource(R.string.schedule_end_time),
                     style = MaterialTheme.typography.titleMedium
                 )
+
+                val endTimeAmPm = rememberSaveable { mutableStateOf(endTimeElement[0]) }
+                val endTimeHour = rememberSaveable { mutableStateOf(endTimeElement[1]) }
+                val endTimeMinute = rememberSaveable { mutableStateOf(endTimeElement[2]) }
 
                 ScrollTimePicker(endTimeAmPm, endTimeHour, endTimeMinute)
 

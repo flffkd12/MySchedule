@@ -70,7 +70,13 @@ fun NaviGraph(
             val endTimeElement = backStackEntry.arguments?.getString("endTime")!!.split(",")
 
             ModifySchedule(
-                monthlyScheduleViewModel, navController, id, title, startTimeElement, endTimeElement
+                monthlyScheduleViewModel,
+                regionViewModel,
+                navController,
+                id,
+                title,
+                startTimeElement,
+                endTimeElement
             )
         }
     }

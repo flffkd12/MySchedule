@@ -7,6 +7,11 @@
     <string name="login_google_client_id">967452573564-jbnm9n5bldmpdvi4f256dp03h39p6oga.apps.googleusercontent.com</string>
     <string name="login_google_button_name">구글 계정으로 로그인</string>
 
+    <string name="schedule_select_region">활동 지역 선택</string>
+    <string name="schedule_start_time">일정 시작 시간</string>
+    <string name="schedule_end_time">일정 종료 시간</string>
+    <string name="select_region_guide">지역을 선택해주세요</string>
+
     <string name="date_selection_guide">날짜를 선택해주세요</string>
     <string name="date_selected_title">선택한 날짜</string>
     <string name="date_init_name">초기화</string>
@@ -17,12 +22,7 @@
     <string name="schedule_create">일정 생성</string>
     <string name="title_input_guide">일정 제목을 입력해주세요</string>
     <string name="title_limit_guide">일정 제목은 20자까지 지을 수 있어요</string>
-    <string name="schedule_select_region">지역 선택</string>
-    <string name="schedule_start_time">시작 시간</string>
-    <string name="schedule_end_time">종료 시간</string>
     <string name="schedule_modify">수정 완료</string>
     <string name="no_schedule">일정이 없어요..</string>
     <string name="today_schedule">오늘의 일정</string>
-
-    <string name="select_region_guide">지역을 선택해주세요</string>
 </resources>
