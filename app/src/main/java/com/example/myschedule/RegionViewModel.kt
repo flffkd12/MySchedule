@@ -3,6 +3,7 @@ package com.example.myschedule
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import com.example.myschedule.data.Location
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
@@ -10,7 +11,7 @@ import java.io.IOException
 
 class RegionViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var regionData: Map<String, Map<String, List<String>>>? = null
+    private var regionData: Map<String, Map<String, Map<String, Location>>>? = null
 
     init {
         loadRegionData()
@@ -24,7 +25,7 @@ class RegionViewModel(application: Application) : AndroidViewModel(application) 
                 .use { it.readText() }
 
             val type =
-                object : TypeToken<Map<String, Map<String, List<String>>>>() {}.type
+                object : TypeToken<Map<String, Map<String, Map<String, Location>>>>() {}.type
             regionData = Gson().fromJson(jsonString, type)
         } catch (e: IllegalArgumentException) {
             Log.e("RegionViewModel", "$e")
@@ -50,6 +51,7 @@ class RegionViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun getThirdLevelRegions(firstLevelRegion: String, secondLevelRegion: String): List<String> {
-        return regionData?.get(firstLevelRegion)?.get(secondLevelRegion) ?: emptyList()
+        return regionData?.get(firstLevelRegion)?.get(secondLevelRegion)?.keys?.toList()
+            ?: emptyList()
     }
 }
