@@ -9,6 +9,8 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.myschedule.R
@@ -46,13 +48,20 @@ fun RegionDropdownMenu(regionList: List<String>, regionName: MutableState<String
 
     var expanded by remember { mutableStateOf(false) }
 
+    val focusRequester = remember { FocusRequester() }
+
     Box {
         OutlinedTextField(
             value = regionName.value,
             onValueChange = {},
             readOnly = true,
             trailingIcon = {
-                IconButton(onClick = { expanded = !expanded }) {
+                IconButton(
+                    onClick = {
+                        expanded = !expanded
+                        focusRequester.requestFocus()
+                    }
+                ) {
                     Icon(
                         imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
                         contentDescription = null
@@ -63,7 +72,7 @@ fun RegionDropdownMenu(regionList: List<String>, regionName: MutableState<String
                 unfocusedBorderColor = LightGray,
                 focusedBorderColor = LightGreen,
             ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().focusRequester(focusRequester)
         )
 
         DropdownMenu(
