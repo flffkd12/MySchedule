@@ -2,6 +2,7 @@ package com.example.myschedule.schedulecreate
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import com.example.myschedule.data.RegionLocation
 import com.example.myschedule.database.MyScheduleDb
 import com.example.myschedule.database.entity.Schedule
 import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
@@ -35,6 +36,7 @@ class CreateScheduleViewModel : ViewModel() {
         context: Context,
         userEmail: String,
         title: String,
+        regionLocation: RegionLocation,
         startTime: ScheduleTime,
         endTime: ScheduleTime,
     ) {
@@ -44,6 +46,7 @@ class CreateScheduleViewModel : ViewModel() {
                 userEmail = userEmail,
                 date = selectedDate,
                 title = title,
+                regionLocation = regionLocation,
                 startTime = startTime,
                 endTime = endTime,
             )

@@ -54,4 +54,12 @@ class RegionViewModel(application: Application) : AndroidViewModel(application) 
         return regionData?.get(firstLevelRegion)?.get(secondLevelRegion)?.keys?.toList()
             ?: emptyList()
     }
+
+    fun getRegionLocation(
+        firstLevelRegion: String,
+        secondLevelRegion: String,
+        thirdLevelRegion: String
+    ): Location? {
+        return regionData?.get(firstLevelRegion)?.get(secondLevelRegion)?.get(thirdLevelRegion)
+    }
 }

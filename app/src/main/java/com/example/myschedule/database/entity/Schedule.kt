@@ -3,6 +3,7 @@ package com.example.myschedule.database.entity
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.example.myschedule.data.RegionLocation
 import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import java.time.LocalDate
 
@@ -22,6 +23,7 @@ data class Schedule(
     val userEmail: String,
     val date: LocalDate,
     val title: String,
+    val regionLocation: RegionLocation,
     val startTime: ScheduleTime,
     val endTime: ScheduleTime
 )

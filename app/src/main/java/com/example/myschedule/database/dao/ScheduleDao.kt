@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import com.example.myschedule.data.RegionLocation
 import com.example.myschedule.database.entity.Schedule
 import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import java.time.LocalDate
@@ -11,10 +12,11 @@ import java.time.LocalDate
 @Dao
 interface ScheduleDao {
 
-    @Query("SELECT * FROM schedules WHERE date = :date AND title = :title AND startTime = :startTime AND endTime=:endTime")
+    @Query("SELECT * FROM schedules WHERE date = :date AND title = :title AND regionLocation=:regionLocation AND startTime = :startTime AND endTime=:endTime")
     suspend fun findSameSchedule(
         date: LocalDate,
         title: String,
+        regionLocation: RegionLocation,
         startTime: ScheduleTime,
         endTime: ScheduleTime,
     ): Schedule?
@@ -27,6 +29,7 @@ interface ScheduleDao {
         val existingSchedule = findSameSchedule(
             schedule.date,
             schedule.title,
+            schedule.regionLocation,
             schedule.startTime,
             schedule.endTime
         )

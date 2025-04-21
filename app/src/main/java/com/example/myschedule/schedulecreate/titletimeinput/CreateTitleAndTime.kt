@@ -23,6 +23,7 @@ import com.example.myschedule.R
 import com.example.myschedule.RegionViewModel
 import com.example.myschedule.Routes
 import com.example.myschedule.components.SelectRegion
+import com.example.myschedule.data.RegionLocation
 import com.example.myschedule.monthlyschedule.MonthlyScheduleViewModel
 import com.example.myschedule.schedulecreate.CreateScheduleViewModel
 import com.example.myschedule.ui.theme.*
@@ -98,9 +99,13 @@ fun CreateTitleAndTime(
                 CreateScheduleButton(
                     createScheduleViewModel = createScheduleViewModel,
                     monthlyScheduleViewModel = monthlyScheduleViewModel,
+                    regionViewModel = regionViewModel,
                     navController = navController,
                     userEmail = userEmail!!,
                     titleName = titleName.value,
+                    firstRegion = firstRegion.value,
+                    secondRegion = secondRegion.value,
+                    thirdRegion = thirdRegion.value,
                     startTimeAmPm = startTimeAmPm.value,
                     startTimeHour = startTimeHour.value.toInt(),
                     startTimeMinute = startTimeMinute.value.toInt(),
@@ -117,9 +122,13 @@ fun CreateTitleAndTime(
 fun CreateScheduleButton(
     createScheduleViewModel: CreateScheduleViewModel,
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
+    regionViewModel: RegionViewModel,
     navController: NavController,
     userEmail: String,
     titleName: String,
+    firstRegion: String,
+    secondRegion: String,
+    thirdRegion: String,
     startTimeAmPm: String,
     startTimeHour: Int,
     startTimeMinute: Int,
@@ -137,6 +146,7 @@ fun CreateScheduleButton(
             val scheduleStart = TimeCalc(startTimeAmPm, startTimeHour, startTimeMinute)
             val scheduleEnd = TimeCalc(endTimeAmPm, endTimeHour, endTimeMinute)
             val isScheduleTimeAvailable = scheduleStart < scheduleEnd
+            val location = regionViewModel.getRegionLocation(firstRegion, secondRegion, thirdRegion)
 
             if (titleName.isEmpty()) {
                 coroutineScope.launch(Dispatchers.Main) {
@@ -162,7 +172,22 @@ fun CreateScheduleButton(
                         Toast.LENGTH_LONG
                     ).show()
                 }
+            } else if (location == null) {
+                coroutineScope.launch(Dispatchers.Main) {
+                    Toast.makeText(
+                        context,
+                        R.string.unavailable_region_message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             } else {
+                val regionLocation = RegionLocation(
+                    firstRegion = firstRegion,
+                    secondRegion = secondRegion,
+                    thirdRegion = thirdRegion,
+                    location = location
+                )
+
                 val startTime = ScheduleTime(
                     amPm = startTimeAmPm,
                     hour = startTimeHour,
@@ -179,6 +204,7 @@ fun CreateScheduleButton(
                         context = context,
                         userEmail = userEmail,
                         title = titleName,
+                        regionLocation = regionLocation,
                         startTime = startTime,
                         endTime = endTime
                     )
