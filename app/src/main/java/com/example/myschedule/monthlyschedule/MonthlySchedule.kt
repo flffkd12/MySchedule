@@ -74,7 +74,7 @@ fun CurrentDateScheduleList(
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
             Image(
                 painter = painterResource(R.drawable.sad),
-                contentDescription = "일정 없는 날 이미지",
+                contentDescription = null,
                 modifier = Modifier.size(100.dp)
             )
         }
@@ -109,10 +109,12 @@ fun CurrentDateScheduleList(
 }
 
 fun scheduleToNavArgument(schedule: Schedule): String {
+    val regionNavArg =
+        "/${schedule.regionLocation.firstRegion},${schedule.regionLocation.secondRegion},${schedule.regionLocation.thirdRegion}"
     val startTimeNavArg =
         "/${schedule.startTime.amPm},${schedule.startTime.hour},${schedule.startTime.minute}"
     val endTimeNavArg =
         "/${schedule.endTime.amPm},${schedule.endTime.hour},${schedule.endTime.minute}"
 
-    return "/${schedule.id}/${schedule.title}" + startTimeNavArg + endTimeNavArg
+    return "/${schedule.id}/${schedule.title}" + regionNavArg + startTimeNavArg + endTimeNavArg
 }

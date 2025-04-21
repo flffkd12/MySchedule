@@ -56,16 +56,18 @@ fun NaviGraph(
         }
 
         composable(
-            route = Routes.MODIFY_SCHEDULE + "/{id}/{title}/{startTime}/{endTime}",
+            route = Routes.MODIFY_SCHEDULE + "/{id}/{title}/{region}/{startTime}/{endTime}",
             arguments = listOf(
                 navArgument("id") { type = NavType.LongType },
                 navArgument("title") { type = NavType.StringType },
+                navArgument("region") { type = NavType.StringType },
                 navArgument("startTime") { type = NavType.StringType },
                 navArgument("endTime") { type = NavType.StringType },
             )
         ) { backStackEntry ->
             val id = backStackEntry.arguments?.getLong("id")!!
             val title = backStackEntry.arguments?.getString("title")!!
+            val regionElement = backStackEntry.arguments?.getString("region")!!.split(",")
             val startTimeElement = backStackEntry.arguments?.getString("startTime")!!.split(",")
             val endTimeElement = backStackEntry.arguments?.getString("endTime")!!.split(",")
 
@@ -75,6 +77,7 @@ fun NaviGraph(
                 navController,
                 id,
                 title,
+                regionElement,
                 startTimeElement,
                 endTimeElement
             )

@@ -42,10 +42,11 @@ interface ScheduleDao {
     @Query("SELECT * FROM schedules")
     suspend fun getAllSchedules(): List<Schedule>
 
-    @Query("UPDATE schedules SET title = :title, startTime = :startTime, endTime = :endTime WHERE id = :id")
+    @Query("UPDATE schedules SET title = :title, regionLocation = :regionLocation, startTime = :startTime, endTime = :endTime WHERE id = :id")
     suspend fun modifySchedules(
         id: Long,
         title: String,
+        regionLocation: RegionLocation,
         startTime: ScheduleTime,
         endTime: ScheduleTime
     )

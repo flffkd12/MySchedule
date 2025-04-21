@@ -187,7 +187,6 @@ fun CreateScheduleButton(
                     thirdRegion = thirdRegion,
                     location = location
                 )
-
                 val startTime = ScheduleTime(
                     amPm = startTimeAmPm,
                     hour = startTimeHour,
@@ -208,7 +207,9 @@ fun CreateScheduleButton(
                         startTime = startTime,
                         endTime = endTime
                     )
+
                     createScheduleViewModel.clearSelectedDate()
+                    
                     monthlyScheduleViewModel.fetchScheduleList(context)
                 }
 

@@ -23,6 +23,7 @@ import com.example.myschedule.R
 import com.example.myschedule.RegionViewModel
 import com.example.myschedule.Routes
 import com.example.myschedule.components.SelectRegion
+import com.example.myschedule.data.RegionLocation
 import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTitle
 import com.example.myschedule.schedulecreate.titletimeinput.ScrollTimePicker
@@ -38,6 +39,7 @@ fun ModifySchedule(
     navController: NavController,
     id: Long,
     title: String,
+    regionElement: List<String>,
     startTimeElement: List<String>,
     endTimeElement: List<String>
 ) {
@@ -68,10 +70,9 @@ fun ModifySchedule(
                     style = MaterialTheme.typography.titleMedium
                 )
 
-                val selectRegionGuide = stringResource(R.string.select_region_guide)
-                val firstRegion = rememberSaveable { mutableStateOf(selectRegionGuide) }
-                val secondRegion = rememberSaveable { mutableStateOf(selectRegionGuide) }
-                val thirdRegion = rememberSaveable { mutableStateOf(selectRegionGuide) }
+                val firstRegion = rememberSaveable { mutableStateOf(regionElement[0]) }
+                val secondRegion = rememberSaveable { mutableStateOf(regionElement[1]) }
+                val thirdRegion = rememberSaveable { mutableStateOf(regionElement[2]) }
 
                 SelectRegion(firstRegion, secondRegion, thirdRegion, regionViewModel)
 
@@ -101,9 +102,13 @@ fun ModifySchedule(
 
                 ModifyScheduleButton(
                     monthlyScheduleViewModel = monthlyScheduleViewModel,
+                    regionViewModel = regionViewModel,
                     navController = navController,
                     id = id,
                     titleName = titleName.value,
+                    firstRegion = firstRegion.value,
+                    secondRegion = secondRegion.value,
+                    thirdRegion = thirdRegion.value,
                     startTimeAmPm = startTimeAmPm.value,
                     startTimeHour = startTimeHour.value.toInt(),
                     startTimeMinute = startTimeMinute.value.toInt(),
@@ -119,9 +124,13 @@ fun ModifySchedule(
 @Composable
 fun ModifyScheduleButton(
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
+    regionViewModel: RegionViewModel,
     navController: NavController,
     id: Long,
     titleName: String,
+    firstRegion: String,
+    secondRegion: String,
+    thirdRegion: String,
     startTimeAmPm: String,
     startTimeHour: Int,
     startTimeMinute: Int,
@@ -139,6 +148,7 @@ fun ModifyScheduleButton(
             val scheduleStart = TimeCalc(startTimeAmPm, startTimeHour, startTimeMinute)
             val scheduleEnd = TimeCalc(endTimeAmPm, endTimeHour, endTimeMinute)
             val isScheduleTimeAvailable = scheduleStart < scheduleEnd
+            val location = regionViewModel.getRegionLocation(firstRegion, secondRegion, thirdRegion)
 
             if (titleName.isEmpty()) {
                 coroutineScope.launch(Dispatchers.Main) {
@@ -164,7 +174,21 @@ fun ModifyScheduleButton(
                         Toast.LENGTH_LONG
                     ).show()
                 }
+            } else if (location == null) {
+                coroutineScope.launch(Dispatchers.Main) {
+                    Toast.makeText(
+                        context,
+                        R.string.unavailable_region_message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             } else {
+                val regionLocation = RegionLocation(
+                    firstRegion = firstRegion,
+                    secondRegion = secondRegion,
+                    thirdRegion = thirdRegion,
+                    location = location
+                )
                 val startTime = ScheduleTime(
                     amPm = startTimeAmPm,
                     hour = startTimeHour,
@@ -181,6 +205,7 @@ fun ModifyScheduleButton(
                         context,
                         id,
                         titleName,
+                        regionLocation,
                         startTime,
                         endTime
                     )
