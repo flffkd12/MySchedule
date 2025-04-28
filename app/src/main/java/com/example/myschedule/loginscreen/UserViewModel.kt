@@ -4,8 +4,8 @@ import androidx.lifecycle.*
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.myschedule.database.MyScheduleDb
-import com.example.myschedule.database.entity.User
+import com.example.myschedule.data.database.MyScheduleDb
+import com.example.myschedule.data.database.entity.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

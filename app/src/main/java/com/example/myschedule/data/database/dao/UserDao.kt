@@ -1,9 +1,9 @@
-package com.example.myschedule.database.dao
+package com.example.myschedule.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
-import com.example.myschedule.database.entity.User
+import com.example.myschedule.data.database.entity.User
 
 @Dao
 interface UserDao {

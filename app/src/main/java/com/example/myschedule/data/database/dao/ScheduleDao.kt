@@ -1,11 +1,11 @@
-package com.example.myschedule.database.dao
+package com.example.myschedule.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import com.example.myschedule.data.RegionLocation
-import com.example.myschedule.database.entity.Schedule
+import com.example.myschedule.data.database.entity.Schedule
 import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import java.time.LocalDate
 

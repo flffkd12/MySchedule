@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myschedule.data.RegionLocation
-import com.example.myschedule.database.MyScheduleDb
-import com.example.myschedule.database.entity.Schedule
+import com.example.myschedule.data.database.MyScheduleDb
+import com.example.myschedule.data.database.entity.Schedule
 import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

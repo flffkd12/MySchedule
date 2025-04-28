@@ -1,14 +1,14 @@
-package com.example.myschedule.database
+package com.example.myschedule.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.myschedule.database.dao.ScheduleDao
-import com.example.myschedule.database.dao.UserDao
-import com.example.myschedule.database.entity.Schedule
-import com.example.myschedule.database.entity.User
+import com.example.myschedule.data.database.dao.ScheduleDao
+import com.example.myschedule.data.database.dao.UserDao
+import com.example.myschedule.data.database.entity.Schedule
+import com.example.myschedule.data.database.entity.User
 
 @Database(entities = [User::class, Schedule::class], version = 3)
 @TypeConverters(Converters::class)

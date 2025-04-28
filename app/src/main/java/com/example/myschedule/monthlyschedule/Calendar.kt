@@ -14,7 +14,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.myschedule.database.entity.Schedule
+import com.example.myschedule.data.database.entity.Schedule
 import com.example.myschedule.schedulecreate.dateselect.DayOfWeek
 import kotlinx.coroutines.launch
 import java.time.LocalDate

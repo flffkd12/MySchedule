@@ -19,12 +19,14 @@ import com.example.myschedule.ui.theme.DefaultHorizontalPadding
 import com.example.myschedule.ui.theme.LightGreen
 import com.example.myschedule.ui.theme.RoundedTopCornerShape
 import com.example.myschedule.ui.theme.White
+import com.example.myschedule.viewmodels.WeatherViewModel
 import java.time.LocalDate
 
 @Composable
 fun MainScreen(
     userViewModel: UserViewModel,
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
+    weatherViewModel: WeatherViewModel,
     navController: NavController
 ) {
 
@@ -52,7 +54,7 @@ fun MainScreen(
                 val scheduleList by monthlyScheduleViewModel.scheduleList.collectAsState()
                 val todaySchedules = scheduleList.filter { it.date == LocalDate.now() }
 
-                TodaySchedule(todaySchedules)
+                TodaySchedule(weatherViewModel, todaySchedules)
             }
         }
     }

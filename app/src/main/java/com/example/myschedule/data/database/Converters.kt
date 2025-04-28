@@ -1,4 +1,4 @@
-package com.example.myschedule.database
+package com.example.myschedule.data.database
 
 import androidx.room.TypeConverter
 import com.example.myschedule.data.Location
