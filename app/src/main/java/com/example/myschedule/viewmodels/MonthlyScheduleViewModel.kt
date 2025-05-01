@@ -1,4 +1,4 @@
-package com.example.myschedule.monthlyschedule
+package com.example.myschedule.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

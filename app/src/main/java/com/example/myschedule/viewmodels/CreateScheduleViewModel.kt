@@ -1,4 +1,4 @@
-package com.example.myschedule.schedulecreate
+package com.example.myschedule.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

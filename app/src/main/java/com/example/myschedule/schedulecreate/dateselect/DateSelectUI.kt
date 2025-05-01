@@ -11,10 +11,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.myschedule.schedulecreate.CreateScheduleViewModel
 import com.example.myschedule.ui.theme.Black
 import com.example.myschedule.ui.theme.Blue
 import com.example.myschedule.ui.theme.Red
+import com.example.myschedule.viewmodels.CreateScheduleViewModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.YearMonth

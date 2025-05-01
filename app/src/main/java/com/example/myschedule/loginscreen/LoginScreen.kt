@@ -12,7 +12,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myschedule.R
-import com.example.myschedule.monthlyschedule.MonthlyScheduleViewModel
+import com.example.myschedule.viewmodels.MonthlyScheduleViewModel
+import com.example.myschedule.viewmodels.UserViewModel
 
 @Composable
 fun LoginScreen(

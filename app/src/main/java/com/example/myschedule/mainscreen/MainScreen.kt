@@ -13,12 +13,12 @@ import androidx.compose.ui.draw.clip
 import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
 import com.example.myschedule.Routes
-import com.example.myschedule.loginscreen.UserViewModel
-import com.example.myschedule.monthlyschedule.MonthlyScheduleViewModel
 import com.example.myschedule.ui.theme.DefaultHorizontalPadding
 import com.example.myschedule.ui.theme.LightGreen
 import com.example.myschedule.ui.theme.RoundedTopCornerShape
 import com.example.myschedule.ui.theme.White
+import com.example.myschedule.viewmodels.MonthlyScheduleViewModel
+import com.example.myschedule.viewmodels.UserViewModel
 import com.example.myschedule.viewmodels.WeatherViewModel
 import java.time.LocalDate
 

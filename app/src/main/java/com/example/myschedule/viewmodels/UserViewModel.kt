@@ -1,4 +1,4 @@
-package com.example.myschedule.loginscreen
+package com.example.myschedule.viewmodels
 
 import androidx.lifecycle.*
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY

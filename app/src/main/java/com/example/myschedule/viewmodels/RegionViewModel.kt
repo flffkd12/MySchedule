@@ -1,4 +1,4 @@
-package com.example.myschedule
+package com.example.myschedule.viewmodels
 
 import android.app.Application
 import android.util.Log

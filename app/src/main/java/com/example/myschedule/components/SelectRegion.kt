@@ -14,11 +14,11 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.myschedule.R
-import com.example.myschedule.RegionViewModel
 import com.example.myschedule.ui.theme.LightGray
 import com.example.myschedule.ui.theme.LightGreen
 import com.example.myschedule.ui.theme.RoundedAllCornerShape
 import com.example.myschedule.ui.theme.White
+import com.example.myschedule.viewmodels.RegionViewModel
 
 @Composable
 fun SelectRegion(

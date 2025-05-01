@@ -23,9 +23,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myschedule.R
 import com.example.myschedule.Routes
-import com.example.myschedule.monthlyschedule.MonthlyScheduleViewModel
 import com.example.myschedule.ui.theme.Black
 import com.example.myschedule.ui.theme.White
+import com.example.myschedule.viewmodels.MonthlyScheduleViewModel
+import com.example.myschedule.viewmodels.UserViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException

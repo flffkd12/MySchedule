@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
 import com.example.myschedule.R
-import com.example.myschedule.RegionViewModel
 import com.example.myschedule.Routes
 import com.example.myschedule.components.SelectRegion
 import com.example.myschedule.data.RegionLocation
@@ -29,6 +28,8 @@ import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTitle
 import com.example.myschedule.schedulecreate.titletimeinput.ScrollTimePicker
 import com.example.myschedule.schedulecreate.titletimeinput.TimeCalc
 import com.example.myschedule.ui.theme.*
+import com.example.myschedule.viewmodels.MonthlyScheduleViewModel
+import com.example.myschedule.viewmodels.RegionViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
