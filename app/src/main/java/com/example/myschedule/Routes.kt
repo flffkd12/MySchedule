@@ -7,6 +7,9 @@ object Routes {
     /** 메인 화면 경로 */
     const val MAIN_SCREEN = "main_screen"
 
+    /** 일정 수정 화면 */
+    const val SELECT_REGION_SCREEN = "select_region_screen"
+
     /** 일정 생성 화면 경로 */
     const val CREATE_SCHEDULE = "create_schedule"
 

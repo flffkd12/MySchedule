@@ -22,7 +22,6 @@ import com.example.myschedule.viewmodels.WeatherViewModel
 @Composable
 fun TodaySchedule(weatherViewModel: WeatherViewModel, todaySchedules: List<Schedule>) {
 
-
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = Modifier.fillMaxWidth().height(300.dp).padding(ContentPadding)

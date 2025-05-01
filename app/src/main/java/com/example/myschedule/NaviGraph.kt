@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.myschedule.loginscreen.LoginScreen
 import com.example.myschedule.mainscreen.MainScreen
+import com.example.myschedule.mainscreen.SelectRegionScreen
 import com.example.myschedule.monthlyschedule.ModifySchedule
 import com.example.myschedule.monthlyschedule.MonthlySchedule
 import com.example.myschedule.schedulecreate.CreateSchedule
@@ -33,6 +34,10 @@ fun NaviGraph(
 
         composable(route = Routes.MAIN_SCREEN) {
             MainScreen(userViewModel, monthlyScheduleViewModel, weatherViewModel, navController)
+        }
+
+        composable(route = Routes.SELECT_REGION_SCREEN) {
+            SelectRegionScreen(regionViewModel, weatherViewModel, navController)
         }
 
         composable(route = Routes.CREATE_SCHEDULE) {

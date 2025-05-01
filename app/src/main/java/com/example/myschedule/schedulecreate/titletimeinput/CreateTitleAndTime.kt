@@ -138,7 +138,6 @@ fun CreateScheduleButton(
 ) {
 
     val context = LocalContext.current
-
     val coroutineScope = rememberCoroutineScope()
 
     ElevatedButton(
