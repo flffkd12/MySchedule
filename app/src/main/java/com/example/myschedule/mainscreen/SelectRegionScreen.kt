@@ -71,6 +71,13 @@ fun SelectRegionScreen(
                     onClick = {
                         if (thirdRegion.value != "지역을 선택해주세요") {
                             weatherViewModel.setRegionName(firstRegion.value + " " + secondRegion.value + " " + thirdRegion.value)
+                            weatherViewModel.setRegionLocation(
+                                regionViewModel.getRegionLocation(
+                                    firstRegion.value,
+                                    secondRegion.value,
+                                    thirdRegion.value
+                                )!!
+                            )
                             navController.popBackStack()
                         } else {
                             coroutineScope.launch(Dispatchers.Main) {

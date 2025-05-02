@@ -43,7 +43,7 @@ fun TodaySchedule(weatherViewModel: WeatherViewModel, todaySchedules: List<Sched
             LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 itemsIndexed(todaySchedules) { i, schedule ->
                     val weatherCode by produceState<WeatherCode?>(initialValue = null, schedule) {
-                        value = weatherViewModel.getWeatherInfo(
+                        value = weatherViewModel.getScheduleWeatherInfo(
                             schedule.endTime,
                             schedule.regionLocation.location
                         )

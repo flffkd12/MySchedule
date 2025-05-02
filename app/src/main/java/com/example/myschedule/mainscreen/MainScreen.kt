@@ -1,5 +1,6 @@
 package com.example.myschedule.mainscreen
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -11,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
 import com.example.myschedule.Routes
+import com.example.myschedule.data.WeatherDto
 import com.example.myschedule.ui.theme.*
 import com.example.myschedule.viewmodels.MonthlyScheduleViewModel
 import com.example.myschedule.viewmodels.UserViewModel
@@ -33,6 +36,7 @@ fun MainScreen(
 ) {
 
     val regionName = weatherViewModel.regionName.collectAsState().value
+    val regionLocation = weatherViewModel.regionLocation.collectAsState().value
     val userName = userViewModel.userName.observeAsState().value
 
     Scaffold(
@@ -88,9 +92,18 @@ fun MainScreen(
                         )
                     }
                 }
-                // 웨더 뷰모델에서 해당 지역에 대한 정보 가져올 수 있는 메서드 만들기
 
-                // 날씨 UI
+                if (regionLocation != null) {
+                    val weatherList by produceState<List<WeatherDto>?>(
+                        initialValue = null,
+                        regionLocation
+                    ) { value = weatherViewModel.getRegionWeatherInfo(regionLocation) }
+
+                    if (weatherList != null) {
+                        Log.d("MainScreen", weatherList.toString())
+                        // 날씨 UI
+                    }
+                }
             }
         }
     }
