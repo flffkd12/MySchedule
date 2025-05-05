@@ -5,6 +5,8 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
@@ -26,6 +28,8 @@ import com.example.myschedule.viewmodels.MonthlyScheduleViewModel
 import com.example.myschedule.viewmodels.UserViewModel
 import com.example.myschedule.viewmodels.WeatherViewModel
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun MainScreen(
@@ -71,8 +75,7 @@ fun MainScreen(
                         .clickable { navController.navigate(Routes.SELECT_REGION_SCREEN) },
                     colors = CardDefaults.cardColors(containerColor = White),
                     border = BorderStroke(1.dp, LightGray),
-                    shape = MaterialTheme.shapes.medium,
-                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+                    shape = RoundedAllCornerShape
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth().padding(12.dp),
@@ -101,8 +104,75 @@ fun MainScreen(
 
                     if (weatherList != null) {
                         Log.d("MainScreen", weatherList.toString())
-                        // 날씨 UI
+                        RegionWeatherUI(weatherList!!)
                     }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun RegionWeatherUI(weatherList: List<WeatherDto>) {
+
+    val now = LocalDateTime.now()
+    val todayDateTime = now.format(DateTimeFormatter.ofPattern("yyyyMMddHH"))
+    val todayDate = now.toLocalDate()
+
+    fun getKoreanWeekday(date: String): String {
+        val d = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyyMMdd"))
+        val weekdays = listOf("일", "월", "화", "수", "목", "금", "토")
+        return weekdays[d.dayOfWeek.value % 7]
+    }
+
+    Card(
+        shape = RoundedAllCornerShape,
+        colors = CardDefaults.cardColors(containerColor = White),
+        border = BorderStroke(1.dp, LightGray),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = ContentPadding)
+    ) {
+        LazyRow {
+            items(weatherList) { weatherDto ->
+                val date = weatherDto.date
+                val hour = weatherDto.time.substring(0, 2)
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 12.dp).width(48.dp)
+                ) {
+                    // 1행: 날짜 라벨
+                    val isCurrentHour = todayDateTime == date + hour
+                    val label = when {
+                        isCurrentHour -> "오늘(${getKoreanWeekday(date)})"
+
+                        hour == "00" -> {
+                            val baseDate = LocalDate.parse(
+                                date,
+                                DateTimeFormatter.ofPattern("yyyyMMdd")
+                            )
+                            when ((baseDate.toEpochDay() - todayDate.toEpochDay()).toInt()) {
+                                1 -> "내일(${getKoreanWeekday(date)})"
+                                2 -> "모레(${getKoreanWeekday(date)})"
+                                else -> ""
+                            }
+                        }
+
+                        else -> ""
+                    }
+
+                    Text(
+                        text = label,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Black
+                    )
+
+                    // 2행: 시간 라벨
+                    val timeLabel = if (isCurrentHour) "지금" else "${hour}시"
+                    Text(
+                        text = timeLabel,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Black
+                    )
                 }
             }
         }
