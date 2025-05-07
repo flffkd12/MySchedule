@@ -36,7 +36,6 @@ fun CreateTitleAndTime(
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
     regionViewModel: RegionViewModel,
     navController: NavController,
-    userEmail: String?
 ) {
 
     val focusManager = LocalFocusManager.current
@@ -101,7 +100,6 @@ fun CreateTitleAndTime(
                     monthlyScheduleViewModel = monthlyScheduleViewModel,
                     regionViewModel = regionViewModel,
                     navController = navController,
-                    userEmail = userEmail!!,
                     titleName = titleName.value,
                     firstRegion = firstRegion.value,
                     secondRegion = secondRegion.value,
@@ -124,7 +122,6 @@ fun CreateScheduleButton(
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
     regionViewModel: RegionViewModel,
     navController: NavController,
-    userEmail: String,
     titleName: String,
     firstRegion: String,
     secondRegion: String,
@@ -200,7 +197,6 @@ fun CreateScheduleButton(
                 coroutineScope.launch(Dispatchers.IO) {
                     createScheduleViewModel.saveSchedule(
                         context = context,
-                        userEmail = userEmail,
                         title = titleName,
                         regionLocation = regionLocation,
                         startTime = startTime,

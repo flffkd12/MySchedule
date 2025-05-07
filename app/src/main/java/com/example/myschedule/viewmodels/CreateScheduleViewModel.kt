@@ -34,7 +34,6 @@ class CreateScheduleViewModel : ViewModel() {
 
     suspend fun saveSchedule(
         context: Context,
-        userEmail: String,
         title: String,
         regionLocation: RegionLocation,
         startTime: ScheduleTime,
@@ -43,7 +42,6 @@ class CreateScheduleViewModel : ViewModel() {
         val selectedDates = selectedScheduleDates.value
         selectedDates.forEach { selectedDate ->
             val schedule = Schedule(
-                userEmail = userEmail,
                 date = selectedDate,
                 title = title,
                 regionLocation = regionLocation,

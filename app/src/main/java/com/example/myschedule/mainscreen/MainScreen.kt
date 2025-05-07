@@ -15,7 +15,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,7 +46,6 @@ fun MainScreen(
 
     val regionName = weatherViewModel.regionName.collectAsState().value
     val regionLocation = weatherViewModel.regionLocation.collectAsState().value
-    val userName = userViewModel.userName.observeAsState().value
 
     Scaffold(
         bottomBar = { BtmNavBar(navController, Routes.MAIN_SCREEN) },
@@ -57,13 +55,6 @@ fun MainScreen(
             modifier = Modifier.fillMaxSize().padding(innerPadding)
                 .padding(horizontal = DefaultHorizontalPadding)
         ) {
-            Box(modifier = Modifier.weight(0.15f).fillMaxWidth()) {
-                Column(modifier = Modifier.fillMaxSize()) {
-                    Spacer(Modifier.weight(1f))
-                    Text("${userName}님 반갑습니다", color = White)
-                }
-            }
-
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.weight(0.85f).fillMaxWidth().clip(RoundedTopCornerShape)
