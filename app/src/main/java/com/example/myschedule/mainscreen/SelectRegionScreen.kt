@@ -42,7 +42,7 @@ fun SelectRegionScreen(
             modifier = Modifier.fillMaxSize().padding(innerPadding)
                 .padding(horizontal = DefaultHorizontalPadding)
         ) {
-            val selectRegionGuide = stringResource(R.string.select_region_guide)
+            val selectRegionGuide = stringResource(R.string.select_region)
             val firstRegion = rememberSaveable { mutableStateOf(selectRegionGuide) }
             val secondRegion = rememberSaveable { mutableStateOf(selectRegionGuide) }
             val thirdRegion = rememberSaveable { mutableStateOf(selectRegionGuide) }
@@ -60,16 +60,18 @@ fun SelectRegionScreen(
                 Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
-                    text = "내 지역",
+                    text = stringResource(R.string.my_region),
                     style = MaterialTheme.typography.titleMedium,
                     color = Black
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
 
+                val regionSelectionGuide = stringResource(R.string.select_region)
+                val isAllRegionSelected = thirdRegion.value != regionSelectionGuide
                 TextButton(
                     onClick = {
-                        if (thirdRegion.value != "지역을 선택해주세요") {
+                        if (isAllRegionSelected) {
                             weatherViewModel.setRegionName(firstRegion.value + " " + secondRegion.value + " " + thirdRegion.value)
                             weatherViewModel.setRegionLocation(
                                 regionViewModel.getRegionLocation(
@@ -81,17 +83,14 @@ fun SelectRegionScreen(
                             navController.popBackStack()
                         } else {
                             coroutineScope.launch(Dispatchers.Main) {
-                                Toast.makeText(
-                                    context,
-                                    "지역을 전부 선택해주세요",
-                                    Toast.LENGTH_LONG
-                                ).show()
+                                Toast.makeText(context, regionSelectionGuide, Toast.LENGTH_LONG)
+                                    .show()
                             }
                         }
                     }
                 ) {
                     Text(
-                        text = "완료",
+                        text = stringResource(R.string.complete),
                         style = MaterialTheme.typography.titleMedium,
                         color = Black
                     )
@@ -99,7 +98,7 @@ fun SelectRegionScreen(
             }
 
             Text(
-                text = "날씨를 확인할 지역을 찾습니다.",
+                text = stringResource(R.string.select_region_guide),
                 style = MaterialTheme.typography.bodyLarge,
                 color = Black,
             )

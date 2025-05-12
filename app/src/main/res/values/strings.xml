@@ -4,22 +4,25 @@
 
     <!--> 메인 화면 <-->
     <string name="select_region_initial_guide">날씨를 확인할 지역 선택</string>
+    <string name="select_region_guide">날씨를 확인할 지역을 찾습니다</string>
+    <string name="select_region">지역을 선택해주세요</string>
     <string name="weather_label_today">오늘(%s)</string>
     <string name="weather_label_tomorrow">내일(%s)</string>
     <string name="weather_label_day_after_tomorrow">모레(%s)</string>
-    <string name="now">지금</string>
     <string name="weather_label_hour">%s시</string>
     <string name="unit_temperature">%sº</string>
     <string name="unit_percentage">%s%%</string>
     <string name="no_rain">강수없음</string>
     <string name="no_snow">적설없음</string>
     <string name="today_schedule">오늘의 일정</string>
-
+    <string name="my_region">내 지역</string>
+    <string name="complete">완료</string>
+    <string name="now">지금</string>
 
     <string name="schedule_select_region">활동 지역 선택</string>
     <string name="schedule_start_time">일정 시작 시간</string>
     <string name="schedule_end_time">일정 종료 시간</string>
-    <string name="select_region_guide">지역을 선택해주세요</string>
+    <string name="no_schedule">일정이 없어요..</string>
 
     <string name="date_selection_guide">날짜를 선택해주세요</string>
     <string name="date_selected_title">선택한 날짜</string>
@@ -33,5 +36,4 @@
     <string name="title_input_guide">일정 제목을 입력해주세요</string>
     <string name="title_limit_guide">일정 제목은 20자까지 지을 수 있어요</string>
     <string name="schedule_modify">수정 완료</string>
-    <string name="no_schedule">일정이 없어요..</string>
 </resources>

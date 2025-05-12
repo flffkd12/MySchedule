@@ -76,7 +76,8 @@ fun MainScreen(
                     ) {
                         val regionName = weatherViewModel.regionName.collectAsState().value
                         Text(
-                            text = regionName ?: stringResource(R.string.select_region_guide),
+                            text = regionName
+                                ?: stringResource(R.string.select_region_initial_guide),
                             color = if (regionName != null) Black else Gray,
                             style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier.weight(1f)

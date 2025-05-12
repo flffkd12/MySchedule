@@ -64,7 +64,7 @@ fun CreateTitleAndTime(
                     style = MaterialTheme.typography.titleMedium
                 )
 
-                val selectRegionGuide = stringResource(R.string.select_region_guide)
+                val selectRegionGuide = stringResource(R.string.select_region)
                 val firstRegion = rememberSaveable { mutableStateOf(selectRegionGuide) }
                 val secondRegion = rememberSaveable { mutableStateOf(selectRegionGuide) }
                 val thirdRegion = rememberSaveable { mutableStateOf(selectRegionGuide) }

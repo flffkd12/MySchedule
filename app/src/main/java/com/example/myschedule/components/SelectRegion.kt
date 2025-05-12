@@ -31,11 +31,11 @@ fun SelectRegion(
     val firstRegionList = regionViewModel.getFirstLevelRegions()
     RegionDropdownMenu(firstRegionList, firstRegion)
 
-    if (firstRegion.value != stringResource(R.string.select_region_guide)) {
+    if (firstRegion.value != stringResource(R.string.select_region)) {
         val secondRegionList = regionViewModel.getSecondLevelRegions(firstRegion.value)
         RegionDropdownMenu(secondRegionList, secondRegion)
 
-        if (secondRegion.value != stringResource(R.string.select_region_guide)) {
+        if (secondRegion.value != stringResource(R.string.select_region)) {
             val thirdRegionList =
                 regionViewModel.getThirdLevelRegions(firstRegion.value, secondRegion.value)
             RegionDropdownMenu(thirdRegionList, thirdRegion)
