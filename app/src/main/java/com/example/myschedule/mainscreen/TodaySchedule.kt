@@ -35,7 +35,7 @@ fun TodaySchedule(weatherViewModel: WeatherViewModel, todaySchedules: List<Sched
         if (todaySchedules.isEmpty()) {
             Text(
                 text = stringResource(R.string.no_schedule),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.bodyMedium
             )
         } else {
             val colorList = listOf(Red, Orange, LightGreen, Blue)

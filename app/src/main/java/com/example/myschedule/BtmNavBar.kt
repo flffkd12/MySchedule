@@ -43,8 +43,6 @@ fun BtmNavBar(navController: NavController, currentBtmBar: String) {
     ) {
         Row(modifier = Modifier.fillMaxWidth()) {
             btmNavBarItems.forEach { item ->
-                val isClicked = currentBtmBar == item.route
-
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
@@ -57,6 +55,7 @@ fun BtmNavBar(navController: NavController, currentBtmBar: String) {
                 ) {
                     Spacer(modifier = Modifier.height(8.dp))
 
+                    val isClicked = currentBtmBar == item.route
                     Icon(
                         painter = item.icon,
                         contentDescription = item.title,

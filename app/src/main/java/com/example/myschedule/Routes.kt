@@ -1,6 +1,7 @@
 package com.example.myschedule
 
 object Routes {
+    
     /** 로그인 화면 경로 */
     const val LOGIN = "login"
 
