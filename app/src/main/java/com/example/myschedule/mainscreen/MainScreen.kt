@@ -231,8 +231,8 @@ fun RegionWeatherUI(weatherList: List<WeatherDto>) {
                     val isSnowy = weatherDto.snowAmount != "적설없음"
                     Text(
                         text = if (!isRainy && !isSnowy) ""
-                        else if (isRainy) "${weatherDto.rainAmount}mm"
-                        else "${weatherDto.snowAmount}mm",
+                        else if (isRainy) weatherDto.rainAmount.split(" ")[0]
+                        else weatherDto.snowAmount,
                         color = if (isRainy || isSnowy) Blue else Transparent,
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.background(VeryLightBLue)
