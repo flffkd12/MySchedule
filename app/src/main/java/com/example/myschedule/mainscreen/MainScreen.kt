@@ -18,7 +18,9 @@ import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
@@ -75,7 +77,7 @@ fun MainScreen(
                         val regionName = weatherViewModel.regionName.collectAsState().value
                         Text(
                             text = regionName,
-                            color = if (regionName != "날씨를 확인할 지역 선택") Black else Gray,
+                            color = if (regionName != stringResource(R.string.select_region_guide)) Black else Gray,
                             style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier.weight(1f)
                         )
@@ -112,9 +114,8 @@ fun RegionWeatherUI(weatherList: List<WeatherDto>) {
     val todayDate = now.toLocalDate()
 
     fun getKoreanWeekday(date: String): String {
-        val d = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyyMMdd"))
-        val weekdays = listOf("일", "월", "화", "수", "목", "금", "토")
-        return weekdays[d.dayOfWeek.value % 7]
+        val weekdays = LocalContext.current.resources.getStringArray(R.array.korean_weekdays_short)
+        return weekdays[LocalDate.parse(date, DateTimeFormatter.BASIC_ISO_DATE).dayOfWeek.value % 7]
     }
 
     Card(
@@ -135,17 +136,19 @@ fun RegionWeatherUI(weatherList: List<WeatherDto>) {
                 ) {
                     // 1행: 날짜 라벨
                     val isCurrentHour = todayDateTime == date + hour
+                    val koreanWeekday = getKoreanWeekday(date)
                     val label = when {
-                        isCurrentHour -> "오늘(${getKoreanWeekday(date)})"
+                        isCurrentHour -> stringResource(R.string.weather_label_today, koreanWeekday)
 
                         hour == "00" -> {
-                            val baseDate = LocalDate.parse(
-                                date,
-                                DateTimeFormatter.ofPattern("yyyyMMdd")
-                            )
+                            val baseDate = LocalDate.parse(date, DateTimeFormatter.BASIC_ISO_DATE)
                             when ((baseDate.toEpochDay() - todayDate.toEpochDay()).toInt()) {
-                                1 -> "내일(${getKoreanWeekday(date)})"
-                                2 -> "모레(${getKoreanWeekday(date)})"
+                                1 -> stringResource(R.string.weather_label_tomorrow, koreanWeekday)
+                                2 -> stringResource(
+                                    R.string.weather_label_day_after_tomorrow,
+                                    koreanWeekday
+                                )
+
                                 else -> ""
                             }
                         }
@@ -160,7 +163,9 @@ fun RegionWeatherUI(weatherList: List<WeatherDto>) {
                     )
 
                     // 2행: 시간 라벨
-                    val timeLabel = if (isCurrentHour) "지금" else "${hour}시"
+                    val timeLabel = if (isCurrentHour) stringResource(R.string.now)
+                    else stringResource(R.string.weather_label_hour, hour)
+
                     Text(
                         text = timeLabel,
                         color = Black,
@@ -209,21 +214,22 @@ fun RegionWeatherUI(weatherList: List<WeatherDto>) {
 
                     // 4행: 기온 표시
                     Text(
-                        text = "${weatherDto.temperature}º",
+                        text = stringResource(R.string.unit_temperature, weatherDto.temperature),
                         color = Black,
                         style = MaterialTheme.typography.bodyLarge
                     )
 
                     // 5행: 강수, 적설 확률
                     Text(
-                        text = "${weatherDto.rainProbability}%",
+                        text = stringResource(R.string.unit_percentage, weatherDto.rainProbability),
                         color = if (weatherDto.rainProbability.toInt() >= 60) Blue else Gray,
                         style = MaterialTheme.typography.bodySmall
                     )
 
                     // 6행: 강수량, 적설량
-                    val isRainy = weatherDto.rainAmount != "강수없음"
-                    val isSnowy = weatherDto.snowAmount != "적설없음"
+                    val isRainy = weatherDto.rainAmount != stringResource(R.string.no_rain)
+                    val isSnowy = weatherDto.snowAmount != stringResource(R.string.no_rain)
+
                     Text(
                         text = if (!isRainy && !isSnowy) ""
                         else if (isRainy) weatherDto.rainAmount.split(" ")[0]

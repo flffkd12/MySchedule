@@ -1,6 +1,8 @@
 package com.example.myschedule.viewmodels
 
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
+import com.example.myschedule.R
 import com.example.myschedule.data.Location
 import com.example.myschedule.data.RetrofitInstance
 import com.example.myschedule.data.WeatherCode
@@ -13,7 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 
 class WeatherViewModel : ViewModel() {
 
-    private val _regionName = MutableStateFlow("날씨를 확인할 지역 선택")
+    private val _regionName = MutableStateFlow(stringResource(R.string.select_region_guide))
     val regionName: StateFlow<String> = _regionName.asStateFlow()
 
     private val _regionLocation = MutableStateFlow<Location?>(null)
