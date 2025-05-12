@@ -30,7 +30,6 @@ import com.example.myschedule.data.WeatherDto
 import com.example.myschedule.data.toWeatherCode
 import com.example.myschedule.ui.theme.*
 import com.example.myschedule.viewmodels.MonthlyScheduleViewModel
-import com.example.myschedule.viewmodels.UserViewModel
 import com.example.myschedule.viewmodels.WeatherViewModel
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -38,7 +37,6 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun MainScreen(
-    userViewModel: UserViewModel,
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
     weatherViewModel: WeatherViewModel,
     navController: NavController

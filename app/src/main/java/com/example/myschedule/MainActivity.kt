@@ -13,12 +13,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
+import com.example.myschedule.data.database.MyScheduleDb
 import com.example.myschedule.ui.theme.MyScheduleTheme
-import com.example.myschedule.viewmodels.*
+import com.example.myschedule.viewmodels.CreateScheduleViewModel
+import com.example.myschedule.viewmodels.MonthlyScheduleViewModel
+import com.example.myschedule.viewmodels.RegionViewModel
+import com.example.myschedule.viewmodels.WeatherViewModel
 
 class MainActivity : ComponentActivity() {
 
-    private val userViewModel: UserViewModel by viewModels { UserViewModel.Factory }
     private val createScheduleViewModel: CreateScheduleViewModel by viewModels()
     private val monthlyScheduleViewModel: MonthlyScheduleViewModel by viewModels()
     private val weatherViewModel: WeatherViewModel by viewModels()
@@ -28,8 +31,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            monthlyScheduleViewModel.fetchScheduleList(LocalContext.current)
-            
+            val context = LocalContext.current
+
+            MyScheduleDb.getDatabase(context)
+            monthlyScheduleViewModel.fetchScheduleList(context)
+
             MyScheduleTheme {
                 regionViewModel = ViewModelProvider(this)[RegionViewModel::class.java]
 
@@ -42,7 +48,6 @@ class MainActivity : ComponentActivity() {
 
                 val navController = rememberNavController()
                 NaviGraph(
-                    userViewModel = userViewModel,
                     createScheduleViewModel = createScheduleViewModel,
                     monthlyScheduleViewModel = monthlyScheduleViewModel,
                     regionViewModel = regionViewModel,

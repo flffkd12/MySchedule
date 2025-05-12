@@ -12,11 +12,13 @@ import com.example.myschedule.monthlyschedule.ModifySchedule
 import com.example.myschedule.monthlyschedule.MonthlySchedule
 import com.example.myschedule.schedulecreate.CreateSchedule
 import com.example.myschedule.schedulecreate.titletimeinput.CreateTitleAndTime
-import com.example.myschedule.viewmodels.*
+import com.example.myschedule.viewmodels.CreateScheduleViewModel
+import com.example.myschedule.viewmodels.MonthlyScheduleViewModel
+import com.example.myschedule.viewmodels.RegionViewModel
+import com.example.myschedule.viewmodels.WeatherViewModel
 
 @Composable
 fun NaviGraph(
-    userViewModel: UserViewModel,
     createScheduleViewModel: CreateScheduleViewModel,
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
     regionViewModel: RegionViewModel,
@@ -27,7 +29,7 @@ fun NaviGraph(
     NavHost(navController = navController, startDestination = Routes.MAIN_SCREEN) {
 
         composable(route = Routes.MAIN_SCREEN) {
-            MainScreen(userViewModel, monthlyScheduleViewModel, weatherViewModel, navController)
+            MainScreen(monthlyScheduleViewModel, weatherViewModel, navController)
         }
 
         composable(route = Routes.SELECT_REGION_SCREEN) {
