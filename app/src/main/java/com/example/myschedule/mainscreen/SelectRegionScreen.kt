@@ -69,6 +69,7 @@ fun SelectRegionScreen(
 
                 val regionSelectionGuide = stringResource(R.string.select_region)
                 val isAllRegionSelected = thirdRegion.value != regionSelectionGuide
+                
                 TextButton(
                     onClick = {
                         if (isAllRegionSelected) {
