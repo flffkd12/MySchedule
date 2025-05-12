@@ -37,8 +37,6 @@ class MainActivity : ComponentActivity() {
             monthlyScheduleViewModel.fetchScheduleList(context)
 
             MyScheduleTheme {
-                regionViewModel = ViewModelProvider(this)[RegionViewModel::class.java]
-
                 Image(
                     painter = painterResource(R.drawable.background),
                     contentDescription = null,
@@ -47,6 +45,8 @@ class MainActivity : ComponentActivity() {
                 )
 
                 val navController = rememberNavController()
+                regionViewModel = ViewModelProvider(this)[RegionViewModel::class.java]
+
                 NaviGraph(
                     createScheduleViewModel = createScheduleViewModel,
                     monthlyScheduleViewModel = monthlyScheduleViewModel,

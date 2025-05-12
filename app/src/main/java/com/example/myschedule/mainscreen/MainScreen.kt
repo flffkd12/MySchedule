@@ -1,6 +1,5 @@
 package com.example.myschedule.mainscreen
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -42,9 +41,6 @@ fun MainScreen(
     navController: NavController
 ) {
 
-    val regionName = weatherViewModel.regionName.collectAsState().value
-    val regionLocation = weatherViewModel.regionLocation.collectAsState().value
-
     Scaffold(
         bottomBar = { BtmNavBar(navController, Routes.MAIN_SCREEN) },
         containerColor = LightGreen
@@ -76,6 +72,7 @@ fun MainScreen(
                         modifier = Modifier.fillMaxWidth().padding(12.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
+                        val regionName = weatherViewModel.regionName.collectAsState().value
                         Text(
                             text = regionName,
                             color = if (regionName != "날씨를 확인할 지역 선택") Black else Gray,
@@ -91,6 +88,7 @@ fun MainScreen(
                     }
                 }
 
+                val regionLocation = weatherViewModel.regionLocation.collectAsState().value
                 if (regionLocation != null) {
                     val weatherList by produceState<List<WeatherDto>?>(
                         initialValue = null,
@@ -98,7 +96,6 @@ fun MainScreen(
                     ) { value = weatherViewModel.getRegionWeatherInfo(regionLocation) }
 
                     if (weatherList != null) {
-                        Log.d("MainScreen", weatherList.toString())
                         RegionWeatherUI(weatherList!!)
                     }
                 }
