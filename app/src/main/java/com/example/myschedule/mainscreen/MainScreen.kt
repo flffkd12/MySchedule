@@ -76,8 +76,8 @@ fun MainScreen(
                     ) {
                         val regionName = weatherViewModel.regionName.collectAsState().value
                         Text(
-                            text = regionName,
-                            color = if (regionName != stringResource(R.string.select_region_guide)) Black else Gray,
+                            text = regionName ?: stringResource(R.string.select_region_guide),
+                            color = if (regionName != null) Black else Gray,
                             style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier.weight(1f)
                         )
@@ -112,11 +112,6 @@ fun RegionWeatherUI(weatherList: List<WeatherDto>) {
     val now = LocalDateTime.now()
     val todayDateTime = now.format(DateTimeFormatter.ofPattern("yyyyMMddHH"))
     val todayDate = now.toLocalDate()
-
-    fun getKoreanWeekday(date: String): String {
-        val weekdays = LocalContext.current.resources.getStringArray(R.array.korean_weekdays_short)
-        return weekdays[LocalDate.parse(date, DateTimeFormatter.BASIC_ISO_DATE).dayOfWeek.value % 7]
-    }
 
     Card(
         shape = RoundedAllCornerShape,
@@ -228,7 +223,7 @@ fun RegionWeatherUI(weatherList: List<WeatherDto>) {
 
                     // 6행: 강수량, 적설량
                     val isRainy = weatherDto.rainAmount != stringResource(R.string.no_rain)
-                    val isSnowy = weatherDto.snowAmount != stringResource(R.string.no_rain)
+                    val isSnowy = weatherDto.snowAmount != stringResource(R.string.no_snow)
 
                     Text(
                         text = if (!isRainy && !isSnowy) ""
@@ -242,4 +237,10 @@ fun RegionWeatherUI(weatherList: List<WeatherDto>) {
             }
         }
     }
+}
+
+@Composable
+fun getKoreanWeekday(date: String): String {
+    val weekdays = LocalContext.current.resources.getStringArray(R.array.korean_weekdays_short)
+    return weekdays[LocalDate.parse(date, DateTimeFormatter.BASIC_ISO_DATE).dayOfWeek.value % 7]
 }
