@@ -1,4 +1,4 @@
-package com.example.myschedule.monthlyschedule
+package com.example.myschedule.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

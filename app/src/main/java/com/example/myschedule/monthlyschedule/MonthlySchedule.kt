@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
 import com.example.myschedule.R
 import com.example.myschedule.Routes
+import com.example.myschedule.components.ScheduleCard
 import com.example.myschedule.data.database.entity.Schedule
 import com.example.myschedule.ui.theme.*
 import com.example.myschedule.viewmodels.MonthlyScheduleViewModel
