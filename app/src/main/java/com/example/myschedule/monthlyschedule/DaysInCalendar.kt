@@ -70,7 +70,6 @@ fun DaysInCalendar(
                 for (index in weekIndex) {
                     val currentDate = daysList[index].date
                     val currentDateColor = daysList[index].color
-                    val isSelectedDay = clickedDate == currentDate
 
                     val isClickable = when {
                         isFirstMonth && (currentDate.month < currentYearMonth.month) -> false
@@ -82,7 +81,7 @@ fun DaysInCalendar(
                         date = currentDate,
                         dateColor = currentDateColor,
                         isCurrentMonth = currentDateColor == Black,
-                        isSelected = isSelectedDay,
+                        isSelected = clickedDate == currentDate,
                         isClickable = isClickable,
                         schedules = schedules,
                         onDateClick = onDateClick,
@@ -113,24 +112,20 @@ fun CalendarDayCell(
             .clickable(enabled = isClickable) { onDateClick(date) }
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            val isSaturday = date.dayOfWeek == DayOfWeek.SATURDAY
-            val isSunday = date.dayOfWeek == DayOfWeek.SUNDAY
-
             Text(
                 text = "${date.dayOfMonth}",
                 color = when {
                     isSelected -> if (isCurrentMonth) White else dateColor
-                    isSaturday -> if (isCurrentMonth) Blue else LightBlue
-                    isSunday -> if (isCurrentMonth) Red else LightRed
+                    date.dayOfWeek == DayOfWeek.SATURDAY -> if (isCurrentMonth) Blue else LightBlue
+                    date.dayOfWeek == DayOfWeek.SUNDAY -> if (isCurrentMonth) Red else LightRed
                     else -> dateColor
                 },
                 style = MaterialTheme.typography.bodyMedium
             )
 
-            val daySchedule = schedules.filter { it.date == date }
-
             Row(horizontalArrangement = Arrangement.Center) {
                 val colorList = listOf(Red, Orange, LightGreen, Blue)
+                val daySchedule = schedules.filter { it.date == date }
 
                 daySchedule.take(colorList.size).forEachIndexed { i, _ ->
                     Box(
@@ -138,7 +133,7 @@ fun CalendarDayCell(
                             .background(colorList[i % colorList.size], CircleShape)
                     )
 
-                    if (i < 3) Spacer(modifier = Modifier.width(2.dp))
+                    if (i < colorList.size - 1) Spacer(modifier = Modifier.width(2.dp))
                 }
             }
         }

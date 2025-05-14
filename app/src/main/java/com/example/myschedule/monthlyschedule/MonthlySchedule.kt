@@ -32,9 +32,6 @@ fun MonthlySchedule(
     navController: NavController
 ) {
 
-    val scheduleList by monthlyScheduleViewModel.scheduleList.collectAsState()
-    val currentDate = rememberSaveable { mutableStateOf<LocalDate>(LocalDate.now()) }
-
     Scaffold(
         bottomBar = { BtmNavBar(navController, Routes.MONTHLY_SCHEDULE) },
         containerColor = LightGreen
@@ -43,6 +40,9 @@ fun MonthlySchedule(
             modifier = Modifier.fillMaxSize().padding(innerPadding).padding(DefaultAllPadding)
                 .clip(RoundedAllCornerShape).background(White)
         ) {
+            val scheduleList by monthlyScheduleViewModel.scheduleList.collectAsState()
+            val currentDate = rememberSaveable { mutableStateOf<LocalDate>(LocalDate.now()) }
+
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.fillMaxSize().padding(ContentPadding)
