@@ -15,14 +15,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
 import com.example.myschedule.data.database.MyScheduleDb
 import com.example.myschedule.ui.theme.MyScheduleTheme
-import com.example.myschedule.viewmodels.CreateScheduleViewModel
-import com.example.myschedule.viewmodels.MonthlyScheduleViewModel
-import com.example.myschedule.viewmodels.RegionViewModel
-import com.example.myschedule.viewmodels.WeatherViewModel
+import com.example.myschedule.viewmodels.*
 
 class MainActivity : ComponentActivity() {
 
     private val createScheduleViewModel: CreateScheduleViewModel by viewModels()
+    private val modifyScheduleViewModel: ModifyScheduleViewModel by viewModels()
     private val monthlyScheduleViewModel: MonthlyScheduleViewModel by viewModels()
     private val weatherViewModel: WeatherViewModel by viewModels()
     private lateinit var regionViewModel: RegionViewModel
@@ -49,6 +47,7 @@ class MainActivity : ComponentActivity() {
 
                 NaviGraph(
                     createScheduleViewModel = createScheduleViewModel,
+                    modifyScheduleViewModel = modifyScheduleViewModel,
                     monthlyScheduleViewModel = monthlyScheduleViewModel,
                     regionViewModel = regionViewModel,
                     weatherViewModel = weatherViewModel,

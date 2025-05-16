@@ -2,24 +2,20 @@ package com.example.myschedule
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.example.myschedule.mainscreen.MainScreen
 import com.example.myschedule.mainscreen.SelectRegionScreen
 import com.example.myschedule.monthlyschedule.ModifySchedule
 import com.example.myschedule.monthlyschedule.MonthlySchedule
 import com.example.myschedule.schedulecreate.CreateSchedule
 import com.example.myschedule.schedulecreate.titletimeinput.CreateTitleAndTime
-import com.example.myschedule.viewmodels.CreateScheduleViewModel
-import com.example.myschedule.viewmodels.MonthlyScheduleViewModel
-import com.example.myschedule.viewmodels.RegionViewModel
-import com.example.myschedule.viewmodels.WeatherViewModel
+import com.example.myschedule.viewmodels.*
 
 @Composable
 fun NaviGraph(
     createScheduleViewModel: CreateScheduleViewModel,
+    modifyScheduleViewModel: ModifyScheduleViewModel,
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
     regionViewModel: RegionViewModel,
     weatherViewModel: WeatherViewModel,
@@ -50,34 +46,15 @@ fun NaviGraph(
         }
 
         composable(route = Routes.MONTHLY_SCHEDULE) {
-            MonthlySchedule(monthlyScheduleViewModel, navController)
+            MonthlySchedule(modifyScheduleViewModel, monthlyScheduleViewModel, navController)
         }
 
-        composable(
-            route = Routes.MODIFY_SCHEDULE + "/{id}/{title}/{region}/{startTime}/{endTime}",
-            arguments = listOf(
-                navArgument("id") { type = NavType.LongType },
-                navArgument("title") { type = NavType.StringType },
-                navArgument("region") { type = NavType.StringType },
-                navArgument("startTime") { type = NavType.StringType },
-                navArgument("endTime") { type = NavType.StringType },
-            )
-        ) { backStackEntry ->
-            val id = backStackEntry.arguments?.getLong("id")!!
-            val title = backStackEntry.arguments?.getString("title")!!
-            val regionElement = backStackEntry.arguments?.getString("region")!!.split(",")
-            val startTimeElement = backStackEntry.arguments?.getString("startTime")!!.split(",")
-            val endTimeElement = backStackEntry.arguments?.getString("endTime")!!.split(",")
-
+        composable(route = Routes.MODIFY_SCHEDULE) {
             ModifySchedule(
+                modifyScheduleViewModel,
                 monthlyScheduleViewModel,
                 regionViewModel,
-                navController,
-                id,
-                title,
-                regionElement,
-                startTimeElement,
-                endTimeElement
+                navController
             )
         }
     }

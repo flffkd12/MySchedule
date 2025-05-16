@@ -21,6 +21,7 @@ import com.example.myschedule.Routes
 import com.example.myschedule.components.ScheduleCard
 import com.example.myschedule.data.database.entity.Schedule
 import com.example.myschedule.ui.theme.*
+import com.example.myschedule.viewmodels.ModifyScheduleViewModel
 import com.example.myschedule.viewmodels.MonthlyScheduleViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,6 +29,7 @@ import java.time.LocalDate
 
 @Composable
 fun MonthlySchedule(
+    modifyScheduleViewModel: ModifyScheduleViewModel,
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
     navController: NavController
 ) {
@@ -53,7 +55,10 @@ fun MonthlySchedule(
 
                 val currentDateSchedules = scheduleList.filter { it.date == currentDate.value }
                 CurrentDateScheduleList(
-                    monthlyScheduleViewModel, navController, currentDateSchedules
+                    modifyScheduleViewModel,
+                    monthlyScheduleViewModel,
+                    navController,
+                    currentDateSchedules
                 )
             }
         }
@@ -62,24 +67,11 @@ fun MonthlySchedule(
 
 @Composable
 fun CurrentDateScheduleList(
+    modifyScheduleViewModel: ModifyScheduleViewModel,
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
     navController: NavController,
     scheduleList: List<Schedule>
 ) {
-
-    val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
-
-    fun scheduleToNavArgument(schedule: Schedule): String {
-        val regionNavArg = "/${schedule.regionLocation.firstRegion}," +
-                "${schedule.regionLocation.secondRegion},${schedule.regionLocation.thirdRegion}"
-        val startTimeNavArg =
-            "/${schedule.startTime.amPm},${schedule.startTime.hour},${schedule.startTime.minute}"
-        val endTimeNavArg =
-            "/${schedule.endTime.amPm},${schedule.endTime.hour},${schedule.endTime.minute}"
-
-        return "/${schedule.id}/${schedule.title}" + regionNavArg + startTimeNavArg + endTimeNavArg
-    }
 
     if (scheduleList.isEmpty()) {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
@@ -90,6 +82,9 @@ fun CurrentDateScheduleList(
             )
         }
     } else {
+        val context = LocalContext.current
+        val coroutineScope = rememberCoroutineScope()
+
         LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             val colorList = listOf(Red, Orange, LightGreen, Blue)
             itemsIndexed(scheduleList) { i, schedule ->
@@ -98,9 +93,8 @@ fun CurrentDateScheduleList(
                     color = colorList[i % colorList.size],
                     showOptions = true,
                     onEditClick = {
-                        navController.navigate(
-                            Routes.MODIFY_SCHEDULE + scheduleToNavArgument(schedule)
-                        )
+                        modifyScheduleViewModel.setScheduleValues(schedule)
+                        navController.navigate(Routes.MODIFY_SCHEDULE)
                     },
                     onDeleteClick = {
                         coroutineScope.launch(Dispatchers.IO) {
