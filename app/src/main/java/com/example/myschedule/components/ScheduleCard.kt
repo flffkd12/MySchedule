@@ -103,9 +103,8 @@ fun WeatherImage(weatherCode: WeatherCode?) {
 @Composable
 fun OptionIcon(onEditClick: (() -> Unit)? = null, onDeleteClick: (() -> Unit)? = null) {
 
-    var dropDownExpanded by remember { mutableStateOf(false) }
-
     Box(contentAlignment = Alignment.CenterEnd) {
+        var dropDownExpanded by remember { mutableStateOf(false) }
         IconButton(onClick = { dropDownExpanded = true }) {
             Icon(
                 imageVector = Icons.Default.MoreVert,

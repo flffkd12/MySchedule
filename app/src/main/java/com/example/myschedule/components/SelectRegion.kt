@@ -2,7 +2,7 @@ package com.example.myschedule.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -46,11 +46,10 @@ fun SelectRegion(
 @Composable
 fun RegionDropdownMenu(regionList: List<String>, regionName: MutableState<String>) {
 
-    var expanded by remember { mutableStateOf(false) }
-
-    val focusRequester = remember { FocusRequester() }
-
     Box {
+        val focusRequester = remember { FocusRequester() }
+        var expanded by remember { mutableStateOf(false) }
+
         OutlinedTextField(
             value = regionName.value,
             onValueChange = {},
@@ -80,7 +79,7 @@ fun RegionDropdownMenu(regionList: List<String>, regionName: MutableState<String
             onDismissRequest = { expanded = false },
             shape = RoundedAllCornerShape,
             containerColor = White,
-            modifier = Modifier.height(150.dp)
+            modifier = Modifier.heightIn(max = 200.dp)
         ) {
             regionList.forEach { region ->
                 DropdownMenuItem(
