@@ -26,8 +26,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun ScrollTimePicker(
     selectedAmPm: MutableState<String>,
-    selectedHour: MutableState<String>,
-    selectedMinute: MutableState<String>
+    selectedHour: MutableState<Int>,
+    selectedMinute: MutableState<Int>
 ) {
 
     Row(
@@ -51,31 +51,34 @@ fun ScrollTimePicker(
 
         Spacer(modifier = Modifier.width(32.dp))
 
-        val hourList = listOf("") + (1..12).map { it.toString() } + listOf("")
+        val hourList = listOf(-1) + (1..12).toList() + listOf(-1)
         TimePickerColumn(
             items = hourList,
             selectedItem = selectedHour,
-            isHour = true
+            isHour = true,
+            displayFunc = { if (it == -1) "" else it.toString() }
         )
 
         Spacer(modifier = Modifier.width(16.dp))
 
-        val minuteList = listOf("") + (0..59).map { it.toString() } + listOf("")
+        val minuteList = listOf(-1) + (0..59).toList() + listOf(-1)
         TimePickerColumn(
             items = minuteList,
             selectedItem = selectedMinute,
-            isMinute = true
+            isMinute = true,
+            displayFunc = { if (it == -1) "" else it.toString().padStart(2, '0') }
         )
     }
 }
 
 @SuppressLint("FrequentlyChangedStateReadInComposition")
 @Composable
-fun TimePickerColumn(
-    items: List<String>,
-    selectedItem: MutableState<String>,
+fun <T> TimePickerColumn(
+    items: List<T>,
+    selectedItem: MutableState<T>,
     isHour: Boolean = false,
-    isMinute: Boolean = false
+    isMinute: Boolean = false,
+    displayFunc: ((T) -> String)? = null
 ) {
 
     val lazyListState = rememberLazyListState(
@@ -93,7 +96,7 @@ fun TimePickerColumn(
                 Spacer(modifier = Modifier.height(26.dp))
             } else {
                 Text(
-                    text = if (isMinute) item.padStart(2, '0') else item,
+                    text = displayFunc?.invoke(item) ?: item.toString(),
                     color = if (item == selectedItem.value) Black else LightGray,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
@@ -104,7 +107,6 @@ fun TimePickerColumn(
 
     LaunchedEffect(lazyListState.firstVisibleItemScrollOffset) {
         val centerIndex = lazyListState.firstVisibleItemIndex + 1
-
         if (centerIndex > 0 && centerIndex < items.lastIndex) {
             val centerOffset = lazyListState.firstVisibleItemScrollOffset
             if (centerOffset >= 34) {

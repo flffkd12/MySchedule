@@ -125,11 +125,11 @@ fun ModifyScheduleButton(
             val errorResId = ScheduleValidator.validateScheduleInput(
                 modifyScheduleViewModel.title.value,
                 modifyScheduleViewModel.startTimeAmPm.value,
-                modifyScheduleViewModel.startTimeHour.value,
-                modifyScheduleViewModel.startTimeMinute.value,
+                modifyScheduleViewModel.startTimeHour.intValue,
+                modifyScheduleViewModel.startTimeMinute.intValue,
                 modifyScheduleViewModel.endTimeAmPm.value,
-                modifyScheduleViewModel.endTimeHour.value,
-                modifyScheduleViewModel.endTimeMinute.value,
+                modifyScheduleViewModel.endTimeHour.intValue,
+                modifyScheduleViewModel.endTimeMinute.intValue,
                 location
             )
 

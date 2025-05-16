@@ -1,6 +1,7 @@
 package com.example.myschedule.viewmodels
 
 import android.content.Context
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -21,12 +22,12 @@ class ModifyScheduleViewModel : ViewModel() {
     val thirdRegion = mutableStateOf("")
 
     val startTimeAmPm = mutableStateOf("")
-    val startTimeHour = mutableStateOf("")
-    val startTimeMinute = mutableStateOf("")
+    val startTimeHour = mutableIntStateOf(0)
+    val startTimeMinute = mutableIntStateOf(0)
 
     val endTimeAmPm = mutableStateOf("")
-    val endTimeHour = mutableStateOf("")
-    val endTimeMinute = mutableStateOf("")
+    val endTimeHour = mutableIntStateOf(0)
+    val endTimeMinute = mutableIntStateOf(0)
 
     suspend fun modifySchedule(location: Location, context: Context) {
         MyScheduleDb.getDatabase(context).scheduleDao().modifySchedules(
@@ -40,13 +41,13 @@ class ModifyScheduleViewModel : ViewModel() {
             ),
             ScheduleTime(
                 startTimeAmPm.value,
-                startTimeHour.value.toInt(),
-                startTimeMinute.value.toInt()
+                startTimeHour.intValue,
+                startTimeMinute.intValue
             ),
             ScheduleTime(
                 endTimeAmPm.value,
-                endTimeHour.value.toInt(),
-                endTimeMinute.value.toInt()
+                endTimeHour.intValue,
+                endTimeMinute.intValue
             ),
         )
     }
@@ -58,10 +59,10 @@ class ModifyScheduleViewModel : ViewModel() {
         secondRegion.value = schedule.regionLocation.secondRegion
         thirdRegion.value = schedule.regionLocation.thirdRegion
         startTimeAmPm.value = schedule.startTime.amPm
-        startTimeHour.value = schedule.startTime.hour.toString()
-        startTimeMinute.value = schedule.startTime.minute.toString()
+        startTimeHour.intValue = schedule.startTime.hour
+        startTimeMinute.intValue = schedule.startTime.minute
         endTimeAmPm.value = schedule.endTime.amPm
-        endTimeHour.value = schedule.endTime.hour.toString()
-        endTimeMinute.value = schedule.endTime.minute.toString()
+        endTimeHour.intValue = schedule.endTime.hour
+        endTimeMinute.intValue = schedule.endTime.minute
     }
 }

@@ -5,18 +5,19 @@ import com.example.myschedule.data.Location
 import com.example.myschedule.schedulecreate.titletimeinput.TimeCalc
 
 object ScheduleValidator {
+
     fun validateScheduleInput(
         title: String,
         startTimeAmPm: String,
-        startTimeHour: String,
-        startTimeMinute: String,
+        startTimeHour: Int,
+        startTimeMinute: Int,
         endTimeAmPm: String,
-        endTimeHour: String,
-        endTimeMinute: String,
+        endTimeHour: Int,
+        endTimeMinute: Int,
         location: Location?
     ): Int {
-        val scheduleStart = TimeCalc(startTimeAmPm, startTimeHour.toInt(), startTimeMinute.toInt())
-        val scheduleEnd = TimeCalc(endTimeAmPm, endTimeHour.toInt(), endTimeMinute.toInt())
+        val scheduleStart = TimeCalc(startTimeAmPm, startTimeHour, startTimeMinute)
+        val scheduleEnd = TimeCalc(endTimeAmPm, endTimeHour, endTimeMinute)
         val isScheduleTimeAvailable = scheduleStart < scheduleEnd
 
         val errorResId = if (title.isEmpty()) {

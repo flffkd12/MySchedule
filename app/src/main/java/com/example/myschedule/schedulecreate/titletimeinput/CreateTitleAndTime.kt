@@ -80,7 +80,7 @@ fun CreateTitleAndTime(
                 val startTimeHour = rememberSaveable { mutableStateOf("6") }
                 val startTimeMinute = rememberSaveable { mutableStateOf("0") }
 
-                ScrollTimePicker(startTimeAmPm, startTimeHour, startTimeMinute)
+                // ScrollTimePicker(startTimeAmPm, startTimeHour, startTimeMinute)
 
                 Text(
                     text = stringResource(R.string.schedule_end_time),
@@ -91,7 +91,7 @@ fun CreateTitleAndTime(
                 val endTimeHour = rememberSaveable { mutableStateOf("6") }
                 val endTimeMinute = rememberSaveable { mutableStateOf("0") }
 
-                ScrollTimePicker(endTimeAmPm, endTimeHour, endTimeMinute)
+                //ScrollTimePicker(endTimeAmPm, endTimeHour, endTimeMinute)
 
                 Spacer(modifier = Modifier.weight(1f))
 
