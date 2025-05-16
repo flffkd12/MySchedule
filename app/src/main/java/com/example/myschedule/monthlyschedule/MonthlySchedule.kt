@@ -53,9 +53,7 @@ fun MonthlySchedule(
 
                 val currentDateSchedules = scheduleList.filter { it.date == currentDate.value }
                 CurrentDateScheduleList(
-                    monthlyScheduleViewModel,
-                    navController,
-                    currentDateSchedules
+                    monthlyScheduleViewModel, navController, currentDateSchedules
                 )
             }
         }
@@ -72,6 +70,17 @@ fun CurrentDateScheduleList(
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
+    fun scheduleToNavArgument(schedule: Schedule): String {
+        val regionNavArg = "/${schedule.regionLocation.firstRegion}," +
+                "${schedule.regionLocation.secondRegion},${schedule.regionLocation.thirdRegion}"
+        val startTimeNavArg =
+            "/${schedule.startTime.amPm},${schedule.startTime.hour},${schedule.startTime.minute}"
+        val endTimeNavArg =
+            "/${schedule.endTime.amPm},${schedule.endTime.hour},${schedule.endTime.minute}"
+
+        return "/${schedule.id}/${schedule.title}" + regionNavArg + startTimeNavArg + endTimeNavArg
+    }
+
     if (scheduleList.isEmpty()) {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
             Image(
@@ -81,9 +90,8 @@ fun CurrentDateScheduleList(
             )
         }
     } else {
-        val colorList = listOf(Red, Orange, LightGreen, Blue)
-
         LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            val colorList = listOf(Red, Orange, LightGreen, Blue)
             itemsIndexed(scheduleList) { i, schedule ->
                 ScheduleCard(
                     schedule = schedule,
@@ -96,11 +104,7 @@ fun CurrentDateScheduleList(
                     },
                     onDeleteClick = {
                         coroutineScope.launch(Dispatchers.IO) {
-                            monthlyScheduleViewModel.deleteSchedule(
-                                context,
-                                schedule.id
-                            )
-
+                            monthlyScheduleViewModel.deleteSchedule(context, schedule.id)
                             monthlyScheduleViewModel.fetchScheduleList(context)
                         }
                     }
@@ -110,13 +114,3 @@ fun CurrentDateScheduleList(
     }
 }
 
-fun scheduleToNavArgument(schedule: Schedule): String {
-    val regionNavArg =
-        "/${schedule.regionLocation.firstRegion},${schedule.regionLocation.secondRegion},${schedule.regionLocation.thirdRegion}"
-    val startTimeNavArg =
-        "/${schedule.startTime.amPm},${schedule.startTime.hour},${schedule.startTime.minute}"
-    val endTimeNavArg =
-        "/${schedule.endTime.amPm},${schedule.endTime.hour},${schedule.endTime.minute}"
-
-    return "/${schedule.id}/${schedule.title}" + regionNavArg + startTimeNavArg + endTimeNavArg
-}

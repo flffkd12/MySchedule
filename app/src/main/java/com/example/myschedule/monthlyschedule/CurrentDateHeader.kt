@@ -34,10 +34,7 @@ fun CurrentDateHeader(scheduleList: List<Schedule>, currentDate: LocalDate) {
             )
 
             Text(
-                text = currentDate.dayOfWeek.getDisplayName(
-                    TextStyle.FULL,
-                    Locale.KOREAN
-                ),
+                text = currentDate.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.KOREA),
                 color = Black,
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -48,7 +45,7 @@ fun CurrentDateHeader(scheduleList: List<Schedule>, currentDate: LocalDate) {
         val currentDateSchedules = scheduleList.filter { it.date == currentDate }
         Text(
             text = if (currentDateSchedules.isEmpty()) stringResource(R.string.no_schedule)
-            else "현재 일정이 ${currentDateSchedules.size}개 있어요",
+            else stringResource(R.string.num_schedule, currentDateSchedules.size),
             color = Gray,
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.align(Alignment.Bottom)
