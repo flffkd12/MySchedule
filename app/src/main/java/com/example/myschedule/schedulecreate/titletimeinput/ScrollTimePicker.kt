@@ -15,8 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.myschedule.R
 import com.example.myschedule.ui.theme.Black
 import com.example.myschedule.ui.theme.LightGray
 import com.example.myschedule.ui.theme.LightGreen
@@ -43,7 +45,7 @@ fun ScrollTimePicker(
             )
         }
     ) {
-        val amPmList = listOf("", "오전", "오후", "")
+        val amPmList = listOf("", stringResource(R.string.am), stringResource(R.string.pm), "")
         TimePickerColumn(
             items = amPmList,
             selectedItem = selectedAmPm,
