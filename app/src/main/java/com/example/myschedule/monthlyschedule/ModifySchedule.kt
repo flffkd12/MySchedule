@@ -152,7 +152,7 @@ fun ModifyScheduleButton(
         modifier = Modifier.fillMaxWidth()
     ) {
         Text(
-            text = stringResource(R.string.schedule_modify),
+            text = stringResource(R.string.schedule_modify_button),
             color = White,
             style = MaterialTheme.typography.bodySmall
         )
