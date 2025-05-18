@@ -1,4 +1,4 @@
-package com.example.myschedule.schedulecreate.dateselect
+package com.example.myschedule.ui.data
 
 import androidx.compose.ui.graphics.Color
 import java.time.LocalDate
