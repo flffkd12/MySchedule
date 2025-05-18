@@ -13,7 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.myschedule.data.database.entity.Schedule
-import com.example.myschedule.schedulecreate.dateselect.Day
+import com.example.myschedule.ui.data.Day
 import com.example.myschedule.ui.theme.*
 import java.time.DayOfWeek
 import java.time.LocalDate

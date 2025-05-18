@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.example.myschedule.ui.data.Day
 import com.example.myschedule.ui.theme.*
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -84,7 +85,7 @@ fun DaysInMonth(
                     ) {
                         val isSaturday = currentDate.dayOfWeek == DayOfWeek.SATURDAY
                         val isSunday = currentDate.dayOfWeek == DayOfWeek.SUNDAY
-                        
+
                         Text(
                             text = "${currentDate.dayOfMonth}",
                             color = when {
