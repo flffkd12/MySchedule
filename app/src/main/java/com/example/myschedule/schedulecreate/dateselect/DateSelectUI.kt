@@ -12,22 +12,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.myschedule.R
 import com.example.myschedule.components.DayOfWeek
 import com.example.myschedule.viewmodels.CreateScheduleViewModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.YearMonth
-import java.time.format.TextStyle
-import java.util.Locale
 
 @Composable
 fun DateSelectUI(createScheduleViewModel: CreateScheduleViewModel, selectedDates: List<LocalDate>) {
 
     val displayedMonthNum = 13
     val pagerState = rememberPagerState { displayedMonthNum }
-
-    val coroutineScope = rememberCoroutineScope()
 
     HorizontalPager(
         state = pagerState,
@@ -41,15 +39,17 @@ fun DateSelectUI(createScheduleViewModel: CreateScheduleViewModel, selectedDates
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "${currentYearMonth.year}년 " + currentYearMonth.month.getDisplayName(
-                    TextStyle.FULL,
-                    Locale.KOREAN
+                text = stringResource(
+                    R.string.year_month_numeric_format,
+                    currentYearMonth.year,
+                    currentYearMonth.month.value
                 ),
                 style = MaterialTheme.typography.titleMedium
             )
 
             DayOfWeek()
 
+            val coroutineScope = rememberCoroutineScope()
             DaysInMonth(
                 currentYearMonth = currentYearMonth,
                 selectedDates = selectedDates,

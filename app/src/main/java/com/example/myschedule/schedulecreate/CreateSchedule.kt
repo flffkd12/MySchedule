@@ -29,8 +29,6 @@ import java.time.LocalDate
 @Composable
 fun CreateSchedule(createScheduleViewModel: CreateScheduleViewModel, navController: NavController) {
 
-    val selectedDates by createScheduleViewModel.selectedScheduleDates.collectAsState()
-
     Scaffold(
         bottomBar = { BtmNavBar(navController, Routes.CREATE_SCHEDULE) },
         containerColor = LightGreen
@@ -39,6 +37,8 @@ fun CreateSchedule(createScheduleViewModel: CreateScheduleViewModel, navControll
             modifier = Modifier.fillMaxSize().padding(innerPadding).padding(DefaultAllPadding)
                 .clip(RoundedAllCornerShape).background(White)
         ) {
+            val selectedDates by createScheduleViewModel.selectedScheduleDates.collectAsState()
+
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.fillMaxSize().padding(ContentPadding).padding(bottom = 52.dp)
@@ -56,7 +56,7 @@ fun CreateSchedule(createScheduleViewModel: CreateScheduleViewModel, navControll
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = stringResource(R.string.date_selected_title),
+                        text = stringResource(R.string.date_selection_title),
                         style = MaterialTheme.typography.titleMedium,
                         color = Black
                     )
@@ -71,7 +71,7 @@ fun CreateSchedule(createScheduleViewModel: CreateScheduleViewModel, navControll
                         modifier = Modifier.size(84.dp, 34.dp)
                     ) {
                         Text(
-                            text = stringResource(R.string.date_init_name),
+                            text = stringResource(R.string.date_init_button),
                             color = White,
                             style = MaterialTheme.typography.bodySmall
                         )
@@ -98,7 +98,6 @@ fun CreateScheduleNextButton(
 ) {
 
     val context = LocalContext.current
-
     val coroutineScope = rememberCoroutineScope()
 
     ElevatedButton(

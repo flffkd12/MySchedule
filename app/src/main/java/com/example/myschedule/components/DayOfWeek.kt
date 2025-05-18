@@ -16,6 +16,7 @@ import com.example.myschedule.ui.theme.Red
 
 @Composable
 fun DayOfWeek() {
+    
     Row(modifier = Modifier.fillMaxWidth()) {
         val dayList = LocalContext.current.resources.getStringArray(R.array.korean_weekdays_short)
         dayList.forEach { day ->

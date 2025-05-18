@@ -19,6 +19,12 @@
     <string name="complete">완료</string>
     <string name="now">지금</string>
 
+    <!--> 일정 생성 화면 <-->
+    <string name="date_selection_guide">날짜를 선택해주세요</string>
+    <string name="date_selection_title">선택한 날짜</string>
+    <string name="date_init_button">초기화</string>
+    <string name="next">다음</string>
+
     <!--> 월별 일정 화면 <-->
     <string name="year_month_numeric_format">%1$d년 %2$d월</string>
     <string name="num_schedule">현재 일정이 %d개 있어요</string>
@@ -45,10 +51,6 @@
     <string name="schedule_time_range">%1$s %2$d시 %3$02d분 ~ %4$s %5$d시 %6$02d분</string>
     <string name="no_schedule">일정이 없어요..</string>
 
-
-    <string name="date_selection_guide">날짜를 선택해주세요</string>
-    <string name="date_selected_title">선택한 날짜</string>
-    <string name="date_init_name">초기화</string>
-    <string name="next">다음</string>
+    
     <string name="schedule_create">일정 생성</string>
 </resources>
