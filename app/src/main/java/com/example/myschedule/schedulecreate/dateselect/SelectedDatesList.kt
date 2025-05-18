@@ -12,10 +12,8 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun SelectedDatesList(selectedDates: List<LocalDate>) {
 
-    val groupedDates = selectedDates.sorted().groupConsecutiveDates()
-
     LazyColumn {
-        items(groupedDates) { dateRange ->
+        items(selectedDates.sorted().groupConsecutiveDates()) { dateRange ->
             when (dateRange) {
                 is DateGroup.SingleDate -> Text(
                     text = formatDate(dateRange.date),
@@ -33,10 +31,13 @@ fun SelectedDatesList(selectedDates: List<LocalDate>) {
     }
 }
 
-private fun formatDate(date: LocalDate): String {
-    val formatter = DateTimeFormatter.ofPattern("y년 M월 d일 EEEE")
+private sealed class DateGroup {
+    data class SingleDate(val date: LocalDate) : DateGroup()
+    data class ConsecutiveDate(val start: LocalDate, val end: LocalDate) : DateGroup()
+}
 
-    return date.format(formatter)
+private fun formatDate(date: LocalDate): String {
+    return date.format(DateTimeFormatter.ofPattern("y년 M월 d일 EEEE"))
 }
 
 private fun List<LocalDate>.groupConsecutiveDates(): List<DateGroup> {
