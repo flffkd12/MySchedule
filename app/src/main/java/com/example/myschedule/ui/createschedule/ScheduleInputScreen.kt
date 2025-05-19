@@ -158,13 +158,11 @@ fun CreateScheduleButton(
 
                 coroutineScope.launch(Dispatchers.IO) {
                     createScheduleViewModel.saveSchedule(
-                        context = context,
                         title = title,
                         regionLocation = regionLocation,
                         startTime = startTime,
                         endTime = endTime
                     )
-                    createScheduleViewModel.clearSelectedDate()
                     monthlyScheduleViewModel.fetchScheduleList(context)
                 }
 

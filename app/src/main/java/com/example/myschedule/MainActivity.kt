@@ -11,16 +11,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
 import com.example.myschedule.data.database.MyScheduleDb
+import com.example.myschedule.data.repository.ScheduleRepositoryImpl
+import com.example.myschedule.domain.ScheduleRepository
 import com.example.myschedule.ui.navigation.NaviGraph
 import com.example.myschedule.ui.theme.MyScheduleTheme
 import com.example.myschedule.viewmodels.*
 
 class MainActivity : ComponentActivity() {
 
-    private val createScheduleViewModel: CreateScheduleViewModel by viewModels()
+    private val createScheduleViewModel: CreateScheduleViewModel by viewModels {
+        CreateScheduleViewModelFactory(
+            ScheduleRepositoryImpl(MyScheduleDb.getDatabase(this).scheduleDao())
+        )
+    }
     private val modifyScheduleViewModel: ModifyScheduleViewModel by viewModels()
     private val monthlyScheduleViewModel: MonthlyScheduleViewModel by viewModels()
     private val weatherViewModel: WeatherViewModel by viewModels()
@@ -31,8 +38,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val context = LocalContext.current
-
-            MyScheduleDb.getDatabase(context)
             monthlyScheduleViewModel.fetchScheduleList(context)
 
             MyScheduleTheme {
@@ -56,5 +61,17 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+    }
+}
+
+class CreateScheduleViewModelFactory(
+    private val scheduleRepository: ScheduleRepository
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(CreateScheduleViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return CreateScheduleViewModel(scheduleRepository) as T
+        }
+        throw IllegalArgumentException("CreateScheduleViewModel is unknown class")
     }
 }

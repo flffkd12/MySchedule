@@ -1,17 +1,16 @@
 package com.example.myschedule.viewmodels
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.myschedule.data.RegionLocation
 import com.example.myschedule.data.ScheduleTime
-import com.example.myschedule.data.database.MyScheduleDb
 import com.example.myschedule.data.database.entity.Schedule
+import com.example.myschedule.domain.ScheduleRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.time.LocalDate
 
-class CreateScheduleViewModel : ViewModel() {
+class CreateScheduleViewModel(private val scheduleRepository: ScheduleRepository) : ViewModel() {
 
     private val _selectedScheduleDates = MutableStateFlow<List<LocalDate>>(emptyList())
     val selectedScheduleDates: StateFlow<List<LocalDate>> = _selectedScheduleDates.asStateFlow()
@@ -33,7 +32,6 @@ class CreateScheduleViewModel : ViewModel() {
     }
 
     suspend fun saveSchedule(
-        context: Context,
         title: String,
         regionLocation: RegionLocation,
         startTime: ScheduleTime,
@@ -48,7 +46,8 @@ class CreateScheduleViewModel : ViewModel() {
                 startTime = startTime,
                 endTime = endTime,
             )
-            MyScheduleDb.getDatabase(context).scheduleDao().insertScheduleIfNotExist(schedule)
+            scheduleRepository.insertSchedule(schedule)
         }
+        clearSelectedDate()
     }
 }
