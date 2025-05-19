@@ -186,14 +186,3 @@ fun CreateScheduleButton(
         )
     }
 }
-
-fun TimeCalc(scheduleTime: ScheduleTime): Int {
-    val minutes = scheduleTime.hour % 12 * 60 + scheduleTime.minute
-    return when (scheduleTime.amPm) {
-        stringResource(R.string.am) -> minutes
-        stringResource(R.string.pm) -> minutes + 12 * 60
-        else -> {
-            throw IllegalArgumentException("Invalid AM/PM value")
-        }
-    }
-}
