@@ -18,7 +18,7 @@ import java.time.LocalDate
 import java.time.YearMonth
 
 @Composable
-fun DaysInMonth(
+fun DateInMonth(
     currentYearMonth: YearMonth,
     selectedDates: List<LocalDate>,
     isFirstMonth: Boolean,

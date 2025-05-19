@@ -50,7 +50,7 @@ fun DateSelectUI(createScheduleViewModel: CreateScheduleViewModel, selectedDates
             DayOfWeek()
 
             val coroutineScope = rememberCoroutineScope()
-            DaysInMonth(
+            DateInMonth(
                 currentYearMonth = currentYearMonth,
                 selectedDates = selectedDates,
                 isFirstMonth = page == 0,
