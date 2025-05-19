@@ -21,7 +21,7 @@ import com.example.myschedule.ui.theme.LightGray
 import com.example.myschedule.ui.theme.LightGreen
 
 @Composable
-fun ScheduleTitle(titleName: MutableState<String>) {
+fun ScheduleTitle(title: MutableState<String>) {
 
     val focusManager = LocalFocusManager.current
 
@@ -32,8 +32,8 @@ fun ScheduleTitle(titleName: MutableState<String>) {
     )
 
     OutlinedTextField(
-        value = titleName.value,
-        onValueChange = { titleName.value = it },
+        value = title.value,
+        onValueChange = { title.value = it },
         singleLine = true,
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedBorderColor = LightGray,
