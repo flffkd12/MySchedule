@@ -1,4 +1,4 @@
-package com.example.myschedule.schedulecreate.titletimeinput
+package com.example.myschedule.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
@@ -23,14 +23,13 @@ import com.example.myschedule.ui.theme.LightGreen
 @Composable
 fun ScheduleTitle(title: MutableState<String>) {
 
-    val focusManager = LocalFocusManager.current
-
     Text(
         text = stringResource(R.string.title_input_guide),
         color = Black,
         style = MaterialTheme.typography.titleLarge
     )
 
+    val focusManager = LocalFocusManager.current
     OutlinedTextField(
         value = title.value,
         onValueChange = { title.value = it },

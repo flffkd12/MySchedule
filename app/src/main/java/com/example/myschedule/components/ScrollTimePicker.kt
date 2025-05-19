@@ -1,4 +1,4 @@
-package com.example.myschedule.schedulecreate.titletimeinput
+package com.example.myschedule.components
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
