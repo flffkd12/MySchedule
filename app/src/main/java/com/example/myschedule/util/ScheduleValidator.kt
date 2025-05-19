@@ -2,24 +2,18 @@ package com.example.myschedule.util
 
 import com.example.myschedule.R
 import com.example.myschedule.data.Location
+import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import com.example.myschedule.schedulecreate.titletimeinput.TimeCalc
 
 object ScheduleValidator {
 
     fun validateScheduleInput(
         title: String,
-        startTimeAmPm: String,
-        startTimeHour: Int,
-        startTimeMinute: Int,
-        endTimeAmPm: String,
-        endTimeHour: Int,
-        endTimeMinute: Int,
+        startTime: ScheduleTime,
+        endTime: ScheduleTime,
         location: Location?
     ): Int {
-        val scheduleStart = TimeCalc(startTimeAmPm, startTimeHour, startTimeMinute)
-        val scheduleEnd = TimeCalc(endTimeAmPm, endTimeHour, endTimeMinute)
-        val isScheduleTimeAvailable = scheduleStart < scheduleEnd
-
+        val isScheduleTimeAvailable = TimeCalc(startTime) < TimeCalc(endTime)
         val errorResId = if (title.isEmpty()) {
             R.string.empty_title_message
         } else if (title.length > 20) {

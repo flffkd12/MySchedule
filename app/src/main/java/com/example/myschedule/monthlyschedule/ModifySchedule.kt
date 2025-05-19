@@ -20,6 +20,7 @@ import com.example.myschedule.BtmNavBar
 import com.example.myschedule.R
 import com.example.myschedule.Routes
 import com.example.myschedule.components.SelectRegion
+import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTitle
 import com.example.myschedule.schedulecreate.titletimeinput.ScrollTimePicker
 import com.example.myschedule.ui.theme.*
@@ -55,7 +56,7 @@ fun ModifySchedule(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.fillMaxSize().padding(ContentPadding)
             ) {
-                ScheduleTitle(titleName = modifyScheduleViewModel.title)
+                ScheduleTitle(title = modifyScheduleViewModel.title)
 
                 Text(
                     text = stringResource(R.string.schedule_select_region),
@@ -124,12 +125,16 @@ fun ModifyScheduleButton(
             )
             val errorResId = ScheduleValidator.validateScheduleInput(
                 modifyScheduleViewModel.title.value,
-                modifyScheduleViewModel.startTimeAmPm.value,
-                modifyScheduleViewModel.startTimeHour.intValue,
-                modifyScheduleViewModel.startTimeMinute.intValue,
-                modifyScheduleViewModel.endTimeAmPm.value,
-                modifyScheduleViewModel.endTimeHour.intValue,
-                modifyScheduleViewModel.endTimeMinute.intValue,
+                ScheduleTime(
+                    modifyScheduleViewModel.startTimeAmPm.value,
+                    modifyScheduleViewModel.startTimeHour.intValue,
+                    modifyScheduleViewModel.startTimeMinute.intValue,
+                ),
+                ScheduleTime(
+                    modifyScheduleViewModel.endTimeAmPm.value,
+                    modifyScheduleViewModel.endTimeHour.intValue,
+                    modifyScheduleViewModel.endTimeMinute.intValue,
+                ),
                 location
             )
 
