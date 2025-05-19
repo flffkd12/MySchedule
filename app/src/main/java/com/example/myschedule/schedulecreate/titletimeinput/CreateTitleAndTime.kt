@@ -6,10 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,6 +21,7 @@ import com.example.myschedule.Routes
 import com.example.myschedule.components.SelectRegion
 import com.example.myschedule.data.RegionLocation
 import com.example.myschedule.ui.theme.*
+import com.example.myschedule.util.ScheduleValidator
 import com.example.myschedule.viewmodels.CreateScheduleViewModel
 import com.example.myschedule.viewmodels.MonthlyScheduleViewModel
 import com.example.myschedule.viewmodels.RegionViewModel
@@ -39,7 +37,6 @@ fun CreateTitleAndTime(
 ) {
 
     val focusManager = LocalFocusManager.current
-
     Scaffold(
         bottomBar = { BtmNavBar(navController, Routes.CREATE_SCHEDULE) },
         containerColor = LightGreen,
@@ -56,8 +53,8 @@ fun CreateTitleAndTime(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.fillMaxSize().padding(ContentPadding)
             ) {
-                val titleName = rememberSaveable { mutableStateOf("") }
-                ScheduleTitle(titleName)
+                val title = rememberSaveable { mutableStateOf("") }
+                ScheduleTitle(title)
 
                 Text(
                     text = stringResource(R.string.schedule_select_region),
@@ -76,40 +73,47 @@ fun CreateTitleAndTime(
                     style = MaterialTheme.typography.titleMedium
                 )
 
-                val startTimeAmPm = rememberSaveable { mutableStateOf("오전") }
-                val startTimeHour = rememberSaveable { mutableStateOf("6") }
-                val startTimeMinute = rememberSaveable { mutableStateOf("0") }
+                val startTimeAmPm = rememberSaveable { mutableStateOf(stringResource(R.string.am)) }
+                val startTimeHour = rememberSaveable { mutableIntStateOf(6) }
+                val startTimeMinute = rememberSaveable { mutableIntStateOf(0) }
 
-                // ScrollTimePicker(startTimeAmPm, startTimeHour, startTimeMinute)
+                ScrollTimePicker(startTimeAmPm, startTimeHour, startTimeMinute)
 
                 Text(
                     text = stringResource(R.string.schedule_end_time),
                     style = MaterialTheme.typography.titleMedium
                 )
 
-                val endTimeAmPm = rememberSaveable { mutableStateOf("오후") }
-                val endTimeHour = rememberSaveable { mutableStateOf("6") }
-                val endTimeMinute = rememberSaveable { mutableStateOf("0") }
+                val endTimeAmPm = rememberSaveable { mutableStateOf(stringResource(R.string.pm)) }
+                val endTimeHour = rememberSaveable { mutableIntStateOf(6) }
+                val endTimeMinute = rememberSaveable { mutableIntStateOf(0) }
 
-                //ScrollTimePicker(endTimeAmPm, endTimeHour, endTimeMinute)
+                ScrollTimePicker(endTimeAmPm, endTimeHour, endTimeMinute)
 
                 Spacer(modifier = Modifier.weight(1f))
+
+                val startTime = ScheduleTime(
+                    startTimeAmPm.value,
+                    startTimeHour.intValue,
+                    startTimeMinute.intValue,
+                )
+                val endTime = ScheduleTime(
+                    endTimeAmPm.value,
+                    endTimeHour.intValue,
+                    endTimeMinute.intValue,
+                )
 
                 CreateScheduleButton(
                     createScheduleViewModel = createScheduleViewModel,
                     monthlyScheduleViewModel = monthlyScheduleViewModel,
                     regionViewModel = regionViewModel,
                     navController = navController,
-                    titleName = titleName.value,
+                    title = title.value,
                     firstRegion = firstRegion.value,
                     secondRegion = secondRegion.value,
                     thirdRegion = thirdRegion.value,
-                    startTimeAmPm = startTimeAmPm.value,
-                    startTimeHour = startTimeHour.value.toInt(),
-                    startTimeMinute = startTimeMinute.value.toInt(),
-                    endTimeAmPm = endTimeAmPm.value,
-                    endTimeHour = endTimeHour.value.toInt(),
-                    endTimeMinute = endTimeHour.value.toInt()
+                    startTime = startTime,
+                    endTime = endTime
                 )
             }
         }
@@ -122,16 +126,12 @@ fun CreateScheduleButton(
     monthlyScheduleViewModel: MonthlyScheduleViewModel,
     regionViewModel: RegionViewModel,
     navController: NavController,
-    titleName: String,
+    title: String,
     firstRegion: String,
     secondRegion: String,
     thirdRegion: String,
-    startTimeAmPm: String,
-    startTimeHour: Int,
-    startTimeMinute: Int,
-    endTimeAmPm: String,
-    endTimeHour: Int,
-    endTimeMinute: Int,
+    startTime: ScheduleTime,
+    endTime: ScheduleTime
 ) {
 
     val context = LocalContext.current
@@ -139,72 +139,27 @@ fun CreateScheduleButton(
 
     ElevatedButton(
         onClick = {
-            val scheduleStart = TimeCalc(startTimeAmPm, startTimeHour, startTimeMinute)
-            val scheduleEnd = TimeCalc(endTimeAmPm, endTimeHour, endTimeMinute)
-            val isScheduleTimeAvailable = scheduleStart < scheduleEnd
             val location = regionViewModel.getRegionLocation(firstRegion, secondRegion, thirdRegion)
+            val errorResId =
+                ScheduleValidator.validateScheduleInput(title, startTime, endTime, location)
 
-            if (titleName.isEmpty()) {
+            if (errorResId != 0) {
                 coroutineScope.launch(Dispatchers.Main) {
-                    Toast.makeText(
-                        context,
-                        R.string.empty_title_message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            } else if (titleName.length > 20) {
-                coroutineScope.launch(Dispatchers.Main) {
-                    Toast.makeText(
-                        context,
-                        R.string.exceeded_title_message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            } else if (!isScheduleTimeAvailable) {
-                coroutineScope.launch(Dispatchers.Main) {
-                    Toast.makeText(
-                        context,
-                        R.string.unavailable_time_message,
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            } else if (location == null) {
-                coroutineScope.launch(Dispatchers.Main) {
-                    Toast.makeText(
-                        context,
-                        R.string.unavailable_region_message,
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(context, errorResId, Toast.LENGTH_SHORT).show()
                 }
             } else {
-                val regionLocation = RegionLocation(
-                    firstRegion = firstRegion,
-                    secondRegion = secondRegion,
-                    thirdRegion = thirdRegion,
-                    location = location
-                )
-                val startTime = ScheduleTime(
-                    amPm = startTimeAmPm,
-                    hour = startTimeHour,
-                    minute = startTimeMinute
-                )
-                val endTime = ScheduleTime(
-                    amPm = endTimeAmPm,
-                    hour = endTimeHour,
-                    minute = endTimeMinute
-                )
+                val regionLocation =
+                    RegionLocation(firstRegion, secondRegion, thirdRegion, location!!)
 
                 coroutineScope.launch(Dispatchers.IO) {
                     createScheduleViewModel.saveSchedule(
                         context = context,
-                        title = titleName,
+                        title = title,
                         regionLocation = regionLocation,
                         startTime = startTime,
                         endTime = endTime
                     )
-
                     createScheduleViewModel.clearSelectedDate()
-
                     monthlyScheduleViewModel.fetchScheduleList(context)
                 }
 
@@ -222,18 +177,18 @@ fun CreateScheduleButton(
         modifier = Modifier.fillMaxWidth()
     ) {
         Text(
-            text = stringResource(R.string.schedule_create),
+            text = stringResource(R.string.schedule_create_button),
             color = White,
             style = MaterialTheme.typography.bodySmall
         )
     }
 }
 
-fun TimeCalc(amPm: String, hour: Int, minute: Int): Int {
-    val minutes = hour % 12 * 60 + minute
-    return when (amPm) {
-        "오전" -> minutes
-        "오후" -> minutes + 12 * 60
+fun TimeCalc(scheduleTime: ScheduleTime): Int {
+    val minutes = scheduleTime.hour % 12 * 60 + scheduleTime.minute
+    return when (scheduleTime.amPm) {
+        stringResource(R.string.am) -> minutes
+        stringResource(R.string.pm) -> minutes + 12 * 60
         else -> {
             throw IllegalArgumentException("Invalid AM/PM value")
         }
