@@ -37,17 +37,23 @@ class CreateScheduleViewModel(private val scheduleRepository: ScheduleRepository
         startTime: ScheduleTime,
         endTime: ScheduleTime,
     ) {
+        val scheduleList = mutableListOf<Schedule>()
         val selectedDates = selectedScheduleDates.value
+
         selectedDates.forEach { selectedDate ->
-            val schedule = Schedule(
-                date = selectedDate,
-                title = title,
-                regionLocation = regionLocation,
-                startTime = startTime,
-                endTime = endTime,
+            scheduleList.add(
+                Schedule(
+                    date = selectedDate,
+                    title = title,
+                    regionLocation = regionLocation,
+                    startTime = startTime,
+                    endTime = endTime,
+                )
             )
-            scheduleRepository.insertSchedule(schedule)
         }
+
+        scheduleRepository.insertSchedules(scheduleList)
+
         clearSelectedDate()
     }
 }

@@ -4,5 +4,5 @@ import com.example.myschedule.data.database.entity.Schedule
 
 interface ScheduleRepository {
 
-    suspend fun insertSchedule(schedule: Schedule)
+    suspend fun insertSchedules(schedule: List<Schedule>)
 }

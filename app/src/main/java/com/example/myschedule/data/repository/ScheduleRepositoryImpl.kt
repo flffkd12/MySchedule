@@ -6,7 +6,7 @@ import com.example.myschedule.domain.ScheduleRepository
 
 class ScheduleRepositoryImpl(private val scheduleDao: ScheduleDao) : ScheduleRepository {
 
-    override suspend fun insertSchedule(schedule: Schedule) {
-        scheduleDao.insertScheduleIfNotExist(schedule)
+    override suspend fun insertSchedules(schedule: List<Schedule>) {
+        scheduleDao.insertSchedules(schedule)
     }
 }

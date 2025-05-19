@@ -39,6 +39,13 @@ interface ScheduleDao {
         }
     }
 
+    @Transaction
+    suspend fun insertSchedules(schedule: List<Schedule>) {
+        schedule.forEach {
+            insertScheduleIfNotExist(it)
+        }
+    }
+
     @Query("SELECT * FROM schedules")
     suspend fun getAllSchedules(): List<Schedule>
 
