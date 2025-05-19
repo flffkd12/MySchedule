@@ -1,4 +1,4 @@
-package com.example.myschedule
+package com.example.myschedule.components.bottomnav
 
 import androidx.compose.ui.graphics.painter.Painter
 
