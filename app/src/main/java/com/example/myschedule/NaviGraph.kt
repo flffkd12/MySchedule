@@ -4,12 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.myschedule.createschedule.CreateSchedule
+import com.example.myschedule.createschedule.titletimeinput.CreateTitleAndTime
 import com.example.myschedule.mainscreen.MainScreen
 import com.example.myschedule.mainscreen.SelectRegionScreen
 import com.example.myschedule.monthlyschedule.ModifySchedule
 import com.example.myschedule.monthlyschedule.MonthlySchedule
-import com.example.myschedule.schedulecreate.CreateSchedule
-import com.example.myschedule.schedulecreate.titletimeinput.CreateTitleAndTime
 import com.example.myschedule.viewmodels.*
 
 @Composable

@@ -1,4 +1,4 @@
-package com.example.myschedule.schedulecreate.dateselect
+package com.example.myschedule.createschedule.dateselect
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package com.example.myschedule.schedulecreate.titletimeinput
+package com.example.myschedule.createschedule.titletimeinput
 
 import android.widget.Toast
 import androidx.compose.foundation.background

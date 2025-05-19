@@ -1,4 +1,4 @@
-package com.example.myschedule.schedulecreate
+package com.example.myschedule.createschedule
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -18,8 +18,8 @@ import androidx.navigation.NavController
 import com.example.myschedule.BtmNavBar
 import com.example.myschedule.R
 import com.example.myschedule.Routes
-import com.example.myschedule.schedulecreate.dateselect.DateSelectUI
-import com.example.myschedule.schedulecreate.dateselect.SelectedDatesList
+import com.example.myschedule.createschedule.dateselect.DateSelectUI
+import com.example.myschedule.createschedule.dateselect.SelectedDatesList
 import com.example.myschedule.ui.theme.*
 import com.example.myschedule.viewmodels.CreateScheduleViewModel
 import kotlinx.coroutines.Dispatchers
