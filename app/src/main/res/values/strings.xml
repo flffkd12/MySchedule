@@ -5,7 +5,6 @@
     <!--> 메인 화면 <-->
     <string name="select_region_initial_guide">날씨를 확인할 지역 선택</string>
     <string name="select_region_guide">날씨를 확인할 지역을 찾습니다</string>
-    <string name="select_region">지역을 선택해주세요</string>
     <string name="weather_label_today">오늘(%s)</string>
     <string name="weather_label_tomorrow">내일(%s)</string>
     <string name="weather_label_day_after_tomorrow">모레(%s)</string>
@@ -24,6 +23,7 @@
     <string name="date_selection_title">선택한 날짜</string>
     <string name="date_init_button">초기화</string>
     <string name="next">다음</string>
+    <string name="schedule_create_button">일정 생성</string>
 
     <!--> 월별 일정 화면 <-->
     <string name="year_month_numeric_format">%1$d년 %2$d월</string>
@@ -32,7 +32,8 @@
     <!--> 일정 수정 화면 <-->
     <string name="schedule_modify_button">수정 완료</string>
 
-    <!--> 일정 생성 및 수정 화면 공통 사용 <-->
+
+    <!--> 일정 생성 및 일정 수정 화면 공통 사용 <-->
     <string name="schedule_select_region">활동 지역 선택</string>
     <string name="schedule_start_time">일정 시작 시간</string>
     <string name="schedule_end_time">일정 종료 시간</string>
@@ -41,7 +42,7 @@
     <string name="am">오전</string>
     <string name="pm">오후</string>
 
-    <!--> 일정 생성 및 수정 시 에러 메시지 <-->
+    <!--> 일정 생성 및 일정 수정 시 에러 메시지 <-->
     <string name="empty_title_message">일정 제목을 입력해주세요</string>
     <string name="exceeded_title_message">일정 제목은 20자까지 지을 수 있어요</string>
     <string name="unavailable_time_message">시작 시간을 종료 시간보다 빠르게 설정해주세요</string>
@@ -51,6 +52,6 @@
     <string name="schedule_time_range">%1$s %2$d시 %3$02d분 ~ %4$s %5$d시 %6$02d분</string>
     <string name="no_schedule">일정이 없어요..</string>
 
-    
-    <string name="schedule_create">일정 생성</string>
+    <!--> 메인, 일정 생성, 일정 수정 화면 공통 사용 <-->
+    <string name="select_region">지역을 선택해주세요</string>
 </resources>
