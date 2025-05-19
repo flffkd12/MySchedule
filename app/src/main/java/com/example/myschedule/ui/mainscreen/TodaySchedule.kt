@@ -1,4 +1,4 @@
-package com.example.myschedule.mainscreen
+package com.example.myschedule.ui.mainscreen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn

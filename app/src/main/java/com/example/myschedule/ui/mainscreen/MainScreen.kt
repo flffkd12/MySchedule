@@ -1,4 +1,4 @@
-package com.example.myschedule.mainscreen
+package com.example.myschedule.ui.mainscreen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

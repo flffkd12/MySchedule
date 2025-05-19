@@ -1,4 +1,4 @@
-package com.example.myschedule.createschedule
+package com.example.myschedule.ui.createschedule
 
 import android.widget.Toast
 import androidx.compose.foundation.background

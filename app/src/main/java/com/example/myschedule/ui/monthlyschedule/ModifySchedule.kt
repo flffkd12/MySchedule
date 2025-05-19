@@ -1,4 +1,4 @@
-package com.example.myschedule.monthlyschedule
+package com.example.myschedule.ui.monthlyschedule
 
 import android.widget.Toast
 import androidx.compose.foundation.background

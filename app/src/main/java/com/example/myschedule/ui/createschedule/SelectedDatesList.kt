@@ -1,4 +1,4 @@
-package com.example.myschedule.createschedule
+package com.example.myschedule.ui.createschedule
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items

@@ -1,4 +1,4 @@
-package com.example.myschedule.mainscreen
+package com.example.myschedule.ui.mainscreen
 
 import android.widget.Toast
 import androidx.compose.foundation.clickable
@@ -69,7 +69,7 @@ fun SelectRegionScreen(
 
                 val regionSelectionGuide = stringResource(R.string.select_region)
                 val isAllRegionSelected = thirdRegion.value != regionSelectionGuide
-                
+
                 TextButton(
                     onClick = {
                         if (isAllRegionSelected) {

@@ -1,4 +1,4 @@
-package com.example.myschedule.monthlyschedule
+package com.example.myschedule.ui.monthlyschedule
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

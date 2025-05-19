@@ -1,4 +1,4 @@
-package com.example.myschedule.monthlyschedule
+package com.example.myschedule.ui.createschedule
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,7 +8,6 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -17,15 +16,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.myschedule.R
 import com.example.myschedule.components.DayOfWeek
-import com.example.myschedule.data.database.entity.Schedule
+import com.example.myschedule.viewmodels.CreateScheduleViewModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.YearMonth
 
 @Composable
-fun Calendar(currentDate: MutableState<LocalDate>, scheduleList: List<Schedule>) {
-
-    val coroutineScope = rememberCoroutineScope()
+fun DateSelectUI(createScheduleViewModel: CreateScheduleViewModel, selectedDates: List<LocalDate>) {
 
     val displayedMonthNum = 13
     val pagerState = rememberPagerState { displayedMonthNum }
@@ -35,12 +32,6 @@ fun Calendar(currentDate: MutableState<LocalDate>, scheduleList: List<Schedule>)
         modifier = Modifier.fillMaxWidth()
     ) { page ->
         val currentYearMonth = remember { YearMonth.now().plusMonths(page.toLong()) }
-        val firstEpochDayOfMonth = currentYearMonth.atDay(1).toEpochDay()
-        val lastEpochDayOfMonth = currentYearMonth.atEndOfMonth().toEpochDay()
-        val currentMonthScheduleList = scheduleList.filter { schedule ->
-            val scheduleEpochDay = schedule.date.toEpochDay()
-            scheduleEpochDay in firstEpochDayOfMonth..lastEpochDayOfMonth
-        }
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -58,14 +49,18 @@ fun Calendar(currentDate: MutableState<LocalDate>, scheduleList: List<Schedule>)
 
             DayOfWeek()
 
-            DaysInCalendar(
+            val coroutineScope = rememberCoroutineScope()
+            DateInMonth(
                 currentYearMonth = currentYearMonth,
-                clickedDate = currentDate.value,
-                schedules = currentMonthScheduleList,
+                selectedDates = selectedDates,
                 isFirstMonth = page == 0,
                 isLastMonth = page == displayedMonthNum - 1,
                 onDateClick = { clickedDate ->
-                    currentDate.value = clickedDate
+                    if (selectedDates.contains(clickedDate)) {
+                        createScheduleViewModel.removeSelectedDate(clickedDate)
+                    } else {
+                        createScheduleViewModel.addSelectedDate(clickedDate)
+                    }
 
                     val clickedDateMonth = clickedDate.year * 12 + clickedDate.monthValue
                     val currentMonth = currentYearMonth.year * 12 + currentYearMonth.monthValue
