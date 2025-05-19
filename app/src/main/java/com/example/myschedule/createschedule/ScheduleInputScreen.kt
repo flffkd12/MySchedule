@@ -76,7 +76,8 @@ fun ScheduleInputScreen(
                     style = MaterialTheme.typography.titleMedium
                 )
 
-                val startTimeAmPm = rememberSaveable { mutableStateOf(stringResource(R.string.am)) }
+                val defaultAmString = stringResource(R.string.am)
+                val startTimeAmPm = rememberSaveable { mutableStateOf(defaultAmString) }
                 val startTimeHour = rememberSaveable { mutableIntStateOf(6) }
                 val startTimeMinute = rememberSaveable { mutableIntStateOf(0) }
 
@@ -87,7 +88,8 @@ fun ScheduleInputScreen(
                     style = MaterialTheme.typography.titleMedium
                 )
 
-                val endTimeAmPm = rememberSaveable { mutableStateOf(stringResource(R.string.pm)) }
+                val defaultPmString = stringResource(R.string.pm)
+                val endTimeAmPm = rememberSaveable { mutableStateOf(defaultPmString) }
                 val endTimeHour = rememberSaveable { mutableIntStateOf(6) }
                 val endTimeMinute = rememberSaveable { mutableIntStateOf(0) }
 
