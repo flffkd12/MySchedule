@@ -20,6 +20,7 @@ import com.example.myschedule.R
 import com.example.myschedule.Routes
 import com.example.myschedule.components.SelectRegion
 import com.example.myschedule.data.RegionLocation
+import com.example.myschedule.data.ScheduleTime
 import com.example.myschedule.ui.theme.*
 import com.example.myschedule.util.ScheduleValidator
 import com.example.myschedule.viewmodels.CreateScheduleViewModel

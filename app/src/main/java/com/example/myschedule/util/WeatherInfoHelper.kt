@@ -1,10 +1,6 @@
 package com.example.myschedule.util
 
-import com.example.myschedule.data.WeatherCode
-import com.example.myschedule.data.WeatherDto
-import com.example.myschedule.data.isBeforeOrEqualTo
-import com.example.myschedule.data.toWeatherCode
-import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
+import com.example.myschedule.data.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 

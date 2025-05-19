@@ -1,4 +1,4 @@
-package com.example.myschedule.schedulecreate.titletimeinput
+package com.example.myschedule.data
 
 data class ScheduleTime(
     val amPm: String,

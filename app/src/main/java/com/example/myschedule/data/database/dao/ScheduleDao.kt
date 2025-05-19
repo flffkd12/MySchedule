@@ -5,8 +5,8 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import com.example.myschedule.data.RegionLocation
+import com.example.myschedule.data.ScheduleTime
 import com.example.myschedule.data.database.entity.Schedule
-import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import java.time.LocalDate
 
 @Dao

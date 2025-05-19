@@ -1,6 +1,5 @@
 package com.example.myschedule.data
 
-import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 import java.time.LocalDate
 
 data class WeatherDto(

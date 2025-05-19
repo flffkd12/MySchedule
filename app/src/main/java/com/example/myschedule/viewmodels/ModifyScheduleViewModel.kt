@@ -7,9 +7,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.myschedule.data.Location
 import com.example.myschedule.data.RegionLocation
+import com.example.myschedule.data.ScheduleTime
 import com.example.myschedule.data.database.MyScheduleDb
 import com.example.myschedule.data.database.entity.Schedule
-import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
 
 class ModifyScheduleViewModel : ViewModel() {
 

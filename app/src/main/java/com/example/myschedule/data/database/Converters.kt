@@ -3,7 +3,7 @@ package com.example.myschedule.data.database
 import androidx.room.TypeConverter
 import com.example.myschedule.data.Location
 import com.example.myschedule.data.RegionLocation
-import com.example.myschedule.schedulecreate.titletimeinput.ScheduleTime
+import com.example.myschedule.data.ScheduleTime
 import java.time.LocalDate
 
 class Converters {
