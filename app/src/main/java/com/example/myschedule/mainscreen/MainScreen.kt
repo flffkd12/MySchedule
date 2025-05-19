@@ -23,12 +23,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.myschedule.components.bottomnav.BtmNavBar
 import com.example.myschedule.R
-import com.example.myschedule.Routes
+import com.example.myschedule.components.bottomnav.BtmNavBar
 import com.example.myschedule.data.WeatherCode
 import com.example.myschedule.data.WeatherDto
 import com.example.myschedule.data.toWeatherCode
+import com.example.myschedule.ui.navigation.Routes
 import com.example.myschedule.ui.theme.*
 import com.example.myschedule.viewmodels.MonthlyScheduleViewModel
 import com.example.myschedule.viewmodels.WeatherViewModel

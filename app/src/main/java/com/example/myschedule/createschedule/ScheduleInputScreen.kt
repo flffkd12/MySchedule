@@ -15,14 +15,14 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.myschedule.components.bottomnav.BtmNavBar
 import com.example.myschedule.R
-import com.example.myschedule.Routes
 import com.example.myschedule.components.ScheduleTitle
 import com.example.myschedule.components.ScrollTimePicker
 import com.example.myschedule.components.SelectRegion
+import com.example.myschedule.components.bottomnav.BtmNavBar
 import com.example.myschedule.data.RegionLocation
 import com.example.myschedule.data.ScheduleTime
+import com.example.myschedule.ui.navigation.Routes
 import com.example.myschedule.ui.theme.*
 import com.example.myschedule.util.ScheduleValidator
 import com.example.myschedule.viewmodels.CreateScheduleViewModel

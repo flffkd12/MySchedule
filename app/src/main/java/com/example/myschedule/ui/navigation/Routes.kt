@@ -1,7 +1,7 @@
-package com.example.myschedule
+package com.example.myschedule.ui.navigation
 
 object Routes {
-    
+
     /** 로그인 화면 경로 */
     const val LOGIN = "login"
 

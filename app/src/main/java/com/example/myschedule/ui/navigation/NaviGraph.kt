@@ -1,4 +1,4 @@
-package com.example.myschedule
+package com.example.myschedule.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController

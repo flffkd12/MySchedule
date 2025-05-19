@@ -14,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
 import com.example.myschedule.data.database.MyScheduleDb
+import com.example.myschedule.ui.navigation.NaviGraph
 import com.example.myschedule.ui.theme.MyScheduleTheme
 import com.example.myschedule.viewmodels.*
 

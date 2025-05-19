@@ -15,11 +15,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.myschedule.components.bottomnav.BtmNavBar
 import com.example.myschedule.R
-import com.example.myschedule.Routes
 import com.example.myschedule.components.ScheduleCard
+import com.example.myschedule.components.bottomnav.BtmNavBar
 import com.example.myschedule.data.database.entity.Schedule
+import com.example.myschedule.ui.navigation.Routes
 import com.example.myschedule.ui.theme.*
 import com.example.myschedule.viewmodels.ModifyScheduleViewModel
 import com.example.myschedule.viewmodels.MonthlyScheduleViewModel

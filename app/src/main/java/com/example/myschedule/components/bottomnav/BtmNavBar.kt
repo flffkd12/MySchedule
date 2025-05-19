@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myschedule.R
-import com.example.myschedule.Routes
+import com.example.myschedule.ui.navigation.Routes
 import com.example.myschedule.ui.theme.LightGreen
 
 @Composable
