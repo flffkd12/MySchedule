@@ -1,7 +1,7 @@
 package com.example.myschedule.util
 
 import com.example.myschedule.R
-import com.example.myschedule.createschedule.titletimeinput.TimeCalc
+import com.example.myschedule.createschedule.TimeCalc
 import com.example.myschedule.data.Location
 import com.example.myschedule.data.ScheduleTime
 
