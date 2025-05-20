@@ -11,7 +11,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -82,11 +81,11 @@ fun CurrentDateScheduleList(
             )
         }
     } else {
-        val context = LocalContext.current
         val coroutineScope = rememberCoroutineScope()
 
         LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             val colorList = listOf(Red, Orange, LightGreen, Blue)
+            
             itemsIndexed(scheduleList) { i, schedule ->
                 ScheduleCard(
                     schedule = schedule,
@@ -98,7 +97,7 @@ fun CurrentDateScheduleList(
                     },
                     onDeleteClick = {
                         coroutineScope.launch(Dispatchers.IO) {
-                            monthlyScheduleViewModel.deleteSchedule(context, schedule.id)
+                            monthlyScheduleViewModel.deleteSchedule(schedule.id)
                             monthlyScheduleViewModel.fetchScheduleList()
                         }
                     }

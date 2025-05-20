@@ -18,4 +18,5 @@ interface ScheduleRepository {
         endTime: ScheduleTime
     )
 
+    suspend fun deleteSchedule(id: Long)
 }

@@ -1,9 +1,7 @@
 package com.example.myschedule.viewmodels
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myschedule.data.database.MyScheduleDb
 import com.example.myschedule.data.database.entity.Schedule
 import com.example.myschedule.domain.ScheduleRepository
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +24,7 @@ class MonthlyScheduleViewModel(private val scheduleRepository: ScheduleRepositor
         }
     }
 
-    suspend fun deleteSchedule(context: Context, id: Long) {
-        MyScheduleDb.getDatabase(context).scheduleDao().deleteSchedule(id)
+    suspend fun deleteSchedule(id: Long) {
+        scheduleRepository.deleteSchedule(id)
     }
 }

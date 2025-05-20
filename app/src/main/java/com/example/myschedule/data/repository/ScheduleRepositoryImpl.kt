@@ -25,4 +25,8 @@ class ScheduleRepositoryImpl(private val scheduleDao: ScheduleDao) : ScheduleRep
     ) {
         scheduleDao.modifySchedule(id, title, regionLocation, startTime, endTime)
     }
+
+    override suspend fun deleteSchedule(id: Long) {
+        scheduleDao.deleteSchedule(id)
+    }
 }
