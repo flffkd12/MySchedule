@@ -145,7 +145,7 @@ fun ModifyScheduleButton(
             } else {
                 coroutineScope.launch(Dispatchers.IO) {
                     modifyScheduleViewModel.modifySchedule(location!!)
-                    monthlyScheduleViewModel.fetchScheduleList(context)
+                    monthlyScheduleViewModel.fetchScheduleList()
                 }
 
                 navController.popBackStack()

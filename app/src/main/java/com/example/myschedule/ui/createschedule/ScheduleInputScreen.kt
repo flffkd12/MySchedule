@@ -163,7 +163,7 @@ fun CreateScheduleButton(
                         startTime = startTime,
                         endTime = endTime
                     )
-                    monthlyScheduleViewModel.fetchScheduleList(context)
+                    monthlyScheduleViewModel.fetchScheduleList()
                 }
 
                 navController.navigate(Routes.MONTHLY_SCHEDULE) {

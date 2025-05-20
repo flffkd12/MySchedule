@@ -12,6 +12,10 @@ class ScheduleRepositoryImpl(private val scheduleDao: ScheduleDao) : ScheduleRep
         scheduleDao.insertSchedules(schedule)
     }
 
+    override suspend fun getAllSchedules(): List<Schedule> {
+        return scheduleDao.getAllSchedules()
+    }
+
     override suspend fun modifySchedule(
         id: Long,
         title: String,

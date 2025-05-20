@@ -99,7 +99,7 @@ fun CurrentDateScheduleList(
                     onDeleteClick = {
                         coroutineScope.launch(Dispatchers.IO) {
                             monthlyScheduleViewModel.deleteSchedule(context, schedule.id)
-                            monthlyScheduleViewModel.fetchScheduleList(context)
+                            monthlyScheduleViewModel.fetchScheduleList()
                         }
                     }
                 )

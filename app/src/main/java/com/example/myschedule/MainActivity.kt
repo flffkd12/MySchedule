@@ -9,7 +9,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -28,12 +27,16 @@ class MainActivity : ComponentActivity() {
             ScheduleRepositoryImpl(MyScheduleDb.getDatabase(this).scheduleDao())
         )
     }
-    private val modifyScheduleViewModel: ModifyScheduleViewModel by viewModels() {
+    private val modifyScheduleViewModel: ModifyScheduleViewModel by viewModels {
         ModifyScheduleViewModelFactory(
             ScheduleRepositoryImpl(MyScheduleDb.getDatabase(this).scheduleDao())
         )
     }
-    private val monthlyScheduleViewModel: MonthlyScheduleViewModel by viewModels()
+    private val monthlyScheduleViewModel: MonthlyScheduleViewModel by viewModels {
+        MonthlyScheduleViewModelFactory(
+            ScheduleRepositoryImpl(MyScheduleDb.getDatabase(this).scheduleDao())
+        )
+    }
     private val weatherViewModel: WeatherViewModel by viewModels()
     private lateinit var regionViewModel: RegionViewModel
 
@@ -41,8 +44,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val context = LocalContext.current
-            monthlyScheduleViewModel.fetchScheduleList(context)
+            monthlyScheduleViewModel.fetchScheduleList()
 
             MyScheduleTheme {
                 Image(
@@ -89,5 +91,17 @@ class ModifyScheduleViewModelFactory(
             return ModifyScheduleViewModel(scheduleRepository) as T
         }
         throw IllegalArgumentException("ModifyScheduleViewModel is unknown class")
+    }
+}
+
+class MonthlyScheduleViewModelFactory(
+    private val scheduleRepository: ScheduleRepository
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MonthlyScheduleViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return MonthlyScheduleViewModel(scheduleRepository) as T
+        }
+        throw IllegalArgumentException("MonthlyScheduleViewModel is unknown class")
     }
 }
