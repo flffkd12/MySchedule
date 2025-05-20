@@ -24,7 +24,7 @@ fun WeatherDto.toWeatherCode(): WeatherCode {
     }
 }
 
-fun WeatherDto.isBeforeOrEqualTo(endTime: ScheduleTime): Boolean {
+fun WeatherDto.isAfter(endTime: ScheduleTime): Boolean {
     val weatherDate = LocalDate.parse(date, java.time.format.DateTimeFormatter.BASIC_ISO_DATE)
     val weatherHour = time.substring(0, 2).toInt()
     val weatherDateTime = weatherDate.atTime(weatherHour, 0)
@@ -36,5 +36,5 @@ fun WeatherDto.isBeforeOrEqualTo(endTime: ScheduleTime): Boolean {
     } else endTime.hour
     val endDateTime = LocalDate.now().atTime(endHour, 0)
 
-    return !weatherDateTime.isAfter(endDateTime)
+    return weatherDateTime.isAfter(endDateTime)
 }
