@@ -28,7 +28,11 @@ class MainActivity : ComponentActivity() {
             ScheduleRepositoryImpl(MyScheduleDb.getDatabase(this).scheduleDao())
         )
     }
-    private val modifyScheduleViewModel: ModifyScheduleViewModel by viewModels()
+    private val modifyScheduleViewModel: ModifyScheduleViewModel by viewModels() {
+        ModifyScheduleViewModelFactory(
+            ScheduleRepositoryImpl(MyScheduleDb.getDatabase(this).scheduleDao())
+        )
+    }
     private val monthlyScheduleViewModel: MonthlyScheduleViewModel by viewModels()
     private val weatherViewModel: WeatherViewModel by viewModels()
     private lateinit var regionViewModel: RegionViewModel
@@ -73,5 +77,17 @@ class CreateScheduleViewModelFactory(
             return CreateScheduleViewModel(scheduleRepository) as T
         }
         throw IllegalArgumentException("CreateScheduleViewModel is unknown class")
+    }
+}
+
+class ModifyScheduleViewModelFactory(
+    private val scheduleRepository: ScheduleRepository
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ModifyScheduleViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return ModifyScheduleViewModel(scheduleRepository) as T
+        }
+        throw IllegalArgumentException("ModifyScheduleViewModel is unknown class")
     }
 }

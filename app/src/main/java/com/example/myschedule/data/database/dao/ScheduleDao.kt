@@ -50,7 +50,7 @@ interface ScheduleDao {
     suspend fun getAllSchedules(): List<Schedule>
 
     @Query("UPDATE schedules SET title = :title, regionLocation = :regionLocation, startTime = :startTime, endTime = :endTime WHERE id = :id")
-    suspend fun modifySchedules(
+    suspend fun modifySchedule(
         id: Long,
         title: String,
         regionLocation: RegionLocation,

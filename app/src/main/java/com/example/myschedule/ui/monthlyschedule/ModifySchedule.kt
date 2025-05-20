@@ -144,7 +144,7 @@ fun ModifyScheduleButton(
                 }
             } else {
                 coroutineScope.launch(Dispatchers.IO) {
-                    modifyScheduleViewModel.modifySchedule(location!!, context)
+                    modifyScheduleViewModel.modifySchedule(location!!)
                     monthlyScheduleViewModel.fetchScheduleList(context)
                 }
 

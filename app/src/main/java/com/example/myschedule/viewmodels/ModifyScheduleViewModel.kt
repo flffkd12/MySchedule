@@ -1,6 +1,5 @@
 package com.example.myschedule.viewmodels
 
-import android.content.Context
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -8,10 +7,10 @@ import androidx.lifecycle.ViewModel
 import com.example.myschedule.data.Location
 import com.example.myschedule.data.RegionLocation
 import com.example.myschedule.data.ScheduleTime
-import com.example.myschedule.data.database.MyScheduleDb
 import com.example.myschedule.data.database.entity.Schedule
+import com.example.myschedule.domain.ScheduleRepository
 
-class ModifyScheduleViewModel : ViewModel() {
+class ModifyScheduleViewModel(private val scheduleRepository: ScheduleRepository) : ViewModel() {
 
     private val id = mutableLongStateOf(0L)
 
@@ -29,8 +28,8 @@ class ModifyScheduleViewModel : ViewModel() {
     val endTimeHour = mutableIntStateOf(0)
     val endTimeMinute = mutableIntStateOf(0)
 
-    suspend fun modifySchedule(location: Location, context: Context) {
-        MyScheduleDb.getDatabase(context).scheduleDao().modifySchedules(
+    suspend fun modifySchedule(location: Location) {
+        scheduleRepository.modifySchedule(
             id.longValue,
             title.value,
             RegionLocation(
