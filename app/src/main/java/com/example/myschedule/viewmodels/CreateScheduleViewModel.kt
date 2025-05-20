@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.time.LocalDate
 
+
 class CreateScheduleViewModel(private val scheduleRepository: ScheduleRepository) : ViewModel() {
 
     private val _selectedScheduleDates = MutableStateFlow<List<LocalDate>>(emptyList())
