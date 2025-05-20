@@ -37,8 +37,8 @@ class MainActivity : ComponentActivity() {
             ScheduleRepositoryImpl(MyScheduleDb.getDatabase(this).scheduleDao())
         )
     }
-    private val weatherViewModel: WeatherViewModel by viewModels()
     private lateinit var regionViewModel: RegionViewModel
+    private val weatherViewModel: WeatherViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
