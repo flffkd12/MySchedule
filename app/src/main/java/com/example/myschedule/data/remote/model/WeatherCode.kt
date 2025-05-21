@@ -1,4 +1,4 @@
-package com.example.myschedule.data
+package com.example.myschedule.data.remote.model
 
 enum class WeatherCode(val dangerLevel: Int) {
     ERROR(0),

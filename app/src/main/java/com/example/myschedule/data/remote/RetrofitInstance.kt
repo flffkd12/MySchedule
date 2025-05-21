@@ -1,5 +1,6 @@
-package com.example.myschedule.data
+package com.example.myschedule.data.remote
 
+import com.example.myschedule.data.remote.api.WeatherApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

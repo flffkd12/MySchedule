@@ -1,5 +1,6 @@
-package com.example.myschedule.data
+package com.example.myschedule.data.remote.model
 
+import com.example.myschedule.data.local.model.ScheduleTime
 import java.time.LocalDate
 
 data class WeatherDto(

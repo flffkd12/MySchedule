@@ -1,5 +1,6 @@
-package com.example.myschedule.data
+package com.example.myschedule.data.remote.api
 
+import com.example.myschedule.data.remote.model.WeatherResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

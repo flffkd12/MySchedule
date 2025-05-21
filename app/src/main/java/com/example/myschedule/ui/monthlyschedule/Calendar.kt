@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.myschedule.R
 import com.example.myschedule.components.DayOfWeek
-import com.example.myschedule.data.database.entity.Schedule
+import com.example.myschedule.data.local.database.entity.Schedule
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.YearMonth

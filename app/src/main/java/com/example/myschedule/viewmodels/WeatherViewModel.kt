@@ -1,7 +1,11 @@
 package com.example.myschedule.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.example.myschedule.data.*
+import com.example.myschedule.data.local.model.Location
+import com.example.myschedule.data.local.model.ScheduleTime
+import com.example.myschedule.data.remote.RetrofitInstance
+import com.example.myschedule.data.remote.model.WeatherCode
+import com.example.myschedule.data.remote.model.WeatherDto
 import com.example.myschedule.util.WeatherInfoHelper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

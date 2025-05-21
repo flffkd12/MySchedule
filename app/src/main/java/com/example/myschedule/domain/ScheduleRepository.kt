@@ -1,8 +1,8 @@
 package com.example.myschedule.domain
 
-import com.example.myschedule.data.RegionLocation
-import com.example.myschedule.data.ScheduleTime
-import com.example.myschedule.data.database.entity.Schedule
+import com.example.myschedule.data.local.database.entity.Schedule
+import com.example.myschedule.data.local.model.RegionLocation
+import com.example.myschedule.data.local.model.ScheduleTime
 
 interface ScheduleRepository {
 

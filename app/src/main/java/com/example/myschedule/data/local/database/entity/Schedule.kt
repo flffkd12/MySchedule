@@ -1,9 +1,9 @@
-package com.example.myschedule.data.database.entity
+package com.example.myschedule.data.local.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.myschedule.data.RegionLocation
-import com.example.myschedule.data.ScheduleTime
+import com.example.myschedule.data.local.model.RegionLocation
+import com.example.myschedule.data.local.model.ScheduleTime
 import java.time.LocalDate
 
 @Entity(tableName = "schedules")

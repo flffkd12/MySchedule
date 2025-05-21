@@ -1,8 +1,8 @@
 package com.example.myschedule.di
 
 import android.content.Context
-import com.example.myschedule.data.database.MyScheduleDb
-import com.example.myschedule.data.database.dao.ScheduleDao
+import com.example.myschedule.data.local.database.MyScheduleDb
+import com.example.myschedule.data.local.database.dao.ScheduleDao
 import com.example.myschedule.data.repository.ScheduleRepositoryImpl
 import com.example.myschedule.domain.ScheduleRepository
 import dagger.Module

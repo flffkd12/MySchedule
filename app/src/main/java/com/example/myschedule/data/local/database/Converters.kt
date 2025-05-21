@@ -1,9 +1,9 @@
-package com.example.myschedule.data.database
+package com.example.myschedule.data.local.database
 
 import androidx.room.TypeConverter
-import com.example.myschedule.data.Location
-import com.example.myschedule.data.RegionLocation
-import com.example.myschedule.data.ScheduleTime
+import com.example.myschedule.data.local.model.Location
+import com.example.myschedule.data.local.model.RegionLocation
+import com.example.myschedule.data.local.model.ScheduleTime
 import java.time.LocalDate
 
 class Converters {

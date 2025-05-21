@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.myschedule.R
-import com.example.myschedule.data.database.entity.Schedule
+import com.example.myschedule.data.local.database.entity.Schedule
 import com.example.myschedule.ui.theme.Black
 import com.example.myschedule.ui.theme.Gray
 import java.time.LocalDate

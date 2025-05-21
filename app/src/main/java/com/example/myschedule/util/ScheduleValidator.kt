@@ -1,8 +1,8 @@
 package com.example.myschedule.util
 
 import com.example.myschedule.R
-import com.example.myschedule.data.Location
-import com.example.myschedule.data.ScheduleTime
+import com.example.myschedule.data.local.model.Location
+import com.example.myschedule.data.local.model.ScheduleTime
 
 object ScheduleValidator {
 

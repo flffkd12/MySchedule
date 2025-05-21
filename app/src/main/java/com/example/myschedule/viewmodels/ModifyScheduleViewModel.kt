@@ -4,10 +4,10 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.myschedule.data.Location
-import com.example.myschedule.data.RegionLocation
-import com.example.myschedule.data.ScheduleTime
-import com.example.myschedule.data.database.entity.Schedule
+import com.example.myschedule.data.local.database.entity.Schedule
+import com.example.myschedule.data.local.model.Location
+import com.example.myschedule.data.local.model.RegionLocation
+import com.example.myschedule.data.local.model.ScheduleTime
 import com.example.myschedule.domain.ScheduleRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

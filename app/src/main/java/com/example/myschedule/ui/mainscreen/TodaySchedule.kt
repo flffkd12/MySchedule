@@ -14,8 +14,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.myschedule.R
 import com.example.myschedule.components.ScheduleCard
-import com.example.myschedule.data.WeatherCode
-import com.example.myschedule.data.database.entity.Schedule
+import com.example.myschedule.data.local.database.entity.Schedule
+import com.example.myschedule.data.remote.model.WeatherCode
 import com.example.myschedule.ui.theme.*
 import com.example.myschedule.viewmodels.WeatherViewModel
 

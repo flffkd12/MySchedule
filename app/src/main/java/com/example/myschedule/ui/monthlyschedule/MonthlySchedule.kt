@@ -17,7 +17,7 @@ import androidx.navigation.NavController
 import com.example.myschedule.R
 import com.example.myschedule.components.ScheduleCard
 import com.example.myschedule.components.bottomnav.BtmNavBar
-import com.example.myschedule.data.database.entity.Schedule
+import com.example.myschedule.data.local.database.entity.Schedule
 import com.example.myschedule.ui.navigation.Routes
 import com.example.myschedule.ui.theme.*
 import com.example.myschedule.viewmodels.ModifyScheduleViewModel
@@ -85,7 +85,7 @@ fun CurrentDateScheduleList(
 
         LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             val colorList = listOf(Red, Orange, LightGreen, Blue)
-            
+
             itemsIndexed(scheduleList) { i, schedule ->
                 ScheduleCard(
                     schedule = schedule,

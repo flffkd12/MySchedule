@@ -1,9 +1,9 @@
 package com.example.myschedule.data.repository
 
-import com.example.myschedule.data.RegionLocation
-import com.example.myschedule.data.ScheduleTime
-import com.example.myschedule.data.database.dao.ScheduleDao
-import com.example.myschedule.data.database.entity.Schedule
+import com.example.myschedule.data.local.database.dao.ScheduleDao
+import com.example.myschedule.data.local.database.entity.Schedule
+import com.example.myschedule.data.local.model.RegionLocation
+import com.example.myschedule.data.local.model.ScheduleTime
 import com.example.myschedule.domain.ScheduleRepository
 
 class ScheduleRepositoryImpl(private val scheduleDao: ScheduleDao) : ScheduleRepository {

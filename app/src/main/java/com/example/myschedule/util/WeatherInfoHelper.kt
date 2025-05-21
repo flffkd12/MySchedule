@@ -1,6 +1,10 @@
 package com.example.myschedule.util
 
-import com.example.myschedule.data.*
+import com.example.myschedule.data.local.model.ScheduleTime
+import com.example.myschedule.data.remote.model.WeatherCode
+import com.example.myschedule.data.remote.model.WeatherDto
+import com.example.myschedule.data.remote.model.isAfter
+import com.example.myschedule.data.remote.model.toWeatherCode
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 

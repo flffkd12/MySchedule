@@ -20,8 +20,8 @@ import com.example.myschedule.components.ScheduleTitle
 import com.example.myschedule.components.ScrollTimePicker
 import com.example.myschedule.components.SelectRegion
 import com.example.myschedule.components.bottomnav.BtmNavBar
-import com.example.myschedule.data.RegionLocation
-import com.example.myschedule.data.ScheduleTime
+import com.example.myschedule.data.local.model.RegionLocation
+import com.example.myschedule.data.local.model.ScheduleTime
 import com.example.myschedule.ui.navigation.Routes
 import com.example.myschedule.ui.theme.*
 import com.example.myschedule.util.ScheduleValidator

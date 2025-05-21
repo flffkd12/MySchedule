@@ -1,9 +1,9 @@
 package com.example.myschedule.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.example.myschedule.data.RegionLocation
-import com.example.myschedule.data.ScheduleTime
-import com.example.myschedule.data.database.entity.Schedule
+import com.example.myschedule.data.local.database.entity.Schedule
+import com.example.myschedule.data.local.model.RegionLocation
+import com.example.myschedule.data.local.model.ScheduleTime
 import com.example.myschedule.domain.ScheduleRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,4 +1,4 @@
-package com.example.myschedule.data
+package com.example.myschedule.data.local.model
 
 data class RegionLocation(
     val firstRegion: String,
