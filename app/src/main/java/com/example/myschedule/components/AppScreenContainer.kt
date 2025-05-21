@@ -27,12 +27,8 @@ fun AppScreenContainer(
         containerColor = LightGreen
     ) { innerPadding ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .padding(DefaultAllPadding)
-                .clip(RoundedAllCornerShape)
-                .background(White)
+            modifier = Modifier.fillMaxSize().padding(innerPadding).padding(DefaultAllPadding)
+                .clip(RoundedAllCornerShape).background(White)
         ) {
             content()
         }
