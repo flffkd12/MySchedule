@@ -47,14 +47,13 @@ fun MainScreen(
         bottomBar = { BtmNavBar(navController, Routes.MAIN_SCREEN) },
         containerColor = LightGreen
     ) { innerPadding ->
-        Column(
-            modifier = Modifier.fillMaxSize().padding(innerPadding)
-                .padding(horizontal = DefaultHorizontalPadding)
+        Box(
+            modifier = Modifier.fillMaxSize().padding(innerPadding).padding(DefaultAllPadding)
+                .clip(RoundedAllCornerShape).background(White)
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier.weight(0.85f).fillMaxWidth().clip(RoundedTopCornerShape)
-                    .background(White)
+                modifier = Modifier.fillMaxSize()
             ) {
                 val scheduleList by monthlyScheduleViewModel.scheduleList.collectAsState()
                 val todaySchedules = scheduleList.filter { it.date == LocalDate.now() }
@@ -64,11 +63,11 @@ fun MainScreen(
                 HorizontalDivider(thickness = 4.dp, color = LightGreen)
 
                 Card(
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = ContentPadding)
-                        .clickable { navController.navigate(Routes.SELECT_REGION_SCREEN) },
                     colors = CardDefaults.cardColors(containerColor = White),
                     border = BorderStroke(1.dp, LightGray),
-                    shape = RoundedAllCornerShape
+                    shape = RoundedAllCornerShape,
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = ContentPadding)
+                        .clickable { navController.navigate(Routes.SELECT_REGION_SCREEN) }
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth().padding(12.dp),
