@@ -37,12 +37,12 @@ class Converters {
 
     @TypeConverter
     fun fromScheduleTime(time: ScheduleTime): String {
-        return "${time.amPm},${time.hour},${time.minute}"
+        return "${time.amPm} ${time.hour} ${time.minute}"
     }
 
     @TypeConverter
     fun toScheduleTime(timeString: String): ScheduleTime {
-        val parts = timeString.split(",")
+        val parts = timeString.split(" ")
         return ScheduleTime(parts[0], parts[1].toInt(), parts[2].toInt())
     }
 }
