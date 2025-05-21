@@ -17,14 +17,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myschedule.R
-import com.example.myschedule.components.bottomnav.BtmNavBar
+import com.example.myschedule.components.AppScreenContainer
 import com.example.myschedule.data.remote.model.WeatherCode
 import com.example.myschedule.data.remote.model.WeatherDto
 import com.example.myschedule.data.remote.model.toWeatherCode
@@ -43,63 +42,55 @@ fun MainScreen(
     navController: NavController
 ) {
 
-    Scaffold(
-        bottomBar = { BtmNavBar(navController, Routes.MAIN_SCREEN) },
-        containerColor = LightGreen
-    ) { innerPadding ->
-        Box(
-            modifier = Modifier.fillMaxSize().padding(innerPadding).padding(DefaultAllPadding)
-                .clip(RoundedAllCornerShape).background(White)
+    AppScreenContainer(navController, Routes.MAIN_SCREEN) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.fillMaxSize()
         ) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier.fillMaxSize()
+            val scheduleList by monthlyScheduleViewModel.scheduleList.collectAsState()
+            val todaySchedules = scheduleList.filter { it.date == LocalDate.now() }
+
+            TodaySchedule(weatherViewModel, todaySchedules)
+
+            HorizontalDivider(thickness = 4.dp, color = LightGreen)
+
+            Card(
+                colors = CardDefaults.cardColors(containerColor = White),
+                border = BorderStroke(1.dp, LightGray),
+                shape = RoundedAllCornerShape,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = ContentPadding)
+                    .clickable { navController.navigate(Routes.SELECT_REGION_SCREEN) }
             ) {
-                val scheduleList by monthlyScheduleViewModel.scheduleList.collectAsState()
-                val todaySchedules = scheduleList.filter { it.date == LocalDate.now() }
-
-                TodaySchedule(weatherViewModel, todaySchedules)
-
-                HorizontalDivider(thickness = 4.dp, color = LightGreen)
-
-                Card(
-                    colors = CardDefaults.cardColors(containerColor = White),
-                    border = BorderStroke(1.dp, LightGray),
-                    shape = RoundedAllCornerShape,
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = ContentPadding)
-                        .clickable { navController.navigate(Routes.SELECT_REGION_SCREEN) }
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth().padding(12.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        val regionName = weatherViewModel.regionName.collectAsState().value
-                        Text(
-                            text = regionName
-                                ?: stringResource(R.string.select_region_initial_guide),
-                            color = if (regionName != null) Black else Gray,
-                            style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.weight(1f)
-                        )
+                    val regionName = weatherViewModel.regionName.collectAsState().value
+                    Text(
+                        text = regionName
+                            ?: stringResource(R.string.select_region_initial_guide),
+                        color = if (regionName != null) Black else Gray,
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.weight(1f)
+                    )
 
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = null,
-                            tint = Black
-                        )
-                    }
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = null,
+                        tint = Black
+                    )
                 }
+            }
 
-                val regionLocation = weatherViewModel.regionLocation.collectAsState().value
-                if (regionLocation != null) {
-                    val weatherList by produceState<List<WeatherDto>?>(
-                        initialValue = null,
-                        regionLocation
-                    ) { value = weatherViewModel.getRegionWeatherInfo(regionLocation) }
+            val regionLocation = weatherViewModel.regionLocation.collectAsState().value
+            if (regionLocation != null) {
+                val weatherList by produceState<List<WeatherDto>?>(
+                    initialValue = null,
+                    regionLocation
+                ) { value = weatherViewModel.getRegionWeatherInfo(regionLocation) }
 
-                    if (weatherList != null) {
-                        RegionWeatherUI(weatherList!!)
-                    }
+                if (weatherList != null) {
+                    RegionWeatherUI(weatherList!!)
                 }
             }
         }
@@ -139,6 +130,7 @@ fun RegionWeatherUI(weatherList: List<WeatherDto>) {
                             val baseDate = LocalDate.parse(date, DateTimeFormatter.BASIC_ISO_DATE)
                             when ((baseDate.toEpochDay() - todayDate.toEpochDay()).toInt()) {
                                 1 -> stringResource(R.string.weather_label_tomorrow, koreanWeekday)
+
                                 2 -> stringResource(
                                     R.string.weather_label_day_after_tomorrow,
                                     koreanWeekday
