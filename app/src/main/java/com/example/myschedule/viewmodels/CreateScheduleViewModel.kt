@@ -5,13 +5,17 @@ import com.example.myschedule.data.RegionLocation
 import com.example.myschedule.data.ScheduleTime
 import com.example.myschedule.data.database.entity.Schedule
 import com.example.myschedule.domain.ScheduleRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.time.LocalDate
+import javax.inject.Inject
 
-
-class CreateScheduleViewModel(private val scheduleRepository: ScheduleRepository) : ViewModel() {
+@HiltViewModel
+class CreateScheduleViewModel @Inject constructor(
+    private val scheduleRepository: ScheduleRepository
+) : ViewModel() {
 
     private val _selectedScheduleDates = MutableStateFlow<List<LocalDate>>(emptyList())
     val selectedScheduleDates: StateFlow<List<LocalDate>> = _selectedScheduleDates.asStateFlow()

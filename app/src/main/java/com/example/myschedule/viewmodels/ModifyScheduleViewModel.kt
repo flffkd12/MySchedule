@@ -9,8 +9,13 @@ import com.example.myschedule.data.RegionLocation
 import com.example.myschedule.data.ScheduleTime
 import com.example.myschedule.data.database.entity.Schedule
 import com.example.myschedule.domain.ScheduleRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ModifyScheduleViewModel(private val scheduleRepository: ScheduleRepository) : ViewModel() {
+@HiltViewModel
+class ModifyScheduleViewModel @Inject constructor(
+    private val scheduleRepository: ScheduleRepository
+) : ViewModel() {
 
     private val id = mutableLongStateOf(0L)
 

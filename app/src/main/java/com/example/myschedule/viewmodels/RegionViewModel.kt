@@ -8,12 +8,14 @@ import com.example.myschedule.data.Location
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.io.IOException
+import javax.inject.Inject
 
 // Level 3: 동/읍/면 이름
 typealias ThirdLevelRegion = Map<String, Location>
@@ -26,7 +28,10 @@ typealias FirstLevelRegion = Map<String, SecondLevelRegion>
 
 typealias Region = Map<String, FirstLevelRegion>
 
-class RegionViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class RegionViewModel @Inject constructor(
+    application: Application
+) : AndroidViewModel(application) {
 
     private val _regionData = MutableStateFlow<Region?>(null)
     private val regionData: StateFlow<Region?> = _regionData.asStateFlow()
